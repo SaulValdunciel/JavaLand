@@ -8,6 +8,6 @@ package tema6.javaland;
  *
  * @author cuent
  */
-public interface Mapa {
+public interface InventarioInterface {
     
 }
