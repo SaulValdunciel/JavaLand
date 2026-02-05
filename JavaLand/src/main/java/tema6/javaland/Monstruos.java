@@ -10,4 +10,25 @@ package tema6.javaland;
  */
 public class Monstruos {
     
+    protected int vida; // entre 0 y 100
+    protected int fuerza; // entre 1 y 20
+    protected int defensa; // entre 1 y 20
+    protected int habilidad; // entre 1 y 20
+    protected int velocidad; // entre 1 y 20
+    protected int nivel;// define las estadísticas según GestorMosntruos
+    
+    //
+    public String atacar(Valiente valiente){
+    
+        return "";
+    }
+    
+    public int recibirDaño(){
+    
+        int daño=0;
+        
+        return daño;
+        
+    }
+    
 }

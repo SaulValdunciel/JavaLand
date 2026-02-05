@@ -8,11 +8,7 @@ package tema6.javaland;
  *
  * @author cuent
  */
-public class Valientes implements PersonajesInterface {
-
-    //Atributos
-    private int cantidad;
-    //Constructores
+class Valiente {
     
     //Metodos:
     @Override
