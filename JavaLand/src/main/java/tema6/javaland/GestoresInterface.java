@@ -8,6 +8,14 @@ package tema6.javaland;
  *
  * @author cuent
  */
+/**
+ * Interfaz común para los gestores del proyecto Javaland.
+ * Obliga a implementar un método crear().
+ */
 public interface GestoresInterface {
-    
+
+    /**
+     * Método genérico de creación.
+     */
+    void crear();
 }
