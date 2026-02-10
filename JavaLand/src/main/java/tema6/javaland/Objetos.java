@@ -8,6 +8,12 @@ package tema6.javaland;
  *
  * @author DAM105
  */
-public class Objetos {
+public class Objetos implements ObjetoInterface {
+   
+    @Override
+    public boolean ObjetoEquipar() {
+        return false;
+    }
+        
     
 }
