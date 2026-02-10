@@ -9,5 +9,10 @@ package tema6.javaland;
  * @author cuent
  */
 public interface InventarioInterface {
+
+    public boolean InventarioAgregarObjeto() ;
     
+    public String InventarioUsarObjeto(String[] args);
+    
+    public boolean InventarioMostrarInventario() ;
 }
