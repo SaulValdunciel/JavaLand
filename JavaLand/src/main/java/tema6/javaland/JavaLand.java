@@ -6,7 +6,7 @@ package tema6.javaland;
 
 /**
  *
- * @author cuent
+ * @author M
  */
 public class JavaLand {
 
