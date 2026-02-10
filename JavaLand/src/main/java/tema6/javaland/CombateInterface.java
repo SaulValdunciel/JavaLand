@@ -17,7 +17,7 @@ public interface CombateInterface {
     public <T> void turno( T atacante, T defensor);
     
     //finalizar el comabate y subir las estadisticas del heroe si gana, impirimir el ganador con sus datos actuales
-    public <T> void combateTerminado(T valiente, T monstruo);
+    public void combateTerminado(Valiente valiente, Monstruo monstruo);
     
     
     
