@@ -9,11 +9,12 @@ package tema6.javaland;
  * @author DAM105
  */
 public class Objetos implements ObjetoInterface {
-   
+
+    //Equipar Objeto
     @Override
     public boolean ObjetoEquipar() {
-        return false;
+        System.out.println("Equipandose " + " al Valiente!");
+        aplicarEfecto(valiente);
     }
-        
-    
+
 }

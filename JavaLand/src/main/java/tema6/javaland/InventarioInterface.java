@@ -12,7 +12,7 @@ public interface InventarioInterface {
 
     public boolean InventarioAgregarObjeto() ;
     
-    public String InventarioMostrarInventario(String[] args);
+    public String InventarioUsarObjeto(String[] args);
     
     public boolean InventarioMostrarInventario() ;
 }
