@@ -15,7 +15,7 @@ public class GestorMostruos implements GestoresInterface {
     private int[] monstruo = new int[10];  //maximo 10
     private int contador = 0;
     
-    //Constructor 
+    //Constructor vacio
     public GestorMostruos(){ 
         
     }
