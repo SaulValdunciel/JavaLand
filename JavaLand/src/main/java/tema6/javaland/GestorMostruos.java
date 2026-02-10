@@ -4,50 +4,38 @@
  */
 package tema6.javaland;
 import java.util.ArrayList;
+import java.util.Random;
 /**
  *
  * @author cuent
  */
-// Clase encargada de gestionar la creación y eliminación de monstruos.
+public class GestorMostruos {
+       
+    ArrayList arrayList = new ArrayList(); 
 
-public class GestorMostruos implements GestoresInterface {
-
-    private ArrayList<Monstruo> lista = new ArrayList<>();
-
-    public GestorMostruos() {
+    //Constructor 
+    public GestorMostruos(){  
     }
-
-    /**
-     * Este método implementamos la interfaz.
-     *  @Override.
-     */
-    @Override
-    public void crear() {
-        System.out.println("Use generarMonstruos(int nivel) para crear monstruos.");
-    }
-
-    // Genera un monstruo con estadísticas acordes al nivel indicado.
-    
-    public Monstruo generarMonstruos(int nivel) {
-
-        int vida = 40 + nivel * 10;
-        int fuerza = 5 + nivel;
-        int defensa = 5 + nivel;
-        int habilidad = 5 + nivel;
-        int velocidad = 5 + nivel;
-
-        Monstruo m = new Monstruo(
-                "Monstruo Nv." + nivel,
-                vida, fuerza, defensa, habilidad, velocidad, nivel
-        );
-
-        lista.add(m);
+    // monstruo con estadisticas segun el nivel (lo año de lista)
+    public Monstruo GenerarMonstruo(int nivel){
+        int vida = 40 + nivel + nivel *10;
+        int fuerza = 10 + nivel;
+        int defensa = 10 + nivel;
+        int habilidad = 10 + nivel;
+        int velocidad = 10 + nivel;
+        
+        //crear un monstruo
+        Monstruo m = new Monstruo("Monstruo nivel" + nivel, vida, fuerza, defensa, habilidad, velocidad);
+        
+        // lista
+        list.add(m);
+        
+        System.out.println("Generado: " + m.getNombre());
         return m;
     }
-
-    //  Elimina monstruo de la lista cuando ha sido derrotado.
-   
-    public void eliminarMonstruo(Monstruo m) {
-        lista.remove(m);
+   // eliminar monstruo
+    public void eliminarMonstruo(){
+        list.remove();
     }
+        
 }

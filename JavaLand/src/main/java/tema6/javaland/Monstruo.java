@@ -8,10 +8,7 @@ package tema6.javaland;
  *
  * @author cuent
  */
-public class Monstruo {
-
-    public Monstruo(String par, int vida1, int fuerza1, int defensa1, int habilidad1, int velocidad1, int nivel1) {
-    }
+public class Monstruos {
     
     protected int vida; // entre 0 y 100
     protected int fuerza; // entre 1 y 20
