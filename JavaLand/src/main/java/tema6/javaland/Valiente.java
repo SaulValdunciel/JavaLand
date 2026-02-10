@@ -8,7 +8,7 @@ package tema6.javaland;
  *
  * @author cuent
  */
-class Valiente {
+class Valiente implements PersonajesInterface {
     
     //Metodos:
     @Override
