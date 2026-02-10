@@ -8,7 +8,7 @@ package tema6.javaland;
  *
  * @author cuent
  */
-public class Monstruo {
+public class Monstruos {
     
     protected int vida; // entre 0 y 100
     protected int fuerza; // entre 1 y 20
