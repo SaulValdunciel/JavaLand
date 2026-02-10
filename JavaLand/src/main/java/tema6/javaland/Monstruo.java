@@ -16,19 +16,22 @@ public class Monstruo {
     protected int habilidad; // entre 1 y 20
     protected int velocidad; // entre 1 y 20
     protected int nivel;// define las estadísticas según GestorMosntruos
-    
-    //
-    public String atacar(Valiente valiente){
-    
+
+    public String atacar(Valiente valiente) {
+
         return "";
     }
-    
-    public int recibirDaño(){
-    
-        int daño=0;
-        
+
+    public int recibirDaño() {
+
+        int daño = 0;
+
         return daño;
-        
+
     }
-    
+
+    public int getVida() {
+        return vida;
+    }
+
 }
