@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package tema6.javaland;
-
 import java.util.Scanner;
 
 /**
@@ -11,9 +10,8 @@ import java.util.Scanner;
  * @author cuent
  */
 public class GestorValientes implements GestoresInterface {
-
-      private Crear list = new Crear();
-      
+    //array para guardar nombres de valientes
+    private String[] valientes = new String[4];      
       
       //constructor
       public GestorValientes(){
@@ -28,19 +26,15 @@ public class GestorValientes implements GestoresInterface {
     // Crear los 4 valientes iniciales 
     //cada uno tiene 40 puntos repartidos entre fuerza, defensa, habilidad, velocidad.
     private void crearValientes() {
-         // Guerrero → destaca fuerza
-            lista.add(new Valiente("Guerrero", 15, 10, 7, 8));
-            
+            // Guerrero → destaca fuerza
+            valientes[0] = "Guerrero (15, 10, 7, 8)";
             // Paladín → destaca defensa
-            lista.add(new Valiente("Paladín", 8, 15, 7, 10));
-            
+            valientes[1] = "defensa (8, 15, 7, 10)";
             // Mago → destaca habilidad
-            lista.add(new Valiente("Mago", 7, 8, 17, 8));
-            
+            valientes[2] = "habilidad (7, 8, 17, 8)";
             // Pícaro → destaca velocidad
-            lista.add(new Valiente("Pícaro", 8, 7, 10, 15));
+            valientes[3] = "Picaro (8, 7, 10, 15)";
             
         System.out.println("Valientes creados correctamente.");
-        return list;
     }        
 }

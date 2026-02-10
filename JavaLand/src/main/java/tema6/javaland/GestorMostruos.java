@@ -11,7 +11,9 @@ import java.util.Scanner;
  * @author cuent
  */
 public class GestorMostruos implements GestoresInterface {
-    GestorMostruos List = new GestorMostruos(); 
+    //array para guarfar niveles de monstruos
+    private int[] monstruo = new int[10];  //maximo 10
+    private int contador = 0;
     
     //Constructor 
     public GestorMostruos(){ 
@@ -23,23 +25,21 @@ public class GestorMostruos implements GestoresInterface {
     }
      
     // monstruo con estadisticas segun el nivel (lo año de lista)
-    private void crearMonstruo(int nivel) {
-        int vida = 40 + nivel * 10;
-        int fuerza = 5 + nivel;
-        int defensa = 5 + nivel;
-        int habilidad = 5 + nivel;
-        int velocidad = 5 + nivel;
-
-        Monstruo m = new Monstruo(
-                "Monstruo Nv." + nivel,
-                vida, fuerza, defensa, habilidad, velocidad, nivel
-        );
-        List.crear();
+    public void GenerarMonstruo(int nivel){
+        if (contador < monstruo.length){
+            monstruo[contador] = nivel;
+            System.out.println("Monstruo creado de nivel: " + nivel);
+        } else{
+            System.out.println("No se pude crear más monstruos.");
+        }
     } 
-   /**
-     * Elimina un monstruo de la lista cuando ha sido derrotado.
-     */
-    public void eliminarMonstruo(Monstruo m) {
-        List.eliminarMonstruo(m);
-    }   
+    //Eliminar el ultimo monstruo creado
+    public void eliminarMonstruo(){
+        if (contador > 0) {
+            contador--;
+            System.out.println("Monstruo eliminado.");
+        } else {
+            System.out.println("No hay monstruos para eliminar");
+        }
+    }
 }
