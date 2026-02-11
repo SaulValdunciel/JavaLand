@@ -69,6 +69,7 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
     public int getVida() {
         return vida;
     }
+
     public int getVelocidad() {
         return velocidad;
     }
