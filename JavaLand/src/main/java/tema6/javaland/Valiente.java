@@ -8,10 +8,6 @@ package tema6.javaland;
  *
  * @author cuent
  */
-<<<<<<< Updated upstream
-class Valiente {
-    
-=======
 public class Valiente extends GestorValientes implements PersonajesInterface {
 
     //Atributos
@@ -22,57 +18,49 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
     private int defensa;
     private int habilidad;
     private int velocidad;
+    private int nivel = 1;
 
     //Constructores
     public Valiente() {
 
     }
 
->>>>>>> Stashed changes
     //Metodos:
     @Override
-    public <T> void atacar(T Personaje) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int atacar(int cantidad) {
+        return cantidad;
     }
 
-<<<<<<< Updated upstream
-    @Override
-    public int recibirDaño(int cantidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-=======
     //Metodo recibir daño sobrescrito de la interfaz
     @Override
     public int recibirDaño(int cantidad) {
         vida -= cantidad; //Resta la vida según la cantidad de daño recibida
         return vida; //Devuelve la vida 
->>>>>>> Stashed changes
     }
 
     @Override
     public boolean ValienteUsarHabilidadEspecial() {
-<<<<<<< Updated upstream
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-=======
         if (cooldown == true) {
             System.out.println("La habilidad está en cooldown no puedes usarla.");
             cooldown = false;
         } else {
-            switch(nombre) 
-                case "guerrero":
-                    
+            switch (valiente) {
+                case "Guerrero":
+                    //Habilidad especial guerrrero
                     break;
-                case "paladin":
-                   
+                case "Paladín":
+                    //Habilidad especial paladin
                     break;
-                case "mago":
-                   
+                case "Mago":
+                    //Habilidad especial picaro
                     break;
-                case "picaro":
-                   
+                case "Picaro":
+                    //Habilidad especial picaro
             }
-            cooldown=true;
         }
-    
+        cooldown = true;
+    }
+
     public boolean getCooldown() {
         return cooldown;
     }
@@ -80,25 +68,20 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
     public int getVida() {
         return vida;
     }
-    
+
     public int getVelocidad() {
         return velocidad;
->>>>>>> Stashed changes
     }
 
     @Override
     public int ValienteSubirNivel() {
-<<<<<<< Updated upstream
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-=======
-        vida = vida + 10; //Aumenta la vida
-        fuerza = fuerza + 1; //Aumenta la fuerza
-        defensa = defensa + 1; //Aumenta la defensa
-        habilidad = habilidad + 1; //Aumenta la habilidad
-        velocidad = velocidad + 1; //Aumenta la velocidad
-        return vida + fuerza + defensa + habilidad + velocidad;
+        nivel += 1; //Aumenta el nivel 
+        vida += 10; //Aumenta la vida
+        fuerza += 1; //Aumenta la fuerza
+        defensa += 1; //Aumenta la defensa
+        habilidad += 1; //Aumenta la habilidad
+        velocidad += 1; //Aumenta la velocidad
+        return nivel;
     }
 
->>>>>>> Stashed changes
 }
