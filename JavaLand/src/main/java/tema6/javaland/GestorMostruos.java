@@ -19,9 +19,9 @@ public class GestorMostruos implements GestoresInterface {
     public GestorMostruos(){ 
         
     }
-        @Override
+    @Override
     public void crear() {
-         crearMostruos();
+        crearMostruos();
     }
      
     // monstruo con estadisticas segun el nivel (lo año de lista)
