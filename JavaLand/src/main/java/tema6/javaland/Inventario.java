@@ -9,7 +9,7 @@ package tema6.javaland;
  * @author DAM105
  */
 public class Inventario implements InventarioInterface {
-//Lista ARRAY para Guardar Objetos en el INVENTARIO
+// ARRAY para maximo de Objetos en el INVENTARIO
 
     private Objeto[] mochila;
     private final int OBJETOS_MAX = 12;
@@ -39,6 +39,9 @@ public class Inventario implements InventarioInterface {
         }
         return false;
         //Guardar Objeto
+        mochila[huecolibre] = nuevoObjeto;
+        System.out.println ("¡Un Nuevo Objeto: " + nuevoObjeto.getnombre() + "!");
+        return true;
     }
 
     @Override
