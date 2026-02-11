@@ -4,6 +4,8 @@
  */
 package tema6.javaland;
 
+import java.util.Random;
+
 /**
  *
  * @author cuent
@@ -17,9 +19,20 @@ public class Monstruo {
     protected int velocidad; // entre 1 y 20
     protected int nivel;// define las estadísticas según GestorMosntruos
 
-    public String atacar(Valiente valiente) {
+    public int atacar(Valiente valiente) {
 
-        return "";
+        Random random = new Random();
+        int Variable_aleatoria = random.nextInt(101);
+        int daño = 0;
+        
+        if (Variable_aleatoria < (4 * (habilidad -(valiente.getDefensa() + valiente.getEscudo().getDefensa())))) {
+            
+            
+            
+            
+        }
+        
+        return daño;
     }
 
     public int recibirDaño() {
@@ -30,8 +43,29 @@ public class Monstruo {
 
     }
 
+    public int getFuerza() {
+        return fuerza;
+    }
+
+    public int getDefensa() {
+        return defensa;
+    }
+
+    public int getHabilidad() {
+        return habilidad;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
     public int getVida() {
         return vida;
     }
 
+    public int getVelocidad() {
+        return velocidad;
+    }
+
+    
 }

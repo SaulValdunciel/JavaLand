@@ -18,7 +18,9 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
     private int defensa;
     private int habilidad;
     private int velocidad;
-
+    private Arma arma;
+    private Escudo escudo;
+  
     //Constructores
     public Valiente() {
 
@@ -69,6 +71,34 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
     
     public int getVelocidad() {
         return velocidad;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public boolean isCooldown() {
+        return cooldown;
+    }
+
+    public int getFuerza() {
+        return fuerza;
+    }
+
+    public int getDefensa() {
+        return defensa;
+    }
+
+    public int getHabilidad() {
+        return habilidad;
+    }
+
+    public Arma getArma() {
+        return arma;
+    }
+
+    public Escudo getEscudo() {
+        return escudo;
     }
 
     @Override
