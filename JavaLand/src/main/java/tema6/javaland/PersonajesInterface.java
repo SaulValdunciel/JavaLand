@@ -12,7 +12,7 @@ public interface PersonajesInterface {
     
     //Métodos:
     
-    public int atacar(int cantidad);
+    public <T> void atacar(T Personaje);
     
     public int recibirDaño(int cantidad);
     
