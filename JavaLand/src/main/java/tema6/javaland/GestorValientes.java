@@ -4,8 +4,6 @@
  */
 package tema6.javaland;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author cuent

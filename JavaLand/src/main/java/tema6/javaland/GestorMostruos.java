@@ -21,7 +21,7 @@ public class GestorMostruos implements GestoresInterface {
     }
         @Override
     public void crear() {
-         System.out.println("Use generarMonstruos(int nivel) para crear monstruos.");
+         crearMostruos();
     }
      
     // monstruo con estadisticas segun el nivel (lo año de lista)
@@ -41,5 +41,8 @@ public class GestorMostruos implements GestoresInterface {
         } else {
             System.out.println("No hay monstruos para eliminar");
         }
+    }
+
+    private void crearMostruos() {
     }
 }
