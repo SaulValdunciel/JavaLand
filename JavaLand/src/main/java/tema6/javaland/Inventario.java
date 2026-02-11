@@ -10,35 +10,45 @@ package tema6.javaland;
  */
 public class Inventario implements InventarioInterface {
 //Lista ARRAY para Guardar Objetos en el INVENTARIO
-    
-    private Objetos[] mochila;
-    private final int
-    OBJETOS_MAX =10;
-    
+
+    private Objeto[] mochila;
+    private final int OBJETOS_MAX = 12;
+
     public Inventario() {
-        
-        this.mochila = new Objetos[OBJETOS_MAX];
+
+        this.mochila = new Objeto[OBJETOS_MAX];
     }
-    
-    
-    
+
     @Override
     public boolean InventarioAgregarObjeto() {
-        
-        return.algo
-        
+        //Buscar hueco libre
+        int huecolibre = -1;
+        for (int i = 0; i < mochila.length; i++) {
+
+            if (mochila[i] == null) {
+
+                huecolibre = i;
+                break;
+            }
+        }
+        //Si el Inventario esta lleno
+        if (huecolibre == -1) {
+
+            System.out.println("¡Echa Pa´tras mostro, Inventario Lleno");
+
+        }
+        return false;
+        //Guardar Objeto
     }
-        
 
     @Override
     public String InventarioUsarObjeto(String[] args) {
-      
+
     }
 
     @Override
     public boolean InventarioMostrarInventario() {
-        
+
     }
-    
-    
+
 }
