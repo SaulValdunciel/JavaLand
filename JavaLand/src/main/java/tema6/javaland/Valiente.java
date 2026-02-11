@@ -8,10 +8,6 @@ package tema6.javaland;
  *
  * @author cuent
  */
-<<<<<<< Updated upstream
-class Valiente {
-    
-=======
 public class Valiente extends GestorValientes implements PersonajesInterface {
 
     //Atributos
@@ -28,31 +24,21 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
 
     }
 
->>>>>>> Stashed changes
     //Metodos:
     @Override
     public <T> void atacar(T Personaje) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-<<<<<<< Updated upstream
-    @Override
-    public int recibirDaño(int cantidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-=======
     //Metodo recibir daño sobrescrito de la interfaz
     @Override
     public int recibirDaño(int cantidad) {
         vida -= cantidad; //Resta la vida según la cantidad de daño recibida
         return vida; //Devuelve la vida 
->>>>>>> Stashed changes
     }
 
     @Override
     public boolean ValienteUsarHabilidadEspecial() {
-<<<<<<< Updated upstream
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-=======
         if (cooldown == true) {
             System.out.println("La habilidad está en cooldown no puedes usarla.");
             cooldown = false;
@@ -83,15 +69,10 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
     
     public int getVelocidad() {
         return velocidad;
->>>>>>> Stashed changes
     }
 
     @Override
     public int ValienteSubirNivel() {
-<<<<<<< Updated upstream
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-=======
         vida = vida + 10; //Aumenta la vida
         fuerza = fuerza + 1; //Aumenta la fuerza
         defensa = defensa + 1; //Aumenta la defensa
@@ -100,5 +81,4 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
         return vida + fuerza + defensa + habilidad + velocidad;
     }
 
->>>>>>> Stashed changes
 }
