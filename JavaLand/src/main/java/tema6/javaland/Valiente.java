@@ -20,7 +20,7 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
     private int velocidad;
     private int nivel = 1;
   
-  
+    
     //Constructores
     public Valiente() {
 
