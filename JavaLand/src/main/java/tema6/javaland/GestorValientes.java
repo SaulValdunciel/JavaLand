@@ -3,44 +3,31 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package tema6.javaland;
-
-import java.util.ArrayList;
-
 /**
  *
  * @author cuent
  */
 // Esta clase controla los valientes del juego
 public class GestorValientes implements GestoresInterface {
+    // Array simple para guardar nombres de valientes
+    private String[] valientes = new String[4];
 
-    // Aquí guardo los valientes creados
-    private ArrayList<Valiente> lista = new ArrayList<>();
+    public GestorValientes() {
+    }
 
-    // Constructor vacío
-    public GestorValientes() {}
-
-    // Método por la interfaz
     @Override
     public void crear() {
         crearValientes();
     }
 
-    // Crear los 4 valientes iniciales 
-    //cada uno tiene 40 puntos repartidos entre fuerza, defensa, habilidad, velocidad.
-    public ArrayList<Valiente> crearValientes() {
-            // Guerrero → destaca fuerza
-            lista.add(new Valiente("Guerrero", 15, 10, 7, 8));
-            
-            // Paladín → destaca defensa
-            lista.add(new Valiente("Paladín", 8, 15, 7, 10));
-            
-            // Mago → destaca habilidad
-            lista.add(new Valiente("Mago", 7, 8, 17, 8));
-            
-            // Pícaro → destaca velocidad
-            lista.add(new Valiente("Pícaro", 8, 7, 10, 15));
-            
+    // Crear los 4 valientes iniciales
+    public void crearValientes() {
+
+        valientes[0] = "Guerrero (15,10,7,8)";
+        valientes[1] = "Paladín (8,15,7,10)";
+        valientes[2] = "Mago (7,8,17,8)";
+        valientes[3] = "Pícaro (8,7,10,15)";
+
         System.out.println("Valientes creados correctamente.");
-        return lista;
     }
 }
