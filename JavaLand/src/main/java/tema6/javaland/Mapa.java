@@ -10,25 +10,29 @@ package tema6.javaland;
  */
 public class Mapa {
 
-    //Mapa de 10x10 representado con Strings
+    //Mapa variable sengun las dificultades representado con Strings
     //Cada posición es una casilla del mapa
-    private String[][] Casilla = new String[10][10];
+    // Matriz del mapa
+    private String[][] Casilla;
+
+    // Tamaño del mapa (n x n)
+    private int tamano;
 
     /*
      * Constructor del mapa
-     * Si revelarTodo es true
+     * tamano = tamaño del mapa (ej: 10 para 10x10)
+     * revelarTodo = si empieza todo visible o no
      */
-    public Mapa(boolean revelarTodo) {
+    public Mapa(int tamano, boolean revelarTodo) {
 
-        // Inicializamos todas las casillas
-        for (int fila = 0; fila < 10; fila++) {
-            for (int columna = 0; columna < 10; columna++) {
+        this.tamano = tamano;
+        Casilla = new String[tamano][tamano];
 
+        for (int fila = 0; fila < tamano; fila++) {
+            for (int columna = 0; columna < tamano; columna++) {
                 if (revelarTodo) {
-                    // Casilla revelada y vacía
                     Casilla[fila][columna] = ".";
                 } else {
-                    // Casilla no revelada
                     Casilla[fila][columna] = "?";
                 }
             }
@@ -37,7 +41,7 @@ public class Mapa {
 
     //Comprueba si una posición esta dentro del mapa
     public boolean posicionValida(int fila, int columna) {
-        return fila >= 0 && fila < 10 && columna >= 0 && columna < 10;
+        return fila >= 0 && fila < tamano && columna >= 0 && columna < tamano;
     }
 
     /*
@@ -75,38 +79,17 @@ public class Mapa {
             Casilla[fila][columna] = "O";
         }
     }
+
     //Coloca un Rocas en el mapa
     public void ponerRocas(int fila, int columna) {
         if (posicionValida(fila, columna)) {
             Casilla[fila][columna] = "R";
         }
     }
-    public boolean puedeColocar(int fila, int columna, int tamaño, boolean comprobar) {
-        if (comprobar) {
-            if (columna + tamaño > Casilla.length) {
-                return false;
-            }
 
-            for (int i = 0; i < tamaño; i++) {
-                if (!Casilla[fila][columna + i].equals("")) {
-                    return false;
-                }
-            }
-        } else {
-            if (fila + tamaño > Casilla.length) {
-                return false;
-            }
 
-            for (int i = 0; i < tamaño; i++) {
-                if (!Casilla[fila + i][columna].equals("")) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-    public void introducirComponentes(int fila, int columna){
-        
+    public void introducirComponentes(int fila, int columna) {
+
     }
 
     /*
@@ -118,14 +101,37 @@ public class Mapa {
      * ? = No revelado
      */
     public void mostrarMapa(int valienteFila, int valienteColumna) {
-        System.out.println("    0  1  2  3  4  5  6  7  8  9");
-        System.out.println("    -  -  -  -  -  -  -  -  -  - ");
 
-        for (int fila = 0; fila < Casilla.length; fila++) {//Aqui crea el mapa segun la cantidad de filas del array
-            System.out.print(fila + "| ");
-            for (int columna = 0; columna < Casilla.length; columna++) {//Aqui crea el mapa segun la cantidad de columna del array
+        // Mostrar numeros superiores
+        System.out.print("     ");
+        for (int i = 0; i < tamano; i++) {
 
-                //Coloca al jugador en la casilla correspondiente
+            if (i < 10) {
+                System.out.print(" " + i + " ");
+            } else {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println();
+
+        // Línea separadora
+        System.out.print("     ");
+        for (int i = 0; i < tamano; i++) {
+            System.out.print(" - ");
+        }
+        System.out.println();
+
+        // Mostrar filas
+        for (int fila = 0; fila < tamano; fila++) {
+
+            if (fila < 10) {//Esto si el numero es menor a 10 ya que son 1 digito
+                System.out.print(" " + fila + " | ");
+            } else {
+                System.out.print(fila + " | ");//este numeros mayor de 10 ya que teinen 2 digitos
+            }
+
+            for (int columna = 0; columna < tamano; columna++) {
+
                 if (fila == valienteFila && columna == valienteColumna) {
                     System.out.print(" V ");
                 } else {
@@ -134,5 +140,82 @@ public class Mapa {
             }
             System.out.println();
         }
+    }
+
+    /*
+     * Metodo interno para colocar elementos automaticamente
+     * elemento: "R", "M", "O"
+     * cantidad: numero de elementos
+     * comprobarAdyacentes: true solo para rocas
+     */
+    private void colocarElementos(String elemento, int cantidad, boolean comprobarAdyacentes) {
+
+        int colocados = 0;
+
+        while (colocados < cantidad) {
+
+            int fila = (int) (Math.random() * tamano);
+            int columna = (int) (Math.random() * tamano);
+
+            boolean puedeColocar = true;
+
+            if (!Casilla[fila][columna].equals(".")) {
+                puedeColocar = false;
+            }
+            else if (comprobarAdyacentes) {
+                if (comprobarAlrededor(fila, columna)) {
+                    puedeColocar = false;
+                }
+            }
+
+            if (puedeColocar) {
+                Casilla[fila][columna] = elemento;
+                colocados++;
+            }
+        }
+    }
+    private boolean comprobarAlrededor(int fila, int columna){
+        if(fila > 0){
+            if(!Casilla[fila -1][columna].equals(".")){
+                return true;
+            }
+        }
+        if(fila < 9){
+            if(!Casilla[fila +1][columna].equals(".")){
+                return true;
+            }
+        }
+        if(columna > 0){
+            if(!Casilla[fila][columna -1].equals(".")){
+                return true;
+            }
+        }
+        if(columna < 9){
+            if(!Casilla[fila][columna +1].equals(".")){
+                return true;
+            }
+        }
+        return false;
+    }
+     public void generarYMostrarMapa(int valienteFila, int valienteColumna) {
+
+        // Inicializar como vacío
+        for (int fila = 0; fila < tamano; fila++) {
+            for (int columna = 0; columna < tamano; columna++) {
+                Casilla[fila][columna] = ".";
+            }
+        }
+
+        // Cantidades proporcionales al tamaño
+        int totalCasillas = tamano * tamano;// 25% del mapa son rocas
+        int rocas = totalCasillas / 4;
+        int monstruos = 5;
+        int objetos = 5;
+
+        colocarElementos("R", rocas, true);
+        colocarElementos("M", monstruos, false);
+        colocarElementos("O", objetos, false);
+
+        mostrarMapa(valienteFila, valienteColumna);
     }
 }

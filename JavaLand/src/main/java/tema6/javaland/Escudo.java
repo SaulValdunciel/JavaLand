@@ -6,25 +6,8 @@ package tema6.javaland;
 
 /**
  *
- * @author M
+ * @author DAM102
  */
 public class Escudo {
-    private String nombre;
-    private int defensa;
-
-    public Escudo(String nombre, int defensa) {
-        this.nombre = nombre;
-        this.defensa = defensa;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public int getDefensa() {
-        return defensa;
-    }
     
-    
-            
 }

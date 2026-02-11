@@ -6,24 +6,8 @@ package tema6.javaland;
 
 /**
  *
- * @author M
+ * @author DAM102
  */
 public class Arma {
-    private String nombre;
-    private int ataque;
-
-    public Arma(String nombre, int ataque) {
-        this.nombre = nombre;
-        this.ataque = ataque;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public int getAtaque() {
-        return ataque;
-    }
-    
     
 }
