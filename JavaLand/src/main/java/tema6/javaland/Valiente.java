@@ -41,8 +41,11 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
 
     //Metodos:
     @Override
-    public <T> int atacar(T Personaje) {
-        return daño;
+    public <T> int atacar(T personaje) {
+        
+        
+        
+        return cantidad;
     }
 
     //Metodo recibir daño sobrescrito de la interfaz
@@ -67,8 +70,16 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
         return arma;
     }
 
+    public Arma getArma() {
+        return arma;
+    }
+
     public Escudo getEscudo() {
         return escudo;
+    }
+
+    public boolean getCooldown() {
+        return cooldown;
     }
 
     public String getValiente() {
@@ -84,18 +95,31 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
         return velocidad;
     }
 
-    public int getFuerza(){
-        return defensa;
+    public int getCantidad() {
+        return cantidad;
     }
-    
-    public int getHabilidad() {
-        return habilidad;
+
+    public boolean isCooldown() {
+        return cooldown;
     }
-    
+
+    public int getFuerza() {
+        return fuerza;
+    }
+
     public int getDefensa() {
         return defensa;
     }
+
+    public int getHabilidad() {
+        return habilidad;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
     
+
     @Override
     public int ValienteSubirNivel() {
         nivel += 1; //Aumenta el nivel 
