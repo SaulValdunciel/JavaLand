@@ -11,19 +11,32 @@ package tema6.javaland;
 public class Valiente extends GestorValientes implements PersonajesInterface {
 
     //Atributos
-    private int cantidad;
-    private boolean cooldown = false;
+    private String valiente;
     private int vida;
     private int fuerza;
     private int defensa;
     private int habilidad;
     private int velocidad;
     private int nivel = 1;
+    private Arma arma = null;
+    private Escudo escudo = null;
+    private int cooldownTurnos = 0;
+    private static final int cooldown_max = 2;
+    private int daño = 0;
   
     
     //Constructores
     public Valiente() {
 
+    }
+
+    public Valiente(String valiente, int vida, int fuerza, int defensa, int habilidad, int velocidad) {
+        this.valiente = valiente;
+        this.vida = vida;
+        this.fuerza = fuerza;
+        this.defensa = defensa;
+        this.habilidad = habilidad;
+        this.velocidad = velocidad;
     }
 
     //Metodos:
@@ -41,26 +54,13 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
 
     @Override
     public boolean ValienteUsarHabilidadEspecial() {
-        if (cooldown == true) {
-            System.out.println("La habilidad está en cooldown no puedes usarla.");
-            cooldown = false;
-        } else {
-            switch (valiente) {
-                case "Guerrero":
-                    //Habilidad especial guerrrero
-                    break;
-                case "Paladín":
-                    //Habilidad especial paladin
-                    break;
-                case "Mago":
-                    //Habilidad especial picaro
-                    break;
-                case "Picaro":
-                    //Habilidad especial picaro
-            }
+        if (cooldownTurnos > 0) {
+            System.out.println("La habilidad está en cooldown (" + cooldownTurnos + ") turnos restantes.");
+            return false;
         }
-        cooldown = true;
-    }
+        if (valiente == null) valiente "";
+        switch(valiente)
+        
 
     public boolean getCooldown() {
         return cooldown;
@@ -74,6 +74,18 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
         return velocidad;
     }
 
+    public int getFuerza(){
+        return defensa;
+    }
+    
+    public int getHabilidad() {
+        return habilidad;
+    }
+    
+    public int getDefensa() {
+        return defensa;
+    }
+    
     @Override
     public int ValienteSubirNivel() {
         nivel += 1; //Aumenta el nivel 
