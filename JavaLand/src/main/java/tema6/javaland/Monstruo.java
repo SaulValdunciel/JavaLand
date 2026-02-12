@@ -10,7 +10,7 @@ import java.util.Random;
  *
  * @author cuent
  */
-public class Monstruo {
+public class Monstruo implements PersonajesInterface{
     
     protected int vida; // entre 0 y 100
     protected int fuerza; // entre 1 y 20
@@ -19,13 +19,18 @@ public class Monstruo {
     protected int velocidad; // entre 1 y 20
     protected int nivel;// define las estadísticas según GestorMosntruos
 
-    public int atacar(Valiente valiente) {
+        @Override
+    public <T> int atacar(T personaje) {
 
+
+        Valiente valiente = (Valiente) personaje;
         Random random = new Random();
         int Variable_aleatoria = random.nextInt(101);
         int daño = 0;
         
-        if (Variable_aleatoria < (4 * (habilidad -(valiente.getDefensa() + valiente.getEscudo().getDefensa())))) {
+        
+        
+        if (Variable_aleatoria < (4 * (habilidad -( valiente.getDefensa() + valiente.getEscudo().getDefensa())))) {
             
             
             
@@ -34,6 +39,22 @@ public class Monstruo {
         
         return daño;
     }
+
+    @Override
+    public int recibirDaño(int cantidad) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean ValienteUsarHabilidadEspecial() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int ValienteSubirNivel() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
 
     public int recibirDaño() {
 
@@ -66,6 +87,8 @@ public class Monstruo {
     public int getVelocidad() {
         return velocidad;
     }
+
+
 
     
 }

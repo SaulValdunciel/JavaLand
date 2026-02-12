@@ -40,6 +40,21 @@ public class Combate implements CombateInterface {
 
     @Override
     public <T> void turno(T atacante, T defensor) {
+        
+        //si el atacante es un objeto de Valiente
+        if (atacante instanceof Valiente) {
+            
+            Valiente valiente = (Valiente) atacante;
+            //atacar al monstruo
+            valiente.atacar(defensor);
+            
+        } else {// si el atacante es un objeto de Monstruo
+        
+            Monstruo monstruo = (Monstruo) atacante;
+            //atacar al valiente
+            monstruo.atacar(defensor);
+        }
+        
     }
 
     @Override
