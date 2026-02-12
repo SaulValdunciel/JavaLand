@@ -58,7 +58,6 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
             System.out.println("La habilidad está en cooldown (" + cooldownTurnos + ") turnos restantes.");
             return false;
         }
-        if (valiente == null) valiente "";
         switch(valiente)
         
 
