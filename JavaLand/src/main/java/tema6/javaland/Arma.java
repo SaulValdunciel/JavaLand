@@ -21,12 +21,12 @@ public class Arma extends Objeto{
     }
     
     //metodos: para obtener los valores 
-    // setAtaque()
+    // getAtaque()
     public String getNombre(){
         return nombre;
     }
     
-    // setNombre
+    // getNombre
     public int getAtaque(){
         return ataque;
     }

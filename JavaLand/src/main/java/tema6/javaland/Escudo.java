@@ -19,12 +19,12 @@ public class Escudo extends Objeto {
         this.defensa = defensa;
     }
     //metodos: seter 
-    //setNombre
+    //getNombre
     public String getNombre(){
         return nombre;
     }
     
-    //setDefensa
+    //getDefensa
     public int getDefensa(){
         return defensa;
     }
