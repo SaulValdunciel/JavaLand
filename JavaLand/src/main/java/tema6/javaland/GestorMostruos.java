@@ -27,7 +27,7 @@ public class GestorMostruos implements GestoresInterface {
     // monstruo con estadisticas segun el nivel (lo año de lista)
     public void GenerarMonstruo(int nivel){
         if (contador < monstruo.length){
-            monstruo[contador] = nivel;
+            monstruo[contador] = new Monstruo(nivel);
             System.out.println("Monstruo creado de nivel: " + nivel);
         } else{
             System.out.println("No se pude crear más monstruos.");
