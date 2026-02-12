@@ -15,7 +15,6 @@ public class Objeto implements ObjetoInterface {
     public Objeto(String nombre) {
         this.nombre = nombre;
     }
-
     //Equipar Objeto
     @Override
     public boolean ObjetoEquipar(Valiente valiente) {

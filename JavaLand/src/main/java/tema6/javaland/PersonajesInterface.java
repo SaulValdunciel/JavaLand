@@ -10,4 +10,13 @@ package tema6.javaland;
  */
 public interface PersonajesInterface {
     
+    //Métodos:
+    
+    public <T> void atacar(T Personaje);
+    
+    public int recibirDaño(int cantidad);
+    
+    public boolean ValienteUsarHabilidadEspecial();
+    
+    public int ValienteSubirNivel();
 }
