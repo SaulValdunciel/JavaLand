@@ -8,7 +8,7 @@ package tema6.javaland;
  *
  * @author DAM102
  */
-public class Escudo extends Objetos {
+public class Escudo extends Objeto {
     // atributos: nombre y defensa
     private String nombre;
     private int defensa;

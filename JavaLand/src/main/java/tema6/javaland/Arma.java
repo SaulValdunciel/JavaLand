@@ -8,7 +8,7 @@ package tema6.javaland;
  *
  * @author DAM102
  */
-public class Arma extends Objetos{
+public class Arma extends Objeto{
     // Atributos: nombre y ataque
     private String nombre;
     private int ataque;
