@@ -22,18 +22,12 @@ public class GestorValientes implements GestoresInterface {
 
     // Crear los 4 valientes iniciales
     public void crearValientes() {
-        String[] vida = null;
-        vida[0] = "Guerrero (15,10,7,8)";
         
-        String[] defensa = null;
-        defensa[1] = "Paladín (8,15,7,10)";
+        fuerza[0] = new fuerza("Paladín", 8, 15, 7, 10, 3);
+        defensa[1] = new defensa("Mago", 7, 8, 17, 8, 6);
+        habilidad[2] = new habilidad("Pícaro", 8, 7, 10, 15, 9);
+        velocidad[3] = new velocidad("Guerrero", 15, 10, 7, 8, 5);
         
-        String[] habilidad = null;
-        habilidad[2] = "Mago (7,8,17,8)";
-        
-        String[] velocidad = null;
-        velocidad[3] = "Pícaro (8,7,10,15)";
-
         System.out.println("Valientes creados correctamente.");
     }
 }

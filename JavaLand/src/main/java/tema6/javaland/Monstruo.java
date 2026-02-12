@@ -19,6 +19,10 @@ public class Monstruo {
     protected int velocidad; // entre 1 y 20
     protected int nivel;// define las estadísticas según GestorMosntruos
 
+    Monstruo(int nivel) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public int atacar(Valiente valiente) {
 
         Random random = new Random();
