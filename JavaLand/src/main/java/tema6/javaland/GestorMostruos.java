@@ -29,6 +29,8 @@ public class GestorMostruos implements GestoresInterface {
         if (contador < monstruo.length){
             monstruo[contador] = new Monstruo(nivel);
             System.out.println("Monstruo creado de nivel: " + nivel);
+            
+            contador++;
         } else{
             System.out.println("No se pude crear más monstruos.");
         }
