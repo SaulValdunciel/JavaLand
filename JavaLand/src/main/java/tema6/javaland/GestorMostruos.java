@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class GestorMostruos implements GestoresInterface {
     //array para guarfar niveles de monstruos
-    private int[] monstruo = new int[10];  //maximo 10
+    private Monstruo[] monstruo = new Monstruo[10];  //maximo 10
     private int contador = 0;
     
     //Constructor vacio
