@@ -8,6 +8,26 @@ package tema6.javaland;
  *
  * @author DAM102
  */
-public class Arma {
+public class Arma extends Objeto{
+    // Atributos: nombre y ataque
+    private String nombre;
+    private int ataque;
     
+
+    //constructor: crear un arma con nombre y ataque
+    public Arma(String nombre, int ataque){
+        this.nombre = nombre;
+        this.ataque = ataque;
+    }
+    
+    //metodos: para obtener los valores 
+    // getAtaque()
+    public String getNombre(){
+        return nombre;
+    }
+    
+    // getNombre
+    public int getAtaque(){
+        return ataque;
+    }
 }
