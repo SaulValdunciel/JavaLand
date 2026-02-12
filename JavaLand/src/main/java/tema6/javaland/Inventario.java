@@ -4,7 +4,7 @@
  */
 package tema6.javaland;
 
-import tema6.javaland.Objeto;
+
 
 /**
  *
@@ -67,15 +67,13 @@ public class Inventario implements InventarioInterface {
 
         
         return "No tienes ese objeto.";
-        
-        
-
-        
+         
     }
 
     @Override
     public boolean InventarioMostrarInventario() {
 
+        
         return false;
 
     }

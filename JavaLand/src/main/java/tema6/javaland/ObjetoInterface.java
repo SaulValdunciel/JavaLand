@@ -10,5 +10,5 @@ package tema6.javaland;
  */
 public interface ObjetoInterface {
     
-    public boolean ObjetoEquipar() ;
+    public boolean ObjetoEquipar(Valiente valiente) ;
 }
