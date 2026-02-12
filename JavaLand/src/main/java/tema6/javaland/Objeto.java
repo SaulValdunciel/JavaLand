@@ -10,11 +10,23 @@ package tema6.javaland;
  */
 public class Objeto implements ObjetoInterface {
 
+    protected String nombre;
+
+    public Objeto(String nombre) {
+        this.nombre = nombre;
+    }
     //Equipar Objeto
     @Override
-    public boolean ObjetoEquipar() {
+    public boolean ObjetoEquipar(Valiente valiente) {
         System.out.println("Equipandose " + " al Valiente!");
-        aplicarEfecto(valiente);
+        return false;
+        
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    
 
 }
