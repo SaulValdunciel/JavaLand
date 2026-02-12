@@ -45,4 +45,3 @@ public class GestorMostruos implements GestoresInterface {
 
     private void crearMostruos() {
     }
-}
