@@ -15,15 +15,17 @@ public class Escudo extends Objetos {
     
     //constructor 
     public Escudo(String nombre,int defensa){
-        
+        this.nombre = nombre;
+        this.defensa = defensa;
     }
-    //metodos: seter
+    //metodos: seter 
     //setNombre
-    public void setNombre(){
-        
+    public String setNombre(){
+        return nombre;
     }
+    
     //setDefensa
-    public void setDefensa(){
-        
+    public int setDefensa(){
+        return defensa;
     }
 }

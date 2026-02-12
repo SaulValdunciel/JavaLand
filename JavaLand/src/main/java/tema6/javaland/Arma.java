@@ -14,19 +14,20 @@ public class Arma extends Objetos{
     private int ataque;
     
 
-    //constructor
+    //constructor: crear un arma con nombre y ataque
     public Arma(String nombre, int ataque){
-        
+        this.nombre = nombre;
+        this.ataque = ataque;
     }
-    //metodos:
+    
+    //metodos: para obtener los vvalores (getters)
     // setAtaque()
-    public void setNombre(){
-        
+    public String setNombre(){
+        return nombre;
     }
+    
     // setNombre
-    public void setAtaque(){
-        
+    public int setAtaque(){
+        return ataque;
     }
-    
-    
 }
