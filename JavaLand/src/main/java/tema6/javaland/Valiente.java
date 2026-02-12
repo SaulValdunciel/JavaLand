@@ -95,9 +95,5 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
         return nivel;
     }
 
-    @Override
-    public <T> void atacar(T Personaje) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
 }
