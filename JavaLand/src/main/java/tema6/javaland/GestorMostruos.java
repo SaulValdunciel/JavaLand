@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class GestorMostruos implements GestoresInterface {
     //array para guarfar niveles de monstruos
-    private int[] monstruo = new int[10];  //maximo 10
+    private Monstruo[] monstruo = new Monstruo[10];  //maximo 10
     private int contador = 0;
     
     //Constructor vacio
@@ -27,7 +27,7 @@ public class GestorMostruos implements GestoresInterface {
     // monstruo con estadisticas segun el nivel (lo año de lista)
     public void GenerarMonstruo(int nivel){
         if (contador < monstruo.length){
-            monstruo[contador] = nivel;
+            monstruo[contador] = new Monstruo(nivel);
             System.out.println("Monstruo creado de nivel: " + nivel);
         } else{
             System.out.println("No se pude crear más monstruos.");
