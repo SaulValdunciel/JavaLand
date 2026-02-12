@@ -40,6 +40,9 @@ public class Inventario implements InventarioInterface {
         }
         return false;
         //Guardar Objeto
+        mochila[huecolibre] = nuevoObjeto;
+        System.out.println ("¡Un Nuevo Objeto: " + nuevoObjeto.getnombre() + "!");
+        return true;
     }
 
     @Override
