@@ -58,6 +58,7 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
             System.out.println("La habilidad está en cooldown (" + cooldownTurnos + ") turnos restantes.");
             return false;
         }
+        return false;
     }
         
         
@@ -70,10 +71,11 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
         return escudo;
     }
 
-    public boolean getCooldown() {
-        return cooldown;
+    public String getValiente() {
+        return valiente;
     }
 
+ 
     public int getVida() {
         return vida;
     }
@@ -105,9 +107,6 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
         return nivel;
     }
 
-    @Override
-    public <T> void atacar(T Personaje) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+  
 
 }
