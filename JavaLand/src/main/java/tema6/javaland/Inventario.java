@@ -4,6 +4,8 @@
  */
 package tema6.javaland;
 
+import tema6.javaland.Objeto;
+
 /**
  *
  * @author DAM105
@@ -12,7 +14,7 @@ public class Inventario implements InventarioInterface {
 // ARRAY para maximo de Objetos en el INVENTARIO
 
     private Objeto[] mochila;
-    private final int OBJETOS_MAX = 12;
+    private final int OBJETOS_MAX = 999;
 
     public Inventario() {
 
@@ -21,6 +23,7 @@ public class Inventario implements InventarioInterface {
 
     @Override
     public boolean InventarioAgregarObjeto() {
+
         //Buscar hueco libre
         int huecolibre = -1;
         for (int i = 0; i < mochila.length; i++) {
@@ -38,20 +41,45 @@ public class Inventario implements InventarioInterface {
 
         }
         return false;
-        //Guardar Objeto
-        mochila[huecolibre] = nuevoObjeto;
-        System.out.println ("¡Un Nuevo Objeto: " + nuevoObjeto.getnombre() + "!");
-        return true;
+
     }
 
     @Override
     public String InventarioUsarObjeto(String[] args) {
 
+        if (args.length == 0) {
+            return "Falta el nombre del objeto.";
+        }
+
+        String nombre = args[0]; 
+
+        // 2. Recorremos la mochila
+        for (int i = 0; i < mochila.length; i++) {
+            
+            // Verificamos que el hueco NO sea null y si el nombre coincide
+            if (mochila[i] != null && mochila[i].getNombre().equals(nombre)) {
+                
+                mochila[i] = null; 
+                
+                return "Has usado el objeto: " + nombre;
+            }
+        }
+
+        
+        return "No tienes ese objeto.";
+        
+        
+
+        
     }
 
     @Override
     public boolean InventarioMostrarInventario() {
 
+        return false;
+
     }
 
 }
+
+
