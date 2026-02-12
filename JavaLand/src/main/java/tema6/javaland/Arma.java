@@ -20,14 +20,14 @@ public class Arma extends Objeto{
         this.ataque = ataque;
     }
     
-    //metodos: para obtener los vvalores (getters)
+    //metodos: para obtener los valores 
     // setAtaque()
-    public String setNombre(){
+    public String getNombre(){
         return nombre;
     }
     
     // setNombre
-    public int setAtaque(){
+    public int getAtaque(){
         return ataque;
     }
 }

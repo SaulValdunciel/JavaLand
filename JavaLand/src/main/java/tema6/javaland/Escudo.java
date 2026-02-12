@@ -20,12 +20,12 @@ public class Escudo extends Objeto {
     }
     //metodos: seter 
     //setNombre
-    public String setNombre(){
+    public String getNombre(){
         return nombre;
     }
     
     //setDefensa
-    public int setDefensa(){
+    public int getDefensa(){
         return defensa;
     }
 }
