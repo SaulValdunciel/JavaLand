@@ -9,11 +9,6 @@ package tema6.javaland;
  * @author DAM105
  */
 public class Objeto implements ObjetoInterface {
-private String nombre;
-
-    public Objeto(String nombre) {
-        this.nombre = nombre;
-    }
 
     //Equipar Objeto
     @Override

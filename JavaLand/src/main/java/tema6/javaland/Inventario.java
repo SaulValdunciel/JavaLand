@@ -10,12 +10,13 @@ package tema6.javaland;
  */
 public class Inventario implements InventarioInterface {
 //Lista ARRAY para Guardar Objetos en el INVENTARIO
-
+    
     private Objeto[] mochila;
-    private final int OBJETOS_MAX = 12;
-
+    private final int
+    OBJETOS_MAX =10;
+    
     public Inventario() {
-
+        
         this.mochila = new Objeto[OBJETOS_MAX];
     }
 
