@@ -41,8 +41,8 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
 
     //Metodos:
     @Override
-    public int atacar(int cantidad) {
-        return cantidad;
+    public <T> int atacar(T Personaje) {
+        return daño;
     }
 
     //Metodo recibir daño sobrescrito de la interfaz
@@ -95,6 +95,11 @@ public class Valiente extends GestorValientes implements PersonajesInterface {
         habilidad += 1; //Aumenta la habilidad
         velocidad += 1; //Aumenta la velocidad
         return nivel;
+    }
+
+    @Override
+    public <T> void atacar(T Personaje) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
