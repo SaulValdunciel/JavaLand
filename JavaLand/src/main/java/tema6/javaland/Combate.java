@@ -4,19 +4,38 @@
  */
 package tema6.javaland;
 
+import java.util.Random;
+
 /**
  *
  * @author M
  */
-public class Combate implements CombateInterface{
+public class Combate implements CombateInterface {
 
-    
     @Override
     public void iniciarCombate(Valiente valiente, Monstruo monstruo) {
-    
-        //double Iniciativa_Valiente = valiente
-    
-        
+
+        do {//bucle hasta que la vida de valiente o monstruo llegue a 0 o menos
+
+            Random randomV = new Random();//aleatorio para la iniciativa del valiente
+            double Iniciativa_Valiente = valiente.getVelocidad() * (randomV.nextDouble(1) + 0.75);
+
+            Random randomM = new Random();//aleatorio para la iniciativa del monstruo
+            double Iniciativa_Monstruo = monstruo.getVelocidad() * (randomM.nextDouble(1) + 0.75);
+            
+            //determinar el orden de los turnos según la iniciativa
+            if (Iniciativa_Valiente > Iniciativa_Monstruo){
+            
+                turno(valiente,monstruo);
+                
+                
+            } else {
+            
+                turno(monstruo, valiente);
+            }
+
+        } while (valiente.getVida() > 0 && monstruo.getVida() > 0);
+
     }
 
     @Override
@@ -27,7 +46,4 @@ public class Combate implements CombateInterface{
     public void combateTerminado(Valiente valiente, Monstruo monstruo) {
     }
 
- 
-    
-    
 }
