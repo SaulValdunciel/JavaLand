@@ -3,21 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package tema6.javaland;
-
-
 /**
  *
  * @author DAM102
  */
 public class Arma extends Objeto{
-    // Atributos: nombre y ataque
-    private String nombre;
+    // Atributos: ataque
     private int ataque;
-    
-
+  
     //constructor: crear un arma con nombre y ataque
     public Arma(String nombre, int ataque){
-        this.nombre = nombre;
+        super(nombre);
         this.ataque = ataque;
     }
     
