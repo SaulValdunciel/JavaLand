@@ -9,7 +9,6 @@ package tema6.javaland;
  * @author cuent
  */
 public class Valiente extends GestorValientes implements PersonajesInterface {
-//Preubaaaa2
     //Atributos
     private String valiente;
     private int vida;
