@@ -10,8 +10,15 @@ package tema6.javaland;
 // Esta clase controla los valientes del juego
 public class GestorValientes implements GestoresInterface {
     // Array simple para guardar nombres de valientes
-    private String[] valientes = new String[4];
-
+    private String[] nombres = {"Guerrero", "Paladín", "Mago", "Pícaro"};
+    
+    // Crear los 4 valientes iniciales
+    private int[] vida = {15, 8, 7, 8};
+    private int[] fuerza = {10, 15, 8, 7};
+    private int[] defensa = {7, 7, 17, 10};
+    private int[] velocidad = {8, 10, 8, 15};
+    
+    
     public GestorValientes() {
     }
 
@@ -19,15 +26,15 @@ public class GestorValientes implements GestoresInterface {
     public void crear() {
         crearValientes();
     }
-
-    // Crear los 4 valientes iniciales
-    public void crearValientes() {
-
-        valientes[0] = "Guerrero (15,10,7,8)";
-        valientes[1] = "Paladín (8,15,7,10)";
-        valientes[2] = "Mago (7,8,17,8)";
-        valientes[3] = "Pícaro (8,7,10,15)";
-
-        System.out.println("Valientes creados correctamente.");
+    
+    private void crearValientes() {
+        for (int i = 0; i < nombres.length; i++) {
+            System.out.println(nombres[i] + " (" +
+                vida[i] + "," +
+                fuerza[i] + "," +
+                defensa[i] + "," +
+                velocidad[i] + ")");
+        }
     }
+
 }
