@@ -11,20 +11,22 @@ package tema6.javaland;
 public class GestorValientes implements GestoresInterface {
     // Array simple para guardar nombres de valientes
     private Valiente[] valiente = new Valiente[4];
-
-    public GestorValientes() {
-    }
+    
     @Override
     public void crear() {
         crearValientes();
     }
     
-    private void crearValientes() {
-    valiente[0] = new Valiente("Guerrero", 15, 10, 7, 8);   
-    valientes[1] = new Valiente("Paladín", 8, 15, 7, 10);
-    valientes[2] = new Valiente("Mago", 7, 8, 17, 8);
-    valientes[3] = new Valiente("Pícaro", 8, 7, 10, 15);
+    public GestorValientes() {
+        valiente[0] = new Valiente("Guerrero", 15, 10, 7, 8, 8);   
+        valiente[1] = new Valiente("Paladín", 8, 15, 7, 10, 7);
+        valiente[2] = new Valiente("Mago", 7, 8, 17, 8, 8);
+        valiente[3] = new Valiente("Pícaro", 8, 7, 10, 15, 10);
+    
+    System.out.println("Valientes creados correctamente.");
     }
-        System.out.println("Valientes creados correctamente.");
-        
+
+    private void crearValientes() {
+    }
+       
 }
