@@ -4,7 +4,6 @@
  */
 package tema6.javaland;
 
-import static java.lang.Math.clamp;
 import java.util.Random;
 
 /**
@@ -12,7 +11,9 @@ import java.util.Random;
  * @author cuent
  */
 public class Valiente implements PersonajesInterface {
+
     //Atributos
+    protected String valiente; //Nombre 
     protected String clase; // Guerrero, Paladin, Mago, Picaro
     protected int vida; //0-100
     protected int fuerza; //0-20
@@ -20,16 +21,15 @@ public class Valiente implements PersonajesInterface {
     protected int habilidad; //0-20
     protected int velocidad; //0-20
     protected int nivel = 1;
-    
+
     private Arma arma = null;
     private Escudo escudo = null;
-    
-    //El monstruo objetivo 
-    private Monstruo objetivo;
-    
-    //El cooldown para habilidad especial
-    private int cooldownTurnos = 0;
-    private static final int cooldown_max = 2;
+
+    //objetivo actual
+    private Monstruo objetivo = null;
+
+    //El random
+    private final Random random = new Random();
 
     //Habilidades
     // Guerrero: si tiene objeto equipado, siguiente ataque hace 3x fuerza
@@ -40,23 +40,20 @@ public class Valiente implements PersonajesInterface {
     private int magoTurnos = 0;
     // Pícaro: duplica velocidad (buff activo); si duplica la del enemigo, puede atacar 2 veces
     private boolean picaroVelocidadDuplicada = false;
-    
-    //El random
-    private Random random = new Random();
-    
+
     //Constructores
     public Valiente() {
 
     }
 
-    public Valiente(String clase, int vida, int fuerza, int defensa, int habilidad, int velocidad, int nivel) {
+    public Valiente(String valiente, String clase, int vida, int fuerza, int defensa, int habilidad, int velocidad, int nivel) {
+        this.valiente = valiente;
         this.clase = clase;
         this.vida = vida;
         this.fuerza = fuerza;
         this.defensa = defensa;
         this.habilidad = habilidad;
         this.velocidad = velocidad;
-        this.nivel = 1;
     }
 
     //Metodos:
@@ -70,7 +67,9 @@ public class Valiente implements PersonajesInterface {
 
         // Si eres mago y buff activo -> habilidad x2
         int habEfectiva = habilidad;
-        if (magoTurnos > 0) habEfectiva = habilidad * 2;
+        if (magoTurnos > 0) {
+            habEfectiva = habilidad * 2;
+        }
 
         // Fórmula de acierto: tirada < 4*habilidad - defensaEnemigo
         int umbral = 4 * habEfectiva - monstruo.getDefensa();
@@ -80,7 +79,9 @@ public class Valiente implements PersonajesInterface {
         }
 
         int bonusArma = 0;
-        if (arma != null) bonusArma = arma.getAtaque();
+        if (arma != null) {
+            bonusArma = arma.getAtaque();
+        }
 
         int daño;
 
@@ -99,17 +100,22 @@ public class Valiente implements PersonajesInterface {
     //Metodo recibir daño sobrescrito de la interfaz
     @Override
     public int recibirDaño(int cantidad) {
-        if (cantidad < 0) cantidad = 0;
+        if (cantidad < 0) {
+            cantidad = 0;
+        }
         vida -= cantidad;
-        if (vida < 0) vida = 0;
+        if (vida < 0) {
+            vida = 0;
+        }
         return vida;
     }
 
     @Override
     public boolean ValienteUsarHabilidadEspecial() {
+
         // GUERRERO
-        // Si tiene objeto equipado, siguiente ataque mete 3x fuerza
         if (clase.equalsIgnoreCase("GUERRERO")) {
+            // Si tiene objeto equipado (arma o escudo) => siguiente ataque 3x fuerza
             if (arma != null || escudo != null) {
                 guerreroTriplePendiente = true;
                 return true;
@@ -118,21 +124,18 @@ public class Valiente implements PersonajesInterface {
         }
 
         // PALADIN
-        // Si el enemigo falla, ataque gratis; se mantiene hasta que acierte
         if (clase.equalsIgnoreCase("PALADIN")) {
             paladinActivo = true;
             return true;
         }
 
         // MAGO
-        // Duplica habilidad durante 2 turnos
         if (clase.equalsIgnoreCase("MAGO")) {
             magoTurnos = 2;
             return true;
         }
 
         // PICARO
-        // Duplica velocidad. Si velocidad duplicada >= 2x velocidad enemigo => 2 ataques
         if (clase.equalsIgnoreCase("PICARO")) {
             picaroVelocidadDuplicada = true;
             return true;
@@ -140,37 +143,42 @@ public class Valiente implements PersonajesInterface {
 
         return false;
     }
-    
+
     @Override
     public int ValienteSubirNivel() {
-        nivel ++; //Aumenta el nivel 
+        nivel++; //Aumenta el nivel 
         vida += 10; //Aumenta la vida
-        fuerza ++; //Aumenta la fuerza
-        defensa ++; //Aumenta la defensa
-        habilidad ++; //Aumenta la habilidad
-        velocidad ++; //Aumenta la velocidad
+        fuerza++; //Aumenta la fuerza
+        defensa++; //Aumenta la defensa
+        habilidad++; //Aumenta la habilidad
+        velocidad++; //Aumenta la velocidad
         return nivel;
     }
-    
+
     //llamar cada turno desde combate para bajar turnos del mago y quitar buff del picaro 
-    public void tickCooldown(){
-        if (cooldownTurnos > 0) cooldownTurnos--;
-        // El buff del pícaro lo dejamos solo 1 turno.
+    public void tickTurno() {
+        if (magoTurnos > 0) magoTurnos--;
+
+        // Buff del pícaro: 1 ronda
         if (picaroVelocidadDuplicada) {
             picaroVelocidadDuplicada = false;
         }
     }
-       
+
     // Defensa total (defensa + escudo)
     public int getDefensaTotal() {
         int bonus = 0;
-        if (escudo != null) bonus = escudo.getDefensa();
+        if (escudo != null) {
+            bonus = escudo.getDefensa();
+        }
         return defensa + bonus;
     }
 
     // Velocidad efectiva (si pícaro duplicó velocidad este turno)
     public int getVelocidadEfectiva() {
-        if (picaroVelocidadDuplicada) return velocidad * 2;
+        if (picaroVelocidadDuplicada) {
+            return velocidad * 2;
+        }
         return velocidad;
     }
 
@@ -186,13 +194,21 @@ public class Valiente implements PersonajesInterface {
 
     // Pícaro: si con velocidad duplicada supera condición
     public boolean picaroPuedeAtacarDosVeces() {
-        if (objetivo == null) return false;
+        if (objetivo == null) {
+            return false;
+        }
         int velEfectiva = getVelocidadEfectiva();
         return velEfectiva >= (objetivo.getVelocidad() * 2);
     }
 
+    public String getValiente() {
+        return valiente;
+    }
 
- 
+    public String getClase() {
+        return clase;
+    }
+    
     public int getVida() {
         return vida;
     }
@@ -200,7 +216,6 @@ public class Valiente implements PersonajesInterface {
     public int getVelocidad() {
         return velocidad;
     }
-
 
     public int getFuerza() {
         return fuerza;
@@ -217,25 +232,28 @@ public class Valiente implements PersonajesInterface {
     public int getNivel() {
         return nivel;
     }
-    
+
     public Arma getArma() {
         return arma;
     }
-    
+
     public Escudo getEscudo() {
         return escudo;
     }
-    
-    public void setArma(Arma arma) { 
-        this.arma = arma; 
-    }
-    public void setEscudo(Escudo escudo) { 
-        this.escudo = escudo; 
+
+    public void setValiente(String valiente) {
+        this.valiente = valiente;
     }
 
+    public void setClase(String clase) {
+        this.clase = clase;
+    }
     
-    public Monstruo getObjetivo() {
-        return objetivo;
+    public void setArma(Arma arma) {
+        this.arma = arma;
+    }
+
+    public void setEscudo(Escudo escudo) {
+        this.escudo = escudo;
     }
 }
-
