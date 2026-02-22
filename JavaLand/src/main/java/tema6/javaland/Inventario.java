@@ -22,56 +22,37 @@ public class Inventario implements InventarioInterface {
     }
 
     @Override
-    public boolean InventarioAgregarObjeto() {
+    public boolean AgregarObjeto(Objeto obj) {
+boolean validar = false;
 
-        //Buscar hueco libre
-        int huecolibre = -1;
+        //Añadir objeto hueco libres
+     
         for (int i = 0; i < mochila.length; i++) {
 
             if (mochila[i] == null) {
 
-                huecolibre = i;
+                mochila[i] = obj;
+                
+                validar = true;
                 break;
             }
         }
-        //Si el Inventario esta lleno
-        if (huecolibre == -1) {
-
-            System.out.println("¡Echa Pa´tras mostro, Inventario Lleno");
-
-        }
-        return false;
-
-    }
-
-    @Override
-    public String InventarioUsarObjeto(String[] args) {
-
-        if (args.length == 0) {
-            return "Falta el nombre del objeto.";
-        }
-
-        String nombre = args[0]; 
-
-        // 2. Recorremos la mochila
-        for (int i = 0; i < mochila.length; i++) {
-            
-            // Verificamos que el hueco NO sea null y si el nombre coincide
-            if (mochila[i] != null && mochila[i].getNombre().equals(nombre)) {
-                
-                mochila[i] = null; 
-                
-                return "Has usado el objeto: " + nombre;
-            }
-        }
-
+       
         
-        return "No tienes ese objeto.";
-         
+        return validar;
+
     }
 
     @Override
-    public boolean InventarioMostrarInventario() {
+    public String UsarObjeto (String nombre, Valiente valiente) {
+    
+    for (int i = 0; i < mochila.length; i++) {
+        
+    }
+        return null;
+    }
+    @Override
+    public boolean MostrarInventario() {
 
         
         return false;
