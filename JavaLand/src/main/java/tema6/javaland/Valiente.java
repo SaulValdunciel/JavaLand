@@ -230,6 +230,7 @@ public class Valiente implements PersonajesInterface {
         this.escudo = escudo; 
     }
 
+    
     public Monstruo getObjetivo() {
         return objetivo;
     }
