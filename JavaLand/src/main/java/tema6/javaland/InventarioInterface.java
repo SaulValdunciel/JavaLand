@@ -10,9 +10,9 @@ package tema6.javaland;
  */
 public interface InventarioInterface {
 
-    public boolean InventarioAgregarObjeto() ;
+    public boolean AgregarObjeto(Objeto obj);
     
-    public String InventarioUsarObjeto(String[] args);
+public String UsarObjeto(String nombre, Valiente valiente);
     
-    public boolean InventarioMostrarInventario() ;
+    public boolean MostrarInventario();
 }
