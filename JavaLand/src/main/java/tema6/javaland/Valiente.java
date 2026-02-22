@@ -191,6 +191,11 @@ public class Valiente implements PersonajesInterface {
         return velEfectiva >= (objetivo.getVelocidad() * 2);
     }
 
+    public String getValiente() {
+        return valiente;
+    }
+
+ 
     public int getVida() {
         return vida;
     }
@@ -199,16 +204,28 @@ public class Valiente implements PersonajesInterface {
         return velocidad;
     }
 
-    public int getFuerza(){
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public boolean isCooldown() {
+        return cooldown;
+    }
+
+    public int getFuerza() {
+        return fuerza;
+    }
+
+    public int getDefensa() {
         return defensa;
     }
-    
+
     public int getHabilidad() {
         return habilidad;
     }
-    
-    public int getDefensa() {
-        return defensa;
+
+    public int getNivel() {
+        return nivel;
     }
     
     public int getNivel() {
