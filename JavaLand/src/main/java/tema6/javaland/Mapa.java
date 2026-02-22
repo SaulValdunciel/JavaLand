@@ -13,8 +13,8 @@ public class Mapa {
     //Mapa variable sengun las dificultades representado con Strings
     //Cada posición es una casilla del mapa
     // Matriz del mapa
-    private String[][] Casilla;
-    
+    private String[][] Casilla;   // lo que ve el jugador
+    private String[][] Contenido; // lo que realmente hay en cada casilla
 
     // Tamaño del mapa (n x n)
     private int tamano;
@@ -25,17 +25,14 @@ public class Mapa {
      * revelarTodo = si empieza todo visible o no
      */
     public Mapa(int tamano, boolean revelarTodo) {
-
         this.tamano = tamano;
         Casilla = new String[tamano][tamano];
+        Contenido = new String[tamano][tamano];
 
         for (int fila = 0; fila < tamano; fila++) {
             for (int columna = 0; columna < tamano; columna++) {
-                if (revelarTodo) {
-                    Casilla[fila][columna] = ".";
-                } else {
-                    Casilla[fila][columna] = "?";
-                }
+                Casilla[fila][columna] = revelarTodo ? "." : "?";
+                Contenido[fila][columna] = "."; // todo vacío inicialmente
             }
         }
     }
@@ -52,7 +49,7 @@ public class Mapa {
      */
     public void revelarCasilla(int fila, int columna) {
         if (posicionValida(fila, columna) && Casilla[fila][columna].equals("?")) {
-            Casilla[fila][columna] = ".";
+        Casilla[fila][columna] = Contenido[fila][columna]; // <- copiar el contenido real
         }
     }
 
@@ -89,10 +86,6 @@ public class Mapa {
         }
     }
 
-
-    public void introducirComponentes(int fila, int columna) {
-
-    }
 
     /*
      * Muestra el mapa por consola
@@ -152,38 +145,36 @@ public class Mapa {
      * comprobarAdyacentes: true solo para rocas
      */
     private void colocarElementos(String elemento, int cantidad, boolean comprobarAdyacentes) {
+    int colocados = 0;
 
-        int colocados = 0;
+    while (colocados < cantidad) {
+        int fila = (int) (Math.random() * tamano);
+        int columna = (int) (Math.random() * tamano);
 
-        while (colocados < cantidad) {
+        boolean puedeColocar = true;
 
-            int fila = (int) (Math.random() * tamano);
-            int columna = (int) (Math.random() * tamano);
+        // Solo colocar en casillas vacías en el contenido real
+        if (!Contenido[fila][columna].equals(".")) {
+            puedeColocar = false;
+        } else if (comprobarAdyacentes && comprobarAlrededor(fila, columna)) {
+            puedeColocar = false;
+        }
 
-            boolean puedeColocar = true;
-
-            if (!Casilla[fila][columna].equals(".")) {
-                puedeColocar = false;
-            }
-            else if (comprobarAdyacentes) {
-                if (comprobarAlrededor(fila, columna)) {
-                    puedeColocar = false;
-                }
-            }
-
-            if (puedeColocar) {
-                Casilla[fila][columna] = elemento;
-                colocados++;
-            }
+        if (puedeColocar) {
+            Contenido[fila][columna] = elemento; // se coloca en contenido, sigue oculto en Casilla
+            colocados++;
         }
     }
+}
+
+
     private boolean comprobarAlrededor(int fila, int columna){
         if(fila > 0){
             if(!Casilla[fila -1][columna].equals(".")){
                 return true;
             }
         }
-        if(fila < tamano){
+        if(fila < tamano -1){
             if(!Casilla[fila +1][columna].equals(".")){
                 return true;
             }
@@ -193,7 +184,7 @@ public class Mapa {
                 return true;
             }
         }
-        if(columna < tamano){
+        if(columna < tamano -1){
             if(!Casilla[fila][columna +1].equals(".")){
                 return true;
             }
@@ -201,34 +192,28 @@ public class Mapa {
         return false;
     }
      public void generarYMostrarMapa(int valienteFila, int valienteColumna) {
+    // colocar monstruos y objetos aleatorios solo si la casilla esta oculta
+    int monstruos = 5;
+    int objetos = 5;
 
-        
-        // Inicializar como vacío
-        for (int fila = 0; fila < tamano; fila++) {
-            for (int columna = 0; columna < tamano; columna++) {
-                Casilla[fila][columna] = ".";
-            }
-        }
-        
-        
-        
-        // Cantidades proporcionales al tamaño
-//        int totalCasillas = tamano * tamano;// 25% del mapa son rocas
-//        int rocas = totalCasillas / 4;
-        
-        int monstruos = 5;
-        int objetos = 5;
+    colocarElementos("M", monstruos, false);
+    colocarElementos("O", objetos, false);
 
-//      colocarElementos("R", rocas, true);
-        colocarElementos("M", monstruos, false);
-        colocarElementos("O", objetos, false);
+    // revelar la posicion inicial y adyacentes
+    revelarAdyacentes(valienteFila, valienteColumna);
 
-        mostrarMapa(valienteFila, valienteColumna);
-    }
+    // mostrar mapa inicial
+    mostrarMapa(valienteFila, valienteColumna);
+}
+
     
-    
+    //Metodo de mapas creados a mano que ponen las rocas
     public void mapas(){
-         String[][]mapa1 = new String[tamano][tamano];
+        String[][] mapa1 = new String[tamano][tamano];
+        String[][] mapa2 = new String[tamano][tamano];
+        String[][] mapa3 = new String[tamano][tamano];
+    
+    
          mapa1[0][2]= "R";
          mapa1[1][2]= "R";mapa1[1][3]= "R";mapa1[1][9]= "R";
          mapa1[1][11]= "R";mapa1[1][14]= "R";
@@ -248,7 +233,7 @@ public class Mapa {
          mapa1[13][11]= "R";
          mapa1[14][4]= "R";mapa1[14][7]= "R";
          
-         String[][]mapa2 = new String[tamano][tamano];
+         
          mapa2[0][2]= "R";mapa2[0][3]= "R";mapa2[0][4]= "R";mapa2[0][5]= "R";
          mapa2[1][0]= "R";mapa2[1][2]= "R";mapa2[1][3]= "R";
          mapa2[1][8]= "R";mapa2[1][11]= "R";
@@ -276,7 +261,7 @@ public class Mapa {
          mapa2[14][6]= "R";mapa2[14][9]= "R";mapa2[14][10]= "R";
          mapa2[14][11]= "R";mapa2[14][12]= "R";mapa2[14][13]= "R";
          
-         String[][]mapa3 = new String[tamano][tamano];
+         
          mapa3[0][5]= "R";mapa3[0][6]= "R";mapa3[0][7]= "R";mapa3[0][8]= "R";
          mapa3[0][9]= "R";mapa3[0][10]= "R";mapa3[0][11]= "R";
          mapa3[0][12]= "R";mapa3[0][13]= "R";mapa3[0][14]= "R";
@@ -307,7 +292,40 @@ public class Mapa {
          mapa3[14][12]= "R";mapa3[14][13]= "R";
          
          
+        String[][][] mapas = { mapa1, mapa2, mapa3 };
+        int indiceAleatorio = (int) (Math.random() * mapas.length);
+        cargarMapaBase(mapas[indiceAleatorio]);
+         
      }
+    
+    private void cargarMapaBase(String[][] mapaBase) {
+    for (int fila = 0; fila < tamano; fila++) {
+        for (int columna = 0; columna < tamano; columna++) {
+            if (mapaBase[fila][columna] == null) {
+                Casilla[fila][columna] = "?";       // oculto
+                Contenido[fila][columna] = ".";     // vacío real
+            } else {
+                Casilla[fila][columna] = "?";       // oculto también
+                Contenido[fila][columna] = mapaBase[fila][columna]; // roca u objeto real
+            }
+        }
+      }
+    }
+
+
+    public String leerCasilla(int fila, int columna) {
+    if (posicionValida(fila, columna)) {
+        return Casilla[fila][columna];
+    }
+    return null;
+}
+
+public void limpiarCasilla(int fila, int columna) {
+    if (posicionValida(fila, columna)) {
+        Casilla[fila][columna] = ".";
+    }
+}
+
     
      
 }
