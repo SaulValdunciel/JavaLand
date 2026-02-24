@@ -36,13 +36,16 @@ public class Monstruo implements PersonajesInterface {
         Valiente valiente = (Valiente) personaje;
         Random random = new Random();
         int Variable_aleatoria = random.nextInt(101);
-        int daño = 0;
+        int daño;
 
         if (Variable_aleatoria < (4 * (habilidad - (valiente.getDefensa() + valiente.getEscudo().getDefensa())))) {
 
             //restar vida al valiente según la fuerza del monstruo
             daño = valiente.getVida() - fuerza;
 
+        } else {
+        
+            daño = 0;
         }
 
         return daño;
@@ -50,18 +53,13 @@ public class Monstruo implements PersonajesInterface {
 
     @Override
     public int recibirDaño(int cantidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        vida -= cantidad;
+        
+        return vida;
     }
 
-    @Override
-    public boolean ValienteUsarHabilidadEspecial() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public int ValienteSubirNivel() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 
     public int recibirDaño() {
 
@@ -70,6 +68,7 @@ public class Monstruo implements PersonajesInterface {
         return daño;
 
     }
+
 
     //getters y setters
     public int getFuerza() {
@@ -126,6 +125,17 @@ public class Monstruo implements PersonajesInterface {
 
     public void setNivel(int nivel) {
         this.nivel = nivel;
+    }
+    
+    //no usar
+    @Override
+    public boolean ValienteUsarHabilidadEspecial() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int ValienteSubirNivel() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     
