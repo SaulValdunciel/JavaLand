@@ -97,33 +97,10 @@ public class Mapa {
      */
     public void mostrarMapa(int valienteFila, int valienteColumna) {
 
-        // Mostrar numeros superiores
-        System.out.print("     ");
-        for (int i = 0; i < tamano; i++) {
-
-            if (i < 10) {
-                System.out.print(" " + (i+1) + " ");
-            } else {
-                System.out.print((i+1) + " ");
-            }
-        }
-        System.out.println();
-
-        // Línea separadora
-        System.out.print("     ");
-        for (int i = 0; i < tamano; i++) {
-            System.out.print(" - ");
-        }
-        System.out.println();
-
         // Mostrar filas
         for (int fila = 0; fila < tamano; fila++) {
 
-            if (fila < 9) {//Esto si el numero es menor a 10 ya que son 1 digito
-                System.out.print(" " + (fila+1) + " | ");
-            } else {
-                System.out.print((fila+1) + " | ");//este numeros mayor de 10 ya que teinen 2 digitos
-            }
+
 
             for (int columna = 0; columna < tamano; columna++) {
 
@@ -292,11 +269,20 @@ public class Mapa {
          mapa3[14][12]= "R";mapa3[14][13]= "R";
          
          
-        String[][][] mapas = { mapa1, mapa2, mapa3 };
-        int indiceAleatorio = (int) (Math.random() * mapas.length);
-        cargarMapaBase(mapas[indiceAleatorio]);
+      
+        int indiceAleatorio = (int) (Math.random() * 3);
+
+        if (indiceAleatorio == 0) {
+            cargarMapaBase(mapa1);
+        }
+        else if (indiceAleatorio == 1) {
+            cargarMapaBase(mapa2);
+        }
+        else {
+            cargarMapaBase(mapa3);
+        }
          
-     }
+    }
     
     private void cargarMapaBase(String[][] mapaBase) {
     for (int fila = 0; fila < tamano; fila++) {
@@ -320,7 +306,7 @@ public class Mapa {
     return null;
 }
 
-public void limpiarCasilla(int fila, int columna) {
+    public void limpiarCasilla(int fila, int columna) {
     if (posicionValida(fila, columna)) {
         Casilla[fila][columna] = ".";
     }
