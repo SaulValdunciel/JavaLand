@@ -13,7 +13,7 @@ import java.util.Random;
 public class Valiente implements PersonajesInterface {
 
     //Atributos
-    protected String[] inventario;
+    protected String[] inventario; //Inventario del valiente
     protected String valiente; //Nombre 
     protected String clase; // Guerrero, Paladin, Mago, Picaro
     protected int vida; //0-100
