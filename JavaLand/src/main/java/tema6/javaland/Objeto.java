@@ -18,7 +18,7 @@ public class Objeto implements ObjetoInterface {
     //Equipar Objeto
     @Override
     public boolean ObjetoEquipar(Valiente valiente) {
-        System.out.println("Equipandose " + " al Valiente!");
+        System.out.println("Equipandose " + this.nombre + " al Valiente!");
         return false;
         
     }
