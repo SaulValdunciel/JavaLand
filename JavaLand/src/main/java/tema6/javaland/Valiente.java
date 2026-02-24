@@ -13,6 +13,7 @@ import java.util.Random;
 public class Valiente implements PersonajesInterface {
 
     //Atributos
+    protected String[] inventario;
     protected String valiente; //Nombre 
     protected String clase; // Guerrero, Paladin, Mago, Picaro
     protected int vida; //0-100
@@ -46,7 +47,8 @@ public class Valiente implements PersonajesInterface {
 
     }
 
-    public Valiente(String valiente, String clase, int vida, int fuerza, int defensa, int habilidad, int velocidad, int nivel) {
+    public Valiente(String[] inventario,String valiente, String clase, int vida, int fuerza, int defensa, int habilidad, int velocidad, int nivel) {
+        this.inventario = inventario;
         this.valiente = valiente;
         this.clase = clase;
         this.vida = vida;
@@ -241,6 +243,10 @@ public class Valiente implements PersonajesInterface {
         return escudo;
     }
 
+    public String[] getInventario() {
+        return inventario;
+    }
+
     public void setValiente(String valiente) {
         this.valiente = valiente;
     }
@@ -255,5 +261,9 @@ public class Valiente implements PersonajesInterface {
 
     public void setEscudo(Escudo escudo) {
         this.escudo = escudo;
+    }
+
+    public void setInventario(String[] inventario) {
+        this.inventario = inventario;
     }
 }
