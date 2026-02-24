@@ -19,6 +19,7 @@ public class Monstruo implements PersonajesInterface {
     protected int habilidad; // entre 1 y 20
     protected int velocidad; // entre 1 y 20
     protected int nivel;// define las estadísticas según GestorMosntruos
+    protected static int contador = 0; // contador de monstruos totales
 
     public Monstruo(String nombre, int vida, int fuerza, int defensa, int habilidad, int velocidad, int nivel) {
         this.nombre = nombre;
@@ -28,6 +29,7 @@ public class Monstruo implements PersonajesInterface {
         this.habilidad = habilidad;
         this.velocidad = velocidad;
         this.nivel = nivel;
+        contador++;
     }
 
     @Override
@@ -58,15 +60,11 @@ public class Monstruo implements PersonajesInterface {
         
         return vida;
     }
-
     
-
-    public int recibirDaño() {
-
-        int daño = 0;
-
-        return daño;
-
+    public void monstruosTotales(int num){
+    
+         contador = num;
+        
     }
 
 
