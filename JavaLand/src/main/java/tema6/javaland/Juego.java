@@ -11,7 +11,7 @@ import java.util.Scanner;
  * @author DAM126
  */
 public class Juego {
-
+    Scanner teclado = new Scanner(System.in);
     private Mapa mapa;              // Mapa del juego
     private int valienteFila;       // Fila actual del valiente
     private int valienteColumna;    // Columna actual del valiente
@@ -19,18 +19,18 @@ public class Juego {
 
     // Constructor
     public Juego(int tamanoMapa) {
-        mapa = new Mapa(tamanoMapa, false);  // Crear mapa sin revelar todo
+        mapa = new Mapa(tamanoMapa, true);  // Crear mapa sin revelar todo o revelando
         valienteFila = 0;                    // Posicion inicial del valiente (fila 0)
         valienteColumna = 0;                 // Posicion inicial del valiente (columna 0)
         juegoActivo = true;                  // El juego esta activo
 
         mapa.mapas();                         // Cargar un mapa aleatorio con rocas
-        mapa.generarYMostrarMapa(valienteFila, valienteColumna); // Mostrar mapa inicial
+//        mapa.generarYMostrarMapa(valienteFila, valienteColumna); // Mostrar mapa inicial
     }
 
     // Metodo principal para iniciar el juego
     public void iniciarJuego() {
-        Scanner teclado = new Scanner(System.in); // Lectura de teclado
+//        Scanner teclado = new Scanner(System.in); // Lectura de teclado
 
         System.out.println("Bienvenido a La Tierra de los Codigos Olvidados!");
         creacionOEleccionValiente(); // Crear o elegir valiente
@@ -38,7 +38,8 @@ public class Juego {
         while (juegoActivo) {
             mostrarMenuPrincipal(); // Mostrar opciones del menu
             System.out.print("Elige una opcion: ");
-            String opcion = teclado.nextLine();
+            //Captura la linea completa que el usuario escribe y la guarda y se reinicia cada vez no hay qu cerrar ni limpiar
+            String opcion = new Scanner(System.in).nextLine();//Captura la linea completa que el usuario escribe y la guarda y se reinicia cada vez no hay qu cerrar ni limpiar
 
             switch (opcion) {
                 case "1":
@@ -51,7 +52,7 @@ public class Juego {
                     mapa.mostrarMapa(valienteFila, valienteColumna); // Mostrar mapa
                     break;
                 case "4":
-                    explorarMapa(teclado); // Moverse y explorar mapa
+                    explorarMapa(); // Moverse y explorar mapa
                     break;
                 case "5":
                     System.out.println("Saliendo del juego...");
@@ -65,6 +66,7 @@ public class Juego {
 
     // Metodo para crear o elegir valiente
     public void creacionOEleccionValiente() {
+        //Aqui GestorValientes
         System.out.println("Creando o eligiendo valiente...");
         mapa.revelarAdyacentes(valienteFila, valienteColumna); // Revelar casilla inicial y adyacentes
         mapa.mostrarMapa(valienteFila, valienteColumna);       // Mostrar mapa inicial
@@ -82,17 +84,20 @@ public class Juego {
 
     // Mostrar informacion del valiente
     public void mostrarValiente() {
+        // Aqui se mostrarian atributos, inventario, etc.
+
         System.out.println("Mostrando informacion del valiente...");
     }
 
     // Equipar objeto 
     public void equiparObjeto() {
+        // Aqui se mostrarian objetos, inventario.
         System.out.println("Equipando objeto...");
     }
 
    // Metodo para mover y explorar el mapa
-public void explorarMapa(Scanner teclado) {
-
+public void explorarMapa() {
+    
     boolean explorando = true; // Controla el bucle de movimiento
 
     while (explorando) {
@@ -102,7 +107,7 @@ public void explorarMapa(Scanner teclado) {
         System.out.println("Moverse: w=arriba, s=abajo, a=izquierda, d=derecha");
         System.out.println("Presiona 'x' para salir de movimiento");
         System.out.print("Direccion: ");
-        String dir = teclado.nextLine();
+        String dir = new Scanner(System.in).nextLine();
 
         // Permitir salir del bucle de movimiento
         if (dir.equalsIgnoreCase("x")) {
@@ -153,10 +158,12 @@ public void explorarMapa(Scanner teclado) {
                     // Revisar contenido de la casilla
                     if (casillaDestino.equals("M")) {
                         System.out.println("¡Un monstruo aparece! Iniciando combate...");
+                         // Combate.iniciarCombate
                         explorando = false; // Salir del bucle de movimiento
                     } else if (casillaDestino.equals("O")) {
                         System.out.println("Has encontrado un objeto.");
                         mapa.limpiarCasilla(valienteFila, valienteColumna);
+                         // Inventario.agregarObjeto
                         explorando = false; // Salir del bucle de movimiento
                     } else if (casillaDestino.equals(".")) {
                         System.out.println("La casilla esta vacia.");
@@ -185,6 +192,7 @@ public void explorarMapa(Scanner teclado) {
 
     // Mostrar estado del juego
     public void mostrarEstadoJuego() {
+        // Aqui se mostrarian monstruos derrotados, objetos recojido, etc.
         System.out.println("Mostrando estado del juego...");
     }
 }
