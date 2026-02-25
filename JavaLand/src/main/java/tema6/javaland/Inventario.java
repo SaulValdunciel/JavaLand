@@ -97,6 +97,24 @@ public String UsarObjeto(String nombre, Valiente valiente) {
     return hayObjetos;
 }
     
+    // Método para comprobar si hay alguna planta en el inventario
+    public boolean TienePlantaCurativa() {
+        int i = 0;
+        
+        // Usamos tu bucle while favorito: recorre mientras haya objetos
+        while (i < mochila.length && mochila[i] != null) {
+            
+            // Si el objeto que estamos mirando es una PlantaCurativa...
+            if (mochila[i] instanceof PlantaCurativa) {
+                return true; // Devolvemos true y salimos del método
+            }
+            i++;
+        }
+        
+        // Si ha mirado todos los objetos y no ha entrado al 'if' de arriba, no hay plantas
+        return false; 
+    }
+    
     public Objeto[] getMochila() {
         return mochila;
     }
