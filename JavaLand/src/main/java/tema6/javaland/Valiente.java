@@ -47,8 +47,8 @@ public class Valiente implements PersonajesInterface {
 
     }
 
-    public Valiente(Inventario inventario,String valiente, String clase, int vida, int fuerza, int defensa, int habilidad, int velocidad, int nivel) {
-        this.inventario = inventario;
+    public Valiente(String valiente, String clase, int vida, int fuerza, int defensa, int habilidad, int velocidad) {
+        inventario = new Inventario();
         this.valiente = valiente;
         this.clase = clase;
         this.vida = vida;
@@ -57,6 +57,8 @@ public class Valiente implements PersonajesInterface {
         this.habilidad = habilidad;
         this.velocidad = velocidad;
     }
+
+    
 
     //Metodos:
     @Override
@@ -265,5 +267,10 @@ public class Valiente implements PersonajesInterface {
 
     public void setInventario(Inventario inventario) {
         this.inventario = inventario;
+    }
+    
+    @Override
+    public String toString() {
+        return "Valiente{" + "clase=" + clase + ", vida=" + vida + ", fuerza=" + fuerza + ", defensa=" + defensa + ", habilidad=" + habilidad + ", velocidad=" + velocidad + ", nivel=" + nivel + '}';
     }
 }
