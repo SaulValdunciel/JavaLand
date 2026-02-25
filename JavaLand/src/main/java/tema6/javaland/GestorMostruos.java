@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class GestorMostruos implements GestoresInterface {
     
-    //array para guarfar niveles de monstruos
+    //array para guardar niveles de monstruos
     private Monstruo[] Monstruo = new Monstruo[10];  //maximo 10
     private int contador = 0;
     
@@ -46,23 +46,37 @@ public class GestorMostruos implements GestoresInterface {
             System.out.println("No se pude crear más monstruos.");
         }
     } 
-    //Eliminar el ultimo monstruo creado
+    
     //buscar el monstruo en el array del Monstruo 
+    
     //cuando encontrar borrar
     //mover borrar que ganas --> objeto monstruo(eliminarMonstruo)
     public void eliminarMonstruo(Monstruo monstruo){
-        if (contador > 0) {
-            contador--;
-            System.out.println("Monstruo eliminado.");
-        } else {
-            System.out.println("No hay mas monstruos para eliminar");
+       int indice = -1;
+       for(int i = 0; i < contador; i++){
+           if (Monstruo[i].getNombre().equalsIgnoreCase(monstruo)){
+               indice = i;
+               break;
+           }
+       }
+       // 3. Mover los elementos hacia la izquierda
+        for (int i = indice; i < contador - 1; i++) {
+            Monstruo[i] = Monstruo[i + 1];
         }
-    }
+        Monstruo[contador - 1] = null;
 
-    private void GenerarMonstruo() {
+          contador--;
     }
-    
-    public int getCantidad() { // to know  how many monstors are there 
-        return contador; 
+    // Mostrar todos los monstruos creados
+    public void mostrarMonstruos() {
+        if (contador == 0) {
+            System.out.println("No hay monstruos creados.");
+            return;
+        }
+
+        System.out.println("Lista de monstruos:");
+        for (int i = 0; i < contador; i++) {
+            System.out.println("- " + Monstruo[i].getNombre());
+        }
     }
 }
