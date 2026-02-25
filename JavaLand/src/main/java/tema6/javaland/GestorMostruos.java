@@ -28,7 +28,7 @@ public class GestorMostruos implements GestoresInterface {
    // monstruo con estadisticas segun el nivel (lo año de lista)
     public void GenerarMonstruo(int nivel){
         if (contador < Monstruo.length){
-            int vida = 40 + nivel * 10;
+            int vida = 40 + nivel;
             int fuerza = 5 + nivel;
             int defensa = 5 + nivel;
             int habilidad = 5 + nivel;
