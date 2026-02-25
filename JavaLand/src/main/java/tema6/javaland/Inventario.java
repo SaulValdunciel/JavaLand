@@ -13,6 +13,9 @@ public class Inventario implements InventarioInterface {
 
     private Objeto[] mochila;
     private final int OBJETOS_MAX = 999;
+    
+
+    
 
     public Inventario() {
 
@@ -69,6 +72,15 @@ public class Inventario implements InventarioInterface {
     
     return hayObjetos;
 }
+    
+    public Objeto[] getMochila() {
+        return mochila;
+    }
+
+    public void setMochila(Objeto[] mochila) {
+        this.mochila = mochila;
+    }
+
     }
     
     
