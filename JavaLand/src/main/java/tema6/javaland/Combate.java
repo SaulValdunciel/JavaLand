@@ -36,6 +36,9 @@ public class Combate implements CombateInterface {
             }
 
         } while (valiente.getVida() > 0 && monstruo.getVida() > 0);
+        
+        //terminar combate
+        combateTerminado(valiente, monstruo);
 
     }
 
@@ -88,6 +91,26 @@ public class Combate implements CombateInterface {
 
     @Override
     public void combateTerminado(Valiente valiente, Monstruo monstruo) {
+        
+        if(valiente.getVida() > 0) {//subir de nivel y mostrar valiente
+        
+            System.out.println("¡Ha ganado el combate!");
+            
+            //subir estadisticas
+            valiente.ValienteSubirNivel();
+            
+            //mostrar estadisicas
+            String cadena = "\nNivel: "+(valiente.getNivel())+"\nHP: "+(valiente.getVida())+"\nFuerza: "+(valiente.getFuerza())
+                    +"\nDefensa: "+(valiente.getDefensa())+"\nHabilidad: "+(valiente.getHabilidad())
+                    +"\nVelocidad" + (valiente.getVelocidad());
+            
+            System.out.println(cadena);
+            
+        } else {//perder combate
+        
+            System.out.println("Ha perdido el combate");
+        }
+        
     }
 
 }
