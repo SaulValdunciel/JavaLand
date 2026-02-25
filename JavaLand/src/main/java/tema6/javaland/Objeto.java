@@ -15,16 +15,15 @@ public class Objeto implements ObjetoInterface {
     public Objeto(String nombre) {
         this.nombre = nombre;
     }
-    //Equipar Objeto
-    @Override
-    public boolean ObjetoEquipar(Valiente valiente) {
-        System.out.println("Equipandose " + " al Valiente!");
-        return false;
-        
-    }
+
 
     public String getNombre() {
         return nombre;
+    }
+
+    @Override
+    public boolean Equipar(Valiente valiente) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     

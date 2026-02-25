@@ -92,7 +92,7 @@ public class Combate implements CombateInterface {
     @Override
     public void combateTerminado(Valiente valiente, Monstruo monstruo) {
         
-        if(valiente.getVida() < 0) {//subir de nivel y mostrar valiente
+        if(valiente.getVida() > 0) {//subir de nivel y mostrar valiente
         
             System.out.println("¡Ha ganado el combate!");
             

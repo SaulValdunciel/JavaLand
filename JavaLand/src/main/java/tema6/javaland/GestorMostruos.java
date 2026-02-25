@@ -19,6 +19,7 @@ public class GestorMostruos implements GestoresInterface {
     //Constructor vacio
     public GestorMostruos(){  
     }
+    
     @Override
     public void crear() {
         crearMostruos();
@@ -46,15 +47,23 @@ public class GestorMostruos implements GestoresInterface {
         }
     } 
     //Eliminar el ultimo monstruo creado
+        //buscar elmonstruo 
     public void eliminarMonstruo(){
         if (contador > 0) {
             contador--;
             System.out.println("Monstruo eliminado.");
         } else {
-            System.out.println("No hay monstruos para eliminar");
+            System.out.println("No hay mas monstruos para eliminar");
         }
     }
 
     private void crearMostruos() {
+    }
+    
+    public Monstruo[] getMonstruos() { 
+        return Monstruo; 
+    }
+    public int getCantidad() { // to know  how many monstors are there 
+        return contador; 
     }
 }
