@@ -74,11 +74,11 @@ public class Combate implements CombateInterface {
             //atacar al valiente
             if (daño > 0) {
 
-                System.out.println("El " + valiente.getValiente()
+                System.out.println("El " + valiente.getClase()
                         + " ha recibido " + daño + " puntos de daño");
                 valiente.recibirDaño(daño);
 
-                System.out.println("Al " + valiente.getValiente() + " le quedan "
+                System.out.println("Al " + valiente.getClase() + " le quedan "
                         + valiente.getVida() + " puntos de vida");
             } else {
 
