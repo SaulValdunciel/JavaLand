@@ -13,6 +13,9 @@ public class Inventario implements InventarioInterface {
 
     private Objeto[] mochila;
     private final int OBJETOS_MAX = 999;
+    
+
+    
 
     public Inventario() {
 
@@ -40,13 +43,37 @@ public class Inventario implements InventarioInterface {
     }
 
     @Override
-    public String UsarObjeto(String nombre, Valiente valiente) {
+public String UsarObjeto(String nombre, Valiente valiente) {
 
-        for (int i = 0; i < mochila.length; i++) {
+    // Recorremos la mochila
+    for (int i = 0; i < mochila.length; i++) {
 
+        // Comprobamos que no sea null y que el nombre coincida
+        if (mochila[i] != null && mochila[i].getNombre().equalsIgnoreCase(nombre)) {
+            
+            // 1. Aplicamos el efecto del objeto (sirve tanto para equipar espada como para curar con planta)
+            // Llama al método Equipar (asegúrate de que en las clases hijas sobrescribes este método con el efecto correcto)
+            mochila[i].Equipar(valiente); 
+            
+            // 2. Comprobamos si el objeto es un CONSUMIBLE (la Planta)
+            // Suponiendo que la clase que vas a crear se llame PlantaCurativa:
+            if (mochila[i] instanceof PlantaCurativa) {
+                
+                // Como es consumible, lo borramos del inventario
+                mochila[i] = null; s
+                return "Has consumido: " + nombre + " y te has curado.";
+                
+            } else {
+                
+                // Si NO es una planta (será Escudo, Espada, etc.), no lo borramos
+                return "Te has equipado: " + nombre;
+            }
         }
-        return null;
     }
+    
+    // Si termina el for y no ha devuelto nada, es que no lo encontró
+    return "No tienes el objeto " + nombre + " en tu mochila.";
+}
 
     @Override
     public boolean MostrarInventario() {
@@ -69,6 +96,15 @@ public class Inventario implements InventarioInterface {
     
     return hayObjetos;
 }
+    
+    public Objeto[] getMochila() {
+        return mochila;
+    }
+
+    public void setMochila(Objeto[] mochila) {
+        this.mochila = mochila;
+    }
+
     }
     
     
