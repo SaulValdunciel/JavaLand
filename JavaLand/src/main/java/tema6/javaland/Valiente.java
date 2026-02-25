@@ -147,14 +147,13 @@ public class Valiente implements PersonajesInterface {
     }
 
     @Override
-    public int ValienteSubirNivel() {
+    public void ValienteSubirNivel() {
         nivel++; //Aumenta el nivel 
         vida += 10; //Aumenta la vida
         fuerza++; //Aumenta la fuerza
         defensa++; //Aumenta la defensa
         habilidad++; //Aumenta la habilidad
         velocidad++; //Aumenta la velocidad
-        return nivel;
     }
 
     //llamar cada turno desde combate para bajar turnos del mago y quitar buff del picaro 
