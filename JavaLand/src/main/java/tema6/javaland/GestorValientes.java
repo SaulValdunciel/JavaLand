@@ -23,10 +23,6 @@ public class GestorValientes implements GestoresInterface {
     
     //constructor de valores iniciales 
     public GestorValientes() {
-        valiente[0] = new Valiente("Guerrero", 15, 10, 7, 8, 8);   
-        valiente[1] = new Valiente("Paladín", 8, 15, 7, 10, 7);
-        valiente[2] = new Valiente("Mago", 7, 8, 17, 8, 8);
-        valiente[3] = new Valiente("Pícaro", 8, 7, 10, 15, 10);
     
     System.out.println("Valientes creados correctamente.");
     }
@@ -51,6 +47,7 @@ public class GestorValientes implements GestoresInterface {
         int velocidad = scanner.nextInt();
 
         if (contador < valiente.length) {
+            int vida = 0;
             valiente[contador] = new Valiente(nombre, vida, fuerza, defensa, habilidad, velocidad);
             System.out.println("Valiente creado correctamente.");
             contador++;
