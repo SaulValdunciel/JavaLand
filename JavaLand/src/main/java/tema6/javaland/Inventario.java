@@ -60,7 +60,7 @@ public String UsarObjeto(String nombre, Valiente valiente) {
             if (mochila[i] instanceof PlantaCurativa) {
                 
                 // Como es consumible, lo borramos del inventario
-                mochila[i] = null; s
+                mochila[i] = null; 
                 return "Has consumido: " + nombre + " y te has curado.";
                 
             } else {
