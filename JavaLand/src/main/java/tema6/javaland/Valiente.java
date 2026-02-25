@@ -13,8 +13,7 @@ import java.util.Random;
 public class Valiente implements PersonajesInterface {
 
     //Atributos
-    protected String[] inventario; //Inventario del valiente
-    protected String valiente; //Nombre 
+    protected Inventario inventario; //Inventario del valiente
     protected String clase; // Guerrero, Paladin, Mago, Picaro
     protected int vida; //0-100
     protected int fuerza; //0-20
@@ -47,9 +46,8 @@ public class Valiente implements PersonajesInterface {
 
     }
 
-    public Valiente(String[] inventario,String valiente, String clase, int vida, int fuerza, int defensa, int habilidad, int velocidad, int nivel) {
-        this.inventario = inventario;
-        this.valiente = valiente;
+    public Valiente(String clase, int vida, int fuerza, int defensa, int habilidad, int velocidad) {
+        inventario = new Inventario();
         this.clase = clase;
         this.vida = vida;
         this.fuerza = fuerza;
@@ -57,6 +55,8 @@ public class Valiente implements PersonajesInterface {
         this.habilidad = habilidad;
         this.velocidad = velocidad;
     }
+
+    
 
     //Metodos:
     @Override
@@ -147,14 +147,13 @@ public class Valiente implements PersonajesInterface {
     }
 
     @Override
-    public int ValienteSubirNivel() {
+    public void ValienteSubirNivel() {
         nivel++; //Aumenta el nivel 
         vida += 10; //Aumenta la vida
         fuerza++; //Aumenta la fuerza
         defensa++; //Aumenta la defensa
         habilidad++; //Aumenta la habilidad
         velocidad++; //Aumenta la velocidad
-        return nivel;
     }
 
     //llamar cada turno desde combate para bajar turnos del mago y quitar buff del picaro 
@@ -203,10 +202,6 @@ public class Valiente implements PersonajesInterface {
         return velEfectiva >= (objetivo.getVelocidad() * 2);
     }
 
-    public String getValiente() {
-        return valiente;
-    }
-
     public String getClase() {
         return clase;
     }
@@ -243,12 +238,8 @@ public class Valiente implements PersonajesInterface {
         return escudo;
     }
 
-    public String[] getInventario() {
+    public Inventario getInventario() {
         return inventario;
-    }
-
-    public void setValiente(String valiente) {
-        this.valiente = valiente;
     }
 
     public void setClase(String clase) {
@@ -263,7 +254,16 @@ public class Valiente implements PersonajesInterface {
         this.escudo = escudo;
     }
 
-    public void setInventario(String[] inventario) {
+    public void setInventario(Inventario inventario) {
         this.inventario = inventario;
+    }
+
+    public void setVida(int vida) {
+        this.vida = vida;
+    }
+    
+    @Override
+    public String toString() {
+        return "Valiente{" + "clase=" + clase + ", vida=" + vida + ", fuerza=" + fuerza + ", defensa=" + defensa + ", habilidad=" + habilidad + ", velocidad=" + velocidad + ", nivel=" + nivel + '}';
     }
 }
