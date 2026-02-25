@@ -10,4 +10,5 @@ package tema6.javaland;
  */
 public interface ObjetoInterface {
     
+    public boolean Equipar(Valiente valiente);
 }
