@@ -7,24 +7,27 @@ package tema6.javaland;
  *
  * @author DAM105
  */
-public class PlantaCurativa extends Objeto{
-    // Atributos: ataque
-    private int ataque;
-  
-    //constructor: crear un arma con nombre y ataque
-    public PlantaCurativa(String nombre, int ataque){
-        super(nombre);
-        this.ataque = ataque;
-    }
+public class PlantaCurativa extends Objeto {
     
-    //metodos: para obtener los valores 
-    // getAtaque()
-    public String getNombre(){
-        return nombre;
+    // 1. Atributo para la curación
+    private int puntosCuracion;
+
+    // 2. Constructor
+    public PlantaCurativa(String nombre, int puntosCuracion) {
+        super(nombre); 
+        this.puntosCuracion = puntosCuracion;
     }
-    
-    // getNombre
-    public int getAtaque(){
-        return ataque;
+
+    // 3. Método Equipar modificado para curar
+    @Override
+    public boolean Equipar(Valiente valiente) {
+        
+        // Sumamos la vida (ajusta "getVida" y "setVida" a los métodos reales que tengas)
+        int nuevaVida = valiente.getVida() + puntosCuracion;
+        valiente.setVida(nuevaVida);
+        
+        System.out.println("Te has comido " + this.nombre + " y has recuperado " + puntosCuracion + " de vida.");
+                           
+        return true; 
     }
 }
