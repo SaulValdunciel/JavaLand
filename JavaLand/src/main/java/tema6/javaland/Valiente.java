@@ -14,7 +14,6 @@ public class Valiente implements PersonajesInterface {
 
     //Atributos
     protected Inventario inventario; //Inventario del valiente
-    protected String valiente; //Nombre 
     protected String clase; // Guerrero, Paladin, Mago, Picaro
     protected int vida; //0-100
     protected int fuerza; //0-20
@@ -47,9 +46,8 @@ public class Valiente implements PersonajesInterface {
 
     }
 
-    public Valiente(String valiente, String clase, int vida, int fuerza, int defensa, int habilidad, int velocidad) {
+    public Valiente(String clase, int vida, int fuerza, int defensa, int habilidad, int velocidad) {
         inventario = new Inventario();
-        this.valiente = valiente;
         this.clase = clase;
         this.vida = vida;
         this.fuerza = fuerza;
@@ -205,10 +203,6 @@ public class Valiente implements PersonajesInterface {
         return velEfectiva >= (objetivo.getVelocidad() * 2);
     }
 
-    public String getValiente() {
-        return valiente;
-    }
-
     public String getClase() {
         return clase;
     }
@@ -247,10 +241,6 @@ public class Valiente implements PersonajesInterface {
 
     public Inventario getInventario() {
         return inventario;
-    }
-
-    public void setValiente(String valiente) {
-        this.valiente = valiente;
     }
 
     public void setClase(String clase) {
