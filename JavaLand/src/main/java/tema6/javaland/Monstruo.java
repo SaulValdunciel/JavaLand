@@ -10,39 +10,65 @@ import java.util.Random;
  *
  * @author cuent
  */
-public class Monstruo {
-    
+public class Monstruo implements PersonajesInterface {
+
+    protected String nombre;//nombre del monstruo
     protected int vida; // entre 0 y 100
     protected int fuerza; // entre 1 y 20
     protected int defensa; // entre 1 y 20
     protected int habilidad; // entre 1 y 20
     protected int velocidad; // entre 1 y 20
     protected int nivel;// define las estadísticas según GestorMosntruos
+    protected static int contador = 0; // contador de monstruos totales
 
-    public int atacar(Valiente valiente) {
+    public Monstruo(String nombre, int vida, int fuerza, int defensa, int habilidad, int velocidad, int nivel) {
+        this.nombre = nombre;
+        this.vida = vida;
+        this.fuerza = fuerza;
+        this.defensa = defensa;
+        this.habilidad = habilidad;
+        this.velocidad = velocidad;
+        this.nivel = nivel;
+        contador++;
+    }
 
+    @Override
+    public <T> int atacar(T personaje) {
+
+        Valiente valiente = (Valiente) personaje;
         Random random = new Random();
         int Variable_aleatoria = random.nextInt(101);
-        int daño = 0;
+        int daño;
+
+        if (Variable_aleatoria < (4 * (habilidad - (valiente.getDefensa() + valiente.getEscudo().getDefensa())))) {
+
+            //restar vida al valiente según la fuerza del monstruo
+            daño = valiente.getVida() - fuerza;
+
+        } else {
         
-        if (Variable_aleatoria < (4 * (habilidad -(valiente.getDefensa() + valiente.getEscudo().getDefensa())))) {
-            
-            
-            
-            
+            daño = 0;
         }
+
+        return daño;
+    }
+
+    @Override
+    public int recibirDaño(int cantidad) {
         
-        return daño;
+        vida -= cantidad;
+        
+        return vida;
+    }
+    
+    public void monstruosTotales(int num){
+    
+         contador = num;
+        
     }
 
-    public int recibirDaño() {
 
-        int daño = 0;
-
-        return daño;
-
-    }
-
+    //getters y setters
     public int getFuerza() {
         return fuerza;
     }
@@ -67,5 +93,49 @@ public class Monstruo {
         return velocidad;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setVida(int vida) {
+        this.vida = vida;
+    }
+
+    public void setFuerza(int fuerza) {
+        this.fuerza = fuerza;
+    }
+
+    public void setDefensa(int defensa) {
+        this.defensa = defensa;
+    }
+
+    public void setHabilidad(int habilidad) {
+        this.habilidad = habilidad;
+    }
+
+    public void setVelocidad(int velocidad) {
+        this.velocidad = velocidad;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
     
+    //no usar
+    @Override
+    public boolean ValienteUsarHabilidadEspecial() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int ValienteSubirNivel() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    
+
 }

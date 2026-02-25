@@ -4,80 +4,83 @@
  */
 package tema6.javaland;
 
-
-
 /**
  *
  * @author DAM105
  */
 public class Inventario implements InventarioInterface {
 //Lista ARRAY para Guardar Objetos en el INVENTARIO
-    
+
     private Objeto[] mochila;
     private final int OBJETOS_MAX = 999;
+    
+
+    
 
     public Inventario() {
-        
+
         this.mochila = new Objeto[OBJETOS_MAX];
     }
 
     @Override
-    public boolean InventarioAgregarObjeto() {
+    public boolean AgregarObjeto(Objeto obj) {
+        boolean validar = false;
 
-        //Buscar hueco libre
-        int huecolibre = -1;
+        //Añadir objeto hueco libres
         for (int i = 0; i < mochila.length; i++) {
 
             if (mochila[i] == null) {
 
-                huecolibre = i;
+                mochila[i] = obj;
+
+                validar = true;
                 break;
             }
         }
-        //Si el Inventario esta lleno
-        if (huecolibre == -1) {
 
-            System.out.println("¡Echa Pa´tras mostro, Inventario Lleno");
-
-        }
-        return false;
+        return validar;
 
     }
 
     @Override
-    public String InventarioUsarObjeto(String[] args) {
+    public String UsarObjeto(String nombre, Valiente valiente) {
 
-        if (args.length == 0) {
-            return "Falta el nombre del objeto.";
-        }
-
-        String nombre = args[0]; 
-
-        // 2. Recorremos la mochila
         for (int i = 0; i < mochila.length; i++) {
-            
-            // Verificamos que el hueco NO sea null y si el nombre coincide
-            if (mochila[i] != null && mochila[i].getNombre().equals(nombre)) {
-                
-                mochila[i] = null; 
-                
-                return "Has usado el objeto: " + nombre;
-            }
-        }
 
-        
-        return "No tienes ese objeto.";
-         
+        }
+        return null;
     }
 
     @Override
-    public boolean InventarioMostrarInventario() {
+    public boolean MostrarInventario() {
 
-        
-        return false;
+        boolean hayObjetos = false;
+        int i = 0;
+        System.out.println("¡Obejtos Disponibles!");
 
+        //Revisar los objetos del Invent
+        while (i < mochila.length && mochila[i] != null) {
+            
+            System.out.println("-" + mochila[i].getNombre());
+            
+            hayObjetos = true;
+            i++;
+        }
+        if (!hayObjetos) {
+        System.out.println("El inventario está vacío.");
+    }
+    
+    return hayObjetos;
+}
+    
+    public Objeto[] getMochila() {
+        return mochila;
     }
 
-}
+    public void setMochila(Objeto[] mochila) {
+        this.mochila = mochila;
+    }
 
-
+    }
+    
+    
