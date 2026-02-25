@@ -22,7 +22,7 @@ public class GestorMostruos implements GestoresInterface {
     
     @Override
     public void crear() {
-        crearMostruos();
+        
     }
 
    // monstruo con estadisticas segun el nivel (lo año de lista)
@@ -47,8 +47,10 @@ public class GestorMostruos implements GestoresInterface {
         }
     } 
     //Eliminar el ultimo monstruo creado
-        //buscar elmonstruo 
-    public void eliminarMonstruo(){
+    //buscar el monstruo en el array del Monstruo 
+    //cuando encontrar borrar
+    //mover borrar que ganas --> objeto monstruo(eliminarMonstruo)
+    public void eliminarMonstruo(Monstruo monstruo){
         if (contador > 0) {
             contador--;
             System.out.println("Monstruo eliminado.");
@@ -57,12 +59,9 @@ public class GestorMostruos implements GestoresInterface {
         }
     }
 
-    private void crearMostruos() {
+    private void GenerarMonstruo() {
     }
     
-    public Monstruo[] getMonstruos() { 
-        return Monstruo; 
-    }
     public int getCantidad() { // to know  how many monstors are there 
         return contador; 
     }
