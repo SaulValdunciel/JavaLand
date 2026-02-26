@@ -9,25 +9,28 @@ package tema6.javaland;
  */
 public class PlantaCurativa extends Objeto {
     
-    // 1. Atributo para la curación
-    private int puntosCuracion;
 
     // 2. Constructor
-    public PlantaCurativa(String nombre, int puntosCuracion) {
+    public PlantaCurativa(String nombre) {
         super(nombre); 
-        this.puntosCuracion = puntosCuracion;
     }
 
     // 3. Método Equipar modificado para curar
     @Override
     public boolean Equipar(Valiente valiente) {
         
-        // Sumamos la vida (ajusta "getVida" y "setVida" a los métodos reales que tengas)
-        int nuevaVida = valiente.getVida() + puntosCuracion;
+        // 1. Obtenemos la vida que tiene en este momento
+        int vidaActual = valiente.getVida();
+        
+        // 2. Calculamos el 50% de esa vida
+        int curacion = vidaActual / 2; 
+        
+        // 3. Se lo sumamos y actualizamos la vida del Valiente
+        int nuevaVida = vidaActual + curacion;
         valiente.setVida(nuevaVida);
         
-        System.out.println("Te has comido " + this.nombre + " y has recuperado " + puntosCuracion + " de vida.");
+        System.out.println("Te has comido " + this.nombre + " y te has curado " + curacion + " puntos (50% de tu vida).");
                            
-        return true; 
+        return true;
     }
 }

@@ -50,22 +50,18 @@ public String UsarObjeto(String nombre, Valiente valiente) {
 
         // Comprobamos que no sea null y que el nombre coincida
         if (mochila[i] != null && mochila[i].getNombre().equalsIgnoreCase(nombre)) {
-            
-            // 1. Aplicamos el efecto del objeto (sirve tanto para equipar espada como para curar con planta)
-            // Llama al método Equipar (asegúrate de que en las clases hijas sobrescribes este método con el efecto correcto)
+          
             mochila[i].Equipar(valiente); 
             
-            // 2. Comprobamos si el objeto es un CONSUMIBLE (la Planta)
-            // Suponiendo que la clase que vas a crear se llame PlantaCurativa:
             if (mochila[i] instanceof PlantaCurativa) {
                 
                 // Como es consumible, lo borramos del inventario
-                mochila[i] = null; s
+                mochila[i] = null; 
                 return "Has consumido: " + nombre + " y te has curado.";
                 
             } else {
                 
-                // Si NO es una planta (será Escudo, Espada, etc.), no lo borramos
+               
                 return "Te has equipado: " + nombre;
             }
         }
@@ -96,6 +92,24 @@ public String UsarObjeto(String nombre, Valiente valiente) {
     
     return hayObjetos;
 }
+    
+    // Método para comprobar si hay alguna planta en el inventario
+    public boolean TienePlantaCurativa() {
+        int i = 0;
+        
+        
+        while (i < mochila.length && mochila[i] != null) {
+            
+            
+            if (mochila[i] instanceof PlantaCurativa) {
+                return true; // Devolvemos true y salimos del método
+            }
+            i++;
+        }
+        
+        // Si ha mirado todos los objetos y no ha entrado al 'if' de arriba, no hay plantas
+        return false; 
+    }
     
     public Objeto[] getMochila() {
         return mochila;
