@@ -4,79 +4,53 @@
  */
 package tema6.javaland;
 
-import java.util.Scanner;
-
 /**
  *
  * @author cuent
  */
 public class GestorMostruos implements GestoresInterface {
-    
-    //array para guardar niveles de monstruos
-    private Monstruo[] Monstruo = new Monstruo[10];  //maximo 10
-    private int contador = 0;
-    
+
+    //array para guarfar niveles de monstruos
+    private Monstruo[] monstruos = new Monstruo[10];  //maximo 10
+
     //Constructor vacio
-    public GestorMostruos(){  
+    public GestorMostruos() {
     }
-    
+
     @Override
     public void crear() {
+
+        monstruos[0] = new Monstruo("No muerto", 35, 6, 3, 9, 7);
+        monstruos[1] = new Monstruo("Kobold", 30, 7, 5, 0, 9);
+        monstruos[2] = new Monstruo("Orco", 35, 13, 9, 1, 7);
+        monstruos[3] = new Monstruo("Cubo Gelatinoso", 55, 4, 15, 2, 3);
+        monstruos[4] = new Monstruo("Araña Gigante", 40,12,5,1,13);
+        monstruos[5] = new Monstruo("Hombre Tigre", 40,2,6,15,10);
+        monstruos[6] = new Monstruo("Tiefling", 50, 15, 8, 0, 15);
         
     }
 
-   // monstruo con estadisticas segun el nivel (lo año de lista)
-    public void GenerarMonstruo(int nivel){
-        if (contador < Monstruo.length){
-            int vida = 40 + nivel;
-            int fuerza = 5 + nivel;
-            int defensa = 5 + nivel;
-            int habilidad = 5 + nivel;
-            int velocidad = 5 + nivel;
-            
-            Monstruo[contador] = new Monstruo( 
-                    "Monstruo nivel " + nivel,
-                    vida, fuerza, defensa, habilidad, velocidad, nivel 
-            );
-            
-            System.out.println("Monstruo creado de nivel: " + nivel);
-            contador++;
-            
-        } else{
-            System.out.println("No se pude crear más monstruos.");
-        }
-    } 
-    
-    //buscar el monstruo en el array del Monstruo 
-    
-    //cuando encontrar borrar
-    //mover borrar que ganas --> objeto monstruo(eliminarMonstruo)
-    public void eliminarMonstruo(Monstruo monstruo){
-       int indice = -1;
-       for(int i = 0; i < contador; i++){
-           if (Monstruo[i].getNombre().equalsIgnoreCase(monstruo)){
-               indice = i;
-               break;
-           }
-       }
-       // 3. Mover los elementos hacia la izquierda
-        for (int i = indice; i < contador - 1; i++) {
-            Monstruo[i] = Monstruo[i + 1];
-        }
-        Monstruo[contador - 1] = null;
+    // monstruo con estadisticas segun el nivel (lo año de lista)
+    public void GenerarMonstruo(int nivel) {
 
-          contador--;
     }
-    // Mostrar todos los monstruos creados
-    public void mostrarMonstruos() {
-        if (contador == 0) {
-            System.out.println("No hay monstruos creados.");
-            return;
-        }
 
-        System.out.println("Lista de monstruos:");
-        for (int i = 0; i < contador; i++) {
-            System.out.println("- " + Monstruo[i].getNombre());
+    //Eliminar el ultimo monstruo derrotado
+    public void eliminarMonstruo(String nombre) {
+
+        for (int i = 0; i < monstruos.length; i++) {
+            
+            if (monstruos[i].getNombre().equalsIgnoreCase(nombre)) {
+                
+                monstruos[i]= null;
+            }
         }
+        
     }
+    
+    public Monstruo getMonstruo(int indice){
+    
+        return monstruos[indice];
+    }
+
 }
