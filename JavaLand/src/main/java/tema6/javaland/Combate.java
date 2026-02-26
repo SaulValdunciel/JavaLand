@@ -5,6 +5,7 @@
 package tema6.javaland;
 
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  *
@@ -137,21 +138,17 @@ public class Combate implements CombateInterface {
         
         if(valiente.getVida() > 0) {//subir de nivel y mostrar valiente
         
-            System.out.println("¡Ha ganado el combate!");
+            System.out.println("¡Ha ganado el combate! Subes de nivel");
             
             //subir estadisticas
             valiente.ValienteSubirNivel();
             
             //mostrar estadisicas
-            String cadena = "\nNivel: "+(valiente.getNivel())+"\nHP: "+(valiente.getVida())+"\nFuerza: "+(valiente.getFuerza())
-                    +"\nDefensa: "+(valiente.getDefensa())+"\nHabilidad: "+(valiente.getHabilidad())
-                    +"\nVelocidad" + (valiente.getVelocidad());
-            
-            System.out.println(cadena);
+            System.out.println(valiente.toString());
             
         } else {//perder combate
         
-            System.out.println("Ha perdido el combate");
+            System.out.println("Has muerto");
         }
         
     }
