@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package tema6.javaland;
+
 /**
  *
  * @author PC
@@ -14,7 +15,7 @@ public class Valiente implements PersonajesInterface {
     // Atributos
     protected Inventario inventario; // Inventario del valiente
     protected String clase;          // Guerrero, Paladin, Mago, Picaro
-    
+
     protected int vida;        // vida 0-100
     protected int vidaMaxima;  // vida max
 
