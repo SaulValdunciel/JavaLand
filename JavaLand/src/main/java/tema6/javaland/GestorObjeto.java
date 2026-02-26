@@ -11,7 +11,7 @@ package tema6.javaland;
 public class GestorObjeto implements GestoresInterface {
     
     //array para crear los objetos que tendremos por el mapa
-    private Objeto[] objetos = new Objeto[5]; //tendremos 5 objetos definidos
+    private Objeto[] objetos = new Objeto[7]; //tendremos 7 objetos definidos
     
     //contructor por defecto
     public GestorObjeto() {
@@ -22,9 +22,11 @@ public class GestorObjeto implements GestoresInterface {
     public void crear() {
         objetos[0] = new Objeto("Espada desgastda");
         objetos[1] = new Objeto("Espada de Hierro");
-        objetos[2] = new Objeto("Escudo oxidado");
-        objetos[3] = new Objeto("Escudo de Hierro");
-        objetos[4] = new Objeto("Planta Curativa");
+        objetos[2] = new Objeto("Espada de Hierro");
+        objetos[3] = new Objeto("Escudo oxidado");
+        objetos[4] = new Objeto("Escudo de Hierro");
+        objetos[5] = new Objeto("Espada de Hierro");
+        objetos[6] = new Objeto("Planta Curativa");
 
     }
     
