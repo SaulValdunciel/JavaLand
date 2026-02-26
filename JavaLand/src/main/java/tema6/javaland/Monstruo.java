@@ -19,6 +19,7 @@ public class Monstruo implements PersonajesInterface {
     protected int habilidad; // entre 1 y 20
     protected int velocidad; // entre 1 y 20
     protected int nivel;// define las estadísticas según GestorMosntruos
+    protected static int contador = 0; // contador de monstruos totales
 
     public Monstruo(String nombre, int vida, int fuerza, int defensa, int habilidad, int velocidad, int nivel) {
         this.nombre = nombre;
@@ -28,6 +29,7 @@ public class Monstruo implements PersonajesInterface {
         this.habilidad = habilidad;
         this.velocidad = velocidad;
         this.nivel = nivel;
+        contador++;
     }
 
     @Override
@@ -36,13 +38,16 @@ public class Monstruo implements PersonajesInterface {
         Valiente valiente = (Valiente) personaje;
         Random random = new Random();
         int Variable_aleatoria = random.nextInt(101);
-        int daño = 0;
+        int daño;
 
         if (Variable_aleatoria < (4 * (habilidad - (valiente.getDefensa() + valiente.getEscudo().getDefensa())))) {
 
             //restar vida al valiente según la fuerza del monstruo
             daño = valiente.getVida() - fuerza;
 
+        } else {
+        
+            daño = 0;
         }
 
         return daño;
@@ -50,26 +55,18 @@ public class Monstruo implements PersonajesInterface {
 
     @Override
     public int recibirDaño(int cantidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        vida -= cantidad;
+        
+        return vida;
+    }
+    
+    public void monstruosTotales(int num){
+    
+         contador = num;
+        
     }
 
-    @Override
-    public boolean ValienteUsarHabilidadEspecial() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public int ValienteSubirNivel() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public int recibirDaño() {
-
-        int daño = 0;
-
-        return daño;
-
-    }
 
     //getters y setters
     public int getFuerza() {
@@ -126,6 +123,17 @@ public class Monstruo implements PersonajesInterface {
 
     public void setNivel(int nivel) {
         this.nivel = nivel;
+    }
+    
+    //no usar
+    @Override
+    public boolean ValienteUsarHabilidadEspecial() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int ValienteSubirNivel() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     
