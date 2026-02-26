@@ -257,6 +257,26 @@ public class Valiente implements PersonajesInterface {
     public void setInventario(Inventario inventario) {
         this.inventario = inventario;
     }
+
+    public void setVida(int vida) {
+        this.vida = vida;
+    }
+
+    public void setFuerza(int fuerza) {
+        this.fuerza = fuerza;
+    }
+
+    public void setDefensa(int defensa) {
+        this.defensa = defensa;
+    }
+
+    public void setHabilidad(int habilidad) {
+        this.habilidad = habilidad;
+    }
+
+    public void setVelocidad(int velocidad) {
+        this.velocidad = velocidad;
+    }
     
     @Override
     public String toString() {
