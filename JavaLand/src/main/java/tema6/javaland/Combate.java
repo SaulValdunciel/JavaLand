@@ -18,15 +18,19 @@ public class Combate implements CombateInterface {
 
         do {//bucle hasta que la vida de valiente o monstruo llegue a 0 o menos
 
+           //mostrar monstruo al que se va a enfrentar
+            System.out.println(monstruo.getNombre());
+            
+            //determinar orden
             Random randomV = new Random();//aleatorio para la iniciativa del valiente
             double Iniciativa_Valiente = valiente.getVelocidad() * (randomV.nextDouble(1) + 0.75);
 
             Random randomM = new Random();//aleatorio para la iniciativa del monstruo
             double Iniciativa_Monstruo = monstruo.getVelocidad() * (randomM.nextDouble(1) + 0.75);
 
-            //determinar el orden de los turnos según la iniciativa
+            //orden de los turnos según la iniciativa
             if (Iniciativa_Valiente > Iniciativa_Monstruo) {
-
+  
                 turno(valiente, monstruo);
                 turno(monstruo,valiente);
 
@@ -46,17 +50,28 @@ public class Combate implements CombateInterface {
     @Override
     public <T> void turno(T atacante, T defensor) {
 
+        //variables
+        int opcion=0;
         //si el atacante es un objeto de Valiente
         if (atacante instanceof Valiente) {
 
-            Valiente valiente = (Valiente) atacante;
+             Valiente valiente = (Valiente) atacante;
             Monstruo monstruo = (Monstruo) defensor;
-            //atacar al monstruo
-            int daño = valiente.atacar(defensor);
+            
+            System.out.println("\n-MENU DE BATALLA-");
+            System.out.println("1. Ataque básico");
+            System.out.println("2. Habilidad especial");
+            System.out.println("3. Abrir mochila");
+            
+            switch(opcion){
+            
+                case 1 -> {//ataque normal
+                
+                    int daño = valiente.atacar(defensor);
 
             if (daño > 0) {
 
-                System.out.println("El " + monstruo.getNombre() + " ha recibido "
+                System.out.println(monstruo.getNombre() + " ha recibido "
                         + daño + " puntos de daño");
 
                 monstruo.recibirDaño(daño);
@@ -65,6 +80,34 @@ public class Combate implements CombateInterface {
 
                 System.out.println("El ataque falló");
             }
+                    
+                    
+                }
+                
+                case 2 -> {//usar habilidad especial, se lanza en el siguiente turno al atacar
+                
+                    if (!valiente.ValienteUsarHabilidadEspecial()) {
+                        
+                        System.out.println("Habilidad lanzada");
+                    } else {
+                    
+                        System.out.println("Habilidad en cooldown");
+                    }   
+                    
+                }
+                
+                case 3 -> {//curarse
+                
+                }
+                
+                default -> {
+                
+                    System.out.println("Default");
+                }
+            }
+           
+            //atacar al monstruo
+            
 
         } else {// si el atacante es un objeto de Monstruo
 

@@ -19,18 +19,18 @@ public class Juego {
 
     // Constructor
     public Juego(int tamanoMapa) {
-        mapa = new Mapa(tamanoMapa, true);  // Crear mapa sin revelar todo o revelando
+        mapa = new Mapa(tamanoMapa, false);  // Crear mapa sin revelar todo o revelando
         valienteFila = 0;                    // Posicion inicial del valiente (fila 0)
         valienteColumna = 0;                 // Posicion inicial del valiente (columna 0)
         juegoActivo = true;                  // El juego esta activo
 
         mapa.mapas();                         // Cargar un mapa aleatorio con rocas
-//        mapa.generarYMostrarMapa(valienteFila, valienteColumna); // Mostrar mapa inicial
+        mapa.generarYMostrarMapa(valienteFila, valienteColumna); // Mostrar mapa inicial
     }
 
     // Metodo principal para iniciar el juego
     public void iniciarJuego() {
-//        Scanner teclado = new Scanner(System.in); // Lectura de teclado
+
 
         System.out.println("Bienvenido a La Tierra de los Codigos Olvidados!");
         creacionOEleccionValiente(); // Crear o elegir valiente
@@ -101,16 +101,17 @@ public void explorarMapa() {
     boolean explorando = true; // Controla el bucle de movimiento
 
     while (explorando) {
+        try {
         // Mostrar mapa con la posicion actual del valiente
         mapa.mostrarMapa(valienteFila, valienteColumna);
 
         System.out.println("Moverse: w=arriba, s=abajo, a=izquierda, d=derecha");
         System.out.println("Presiona 'x' para salir de movimiento");
         System.out.print("Direccion: ");
-        String dir = new Scanner(System.in).nextLine();
+        String direcion = new Scanner(System.in).nextLine().toLowerCase();
 
         // Permitir salir del bucle de movimiento
-        if (dir.equalsIgnoreCase("x")) {
+        if (direcion.equalsIgnoreCase("x")) {
             explorando = false;
             System.out.println("Saliendo del modo de movimiento...");
         }
@@ -119,7 +120,7 @@ public void explorarMapa() {
         int nuevaFila = valienteFila;
         int nuevaColumna = valienteColumna;
 
-        switch (dir) {
+        switch (direcion) {
             case "w": 
                 nuevaFila--;
                 break;
@@ -159,6 +160,7 @@ public void explorarMapa() {
                     if (casillaDestino.equals("M")) {
                         System.out.println("¡Un monstruo aparece! Iniciando combate...");
                          // Combate.iniciarCombate
+                        mapa.limpiarCasilla(valienteFila, valienteColumna);
                         explorando = false; // Salir del bucle de movimiento
                     } else if (casillaDestino.equals("O")) {
                         System.out.println("Has encontrado un objeto.");
@@ -179,13 +181,24 @@ public void explorarMapa() {
 
         } else {
             // No se mueve
-            if (!dir.equals("w") && !dir.equals("s") && !dir.equals("a") && !dir.equals("d")) {
+            if (!direcion.equals("w") && !direcion.equals("s") && !direcion.equals("a") && !direcion.equals("d")) {
                 // Direccion invalida ya impresa
             } else {
                 System.out.println("No puedes moverte en esa direccion.");
             }
         }
-    }
+    }catch(NumberFormatException e){
+        System.out.println("Error: introduce un numero");
+    }catch(IllegalArgumentException e){
+        System.out.println("Opcion fuera del menu");
+    }catch(NullPointerException e){
+        System.out.println("Acceder a array sin crearlo");
+    }catch(ArrayIndexOutOfBoundsException e){
+        System.out.println("Error Indice fuera del array");
+    }catch(Exception e){
+        System.out.println("Error desconocido");
+    } 
+  }    
 }
 
 

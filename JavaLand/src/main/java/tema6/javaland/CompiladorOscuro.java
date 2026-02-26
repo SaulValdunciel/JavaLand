@@ -13,8 +13,8 @@ public class CompiladorOscuro extends Monstruo {
 
 
     //crear compilador oscuro
-    public CompiladorOscuro(String nombre, int vida, int fuerza, int defensa, int habilidad, int velocidad, int nivel) {
-        super("Compilador Oscuro", 150, fuerza * contador, defensa * contador, habilidad * contador, velocidad * contador, nivel);
+    public CompiladorOscuro(String nombre, int vida, int fuerza, int defensa, int habilidad, int velocidad) {
+        super("Compilador Oscuro", 150, fuerza * contador, defensa * contador, habilidad * contador, velocidad * contador);
     }
 
     @Override
