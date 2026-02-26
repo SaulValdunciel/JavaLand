@@ -124,6 +124,11 @@ public class Monstruo implements PersonajesInterface {
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
+
+    @Override
+    public String toString() {
+        return "Monstruo{" + "nombre=" + nombre + ", vida=" + vida + ", fuerza=" + fuerza + ", defensa=" + defensa + ", habilidad=" + habilidad + ", velocidad=" + velocidad + ", nivel=" + nivel + '}';
+    }
     
     //no usar
     @Override
@@ -132,7 +137,7 @@ public class Monstruo implements PersonajesInterface {
     }
 
     @Override
-    public int ValienteSubirNivel() {
+    public void ValienteSubirNivel() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
