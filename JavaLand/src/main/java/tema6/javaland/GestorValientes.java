@@ -114,6 +114,7 @@ public class GestorValientes implements GestoresInterface {
         return indice;
     }
 
+    //devuelve el valiente que se encuentra en el indice
     public Valiente getValiente(int indice) {
         return valientes[indice];
     }
