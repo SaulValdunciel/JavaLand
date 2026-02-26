@@ -93,21 +93,21 @@ public class Valiente implements PersonajesInterface {
             bonusArma = arma.getAtaque();
         }
 
-        int danio;
+        int daño;
 
         // GUERRERO: siguiente ataque 3x fuerza
         if (guerreroTriplePendiente) {
-            danio = (fuerza * 3) + bonusArma;
+            daño = (fuerza * 3) + bonusArma;
             guerreroTriplePendiente = false;
         } else {
-            danio = fuerza + bonusArma;
+            daño = fuerza + bonusArma;
         }
 
         // PÍCARO: velocidad x2 para el siguiente ataque; si duplica al enemigo -> 2 golpes (daño x2)
         if (clase.equalsIgnoreCase("PICARO") && picaroVelocidadDuplicada) {
             int velEf = velocidad * 2;
             if (velEf >= monstruo.getVelocidad() * 2) {
-                danio = danio * 2; // simulamos dos ataques
+                daño = daño * 2; // simulamos dos ataques
             }
             picaroVelocidadDuplicada = false; // se consume
         }
@@ -117,7 +117,7 @@ public class Valiente implements PersonajesInterface {
             magoTurnos--;
         }
 
-        return danio;
+        return daño;
     }
 
     @Override
