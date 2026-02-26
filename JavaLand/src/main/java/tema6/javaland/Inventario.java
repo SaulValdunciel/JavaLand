@@ -12,7 +12,7 @@ public class Inventario implements InventarioInterface {
 //Lista ARRAY para Guardar Objetos en el INVENTARIO
 
     private Objeto[] mochila;
-    private final int OBJETOS_MAX = 999;
+    private final int OBJETOS_MAX = 99;
 
     public Inventario() {
 
