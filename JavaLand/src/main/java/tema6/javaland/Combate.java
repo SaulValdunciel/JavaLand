@@ -5,6 +5,7 @@
 package tema6.javaland;
 
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  *
@@ -45,13 +46,34 @@ public class Combate implements CombateInterface {
     @Override
     public <T> void turno(T atacante, T defensor) {
 
+<<<<<<< Updated upstream
+=======
+        //variables
+        int opcion=0;
+        boolean salir=false;
+        
+>>>>>>> Stashed changes
         //si el atacante es un objeto de Valiente
         if (atacante instanceof Valiente) {
 
             Valiente valiente = (Valiente) atacante;
             Monstruo monstruo = (Monstruo) defensor;
+<<<<<<< Updated upstream
             //atacar al monstruo
             int daño = valiente.atacar(defensor);
+=======
+        do {    
+            System.out.println("\n-MENU DE BATALLA-");
+            System.out.println("1. Ataque básico");
+            System.out.println("2. Habilidad especial");
+            System.out.println("3. Abrir mochila");
+            
+            switch(opcion){
+            
+                case 1 -> {//ataque normal
+                
+                    int daño = valiente.atacar(defensor);
+>>>>>>> Stashed changes
 
             if (daño > 0) {
 
@@ -64,6 +86,65 @@ public class Combate implements CombateInterface {
 
                 System.out.println("El ataque falló");
             }
+<<<<<<< Updated upstream
+=======
+                    
+                    
+                }
+                
+                case 2 -> {//usar habilidad especial, se lanza en el siguiente turno al atacar
+                
+                    if (!valiente.ValienteUsarHabilidadEspecial()) {
+                        
+                        System.out.println("Habilidad lanzada");
+                    } else {
+                    
+                        System.out.println("Habilidad en cooldown");
+                    }   
+                    
+                }
+                
+                case 3 -> {//curarse
+                
+                    
+                    //mirar si hay objeto curativo
+                    if (valiente.getInventario().TienePlantaCurativa()) {
+                        
+                        System.out.println("-MOCHILA-");
+                        
+                        System.out.println(valiente.getInventario());
+                        
+                        System.out.println("¿usar objeto? (s/n)");
+                        
+                        String aux = new Scanner(System.in).nextLine().trim();
+                        
+                        if (aux.equalsIgnoreCase(aux)) {
+                            valiente.getInventario().UsarObjeto("planta");
+                        } else {
+                        
+                            
+                        }
+                        
+                    }
+
+                }
+                
+                case 4 -> {
+                
+                    salir = true;
+                
+                }
+                
+                default -> {
+                
+                    System.out.println("Default");
+                }
+            }
+        } while(!salir);
+           
+            
+            
+>>>>>>> Stashed changes
 
         } else {// si el atacante es un objeto de Monstruo
 
@@ -94,21 +175,17 @@ public class Combate implements CombateInterface {
         
         if(valiente.getVida() > 0) {//subir de nivel y mostrar valiente
         
-            System.out.println("¡Ha ganado el combate!");
+            System.out.println("¡Ha ganado el combate! Subes de nivel");
             
             //subir estadisticas
             valiente.ValienteSubirNivel();
             
             //mostrar estadisicas
-            String cadena = "\nNivel: "+(valiente.getNivel())+"\nHP: "+(valiente.getVida())+"\nFuerza: "+(valiente.getFuerza())
-                    +"\nDefensa: "+(valiente.getDefensa())+"\nHabilidad: "+(valiente.getHabilidad())
-                    +"\nVelocidad" + (valiente.getVelocidad());
-            
-            System.out.println(cadena);
+            System.out.println(valiente.toString());
             
         } else {//perder combate
         
-            System.out.println("Ha perdido el combate");
+            System.out.println("Has muerto");
         }
         
     }
