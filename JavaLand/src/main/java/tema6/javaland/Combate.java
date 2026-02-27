@@ -4,6 +4,7 @@
  */
 package tema6.javaland;
 
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -54,7 +55,7 @@ public class Combate implements CombateInterface {
     public <T> void turno(T atacante, T defensor) {
 
         //variables
-        int opcion;
+        int opcion=0;
         boolean finAccion = false;
 
         //si el atacante es un objeto de Valiente
@@ -64,12 +65,17 @@ public class Combate implements CombateInterface {
             Monstruo monstruo = (Monstruo) defensor;
 
             do {
+                
+                try {
+                
+                    while(opcion < 0 || opcion > 3){
                 System.out.println("\n-MENU DE BATALLA-");
                 System.out.println("1. Ataque básico");
                 System.out.println("2. Habilidad especial");
                 System.out.println("3. Abrir mochila");
 
                 opcion = new Scanner(System.in).nextInt();
+                    }
 
                 switch (opcion) {
 
@@ -133,6 +139,13 @@ public class Combate implements CombateInterface {
 
                         System.out.println("Default");
                     }
+                }
+                
+                }catch (NumberFormatException e){
+                
+                    System.out.println("debes introducir un numero");
+                } catch (InputMismatchException e){
+                    System.out.println("formato incorrecto");
                 }
             } while (!finAccion);
 
