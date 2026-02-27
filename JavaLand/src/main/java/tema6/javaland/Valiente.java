@@ -40,6 +40,11 @@ public class Valiente implements PersonajesInterface {
     // Pícaro: duplica velocidad para el siguiente ataque
     private boolean picaroVelocidadDuplicada = false;
 
+    //Atributos para el cooldown
+    
+    private int cooldownHabilidad = 0;
+    private static final int COOLDOWN_MAX = 2;
+    
     // Constructores
     public Valiente() {
     }
@@ -135,13 +140,19 @@ public class Valiente implements PersonajesInterface {
     @Override
     public boolean ValienteUsarHabilidadEspecial() {
 
+        //si está en cooldown no se puede
+        if (cooldownHabilidad > 0) {
+            return false;
+        }
+        
+        boolean usada = false;
+        
         // GUERRERO: si tiene arma o escudo, prepara el siguiente ataque triple
         if (clase.equalsIgnoreCase("GUERRERO")) {
             if (arma != null || escudo != null) {
                 guerreroTriplePendiente = true;
-                return true;
+                usada = true;
             }
-            return false;
         }
 
         // PALADIN: se cura un 50% de la vida max
@@ -151,22 +162,26 @@ public class Valiente implements PersonajesInterface {
             if (vida > vidaMaxima) {
                 vida = vidaMaxima;
             }
-            return true;
+            usada = true;
         }
 
         // MAGO: duplica habilidad durante 2 "turnos", se consumen en 2 acciones de atacar
         if (clase.equalsIgnoreCase("MAGO")) {
             magoTurnos = 2;
-            return true;
+            usada = true;
         }
 
         // PICARO: duplica velocidad para el siguiente ataque
         if (clase.equalsIgnoreCase("PICARO")) {
             picaroVelocidadDuplicada = true;
-            return true;
+            usada = true;
         }
 
-        return false;
+        if (usada){
+            cooldownHabilidad = COOLDOWN_MAX;
+        }
+        
+        return usada;
     }
 
     @Override
@@ -186,6 +201,18 @@ public class Valiente implements PersonajesInterface {
         velocidad += 1;
     }
 
+
+    // Llama a esto UNA vez por turno del valiente (después de atacar o usar habilidad)
+    public void tickCooldown() {
+        if (cooldownHabilidad > 0) {
+            cooldownHabilidad--;
+        }
+    }
+
+    public int getCooldownHabilidad() {
+        return cooldownHabilidad;
+    }
+    
     // metodos utiles
     public int getDefensaTotal() {
         int bonus = 0;
@@ -194,6 +221,16 @@ public class Valiente implements PersonajesInterface {
         }
         return defensa + bonus;
     }
+    //metodo para recoger un objeto
+    public String recogerObjeto(Objeto obj) {
+    boolean añadido = inventario.AgregarObjeto(obj);
+
+    if (añadido) {
+        return "Has recogido: " + obj.getNombre();
+    } else {
+        return "La mochila está llena. No puedes recoger " + obj.getNombre();
+    }
+}
 
     @Override
     public String toString() {
