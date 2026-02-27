@@ -25,8 +25,8 @@ public class Valiente implements PersonajesInterface {
     protected int velocidad;  // 0-20
     protected int nivel = 1;
 
-    private Arma arma = null;
-    private Escudo escudo = null;
+    private Arma arma;
+    private Escudo escudo;
 
     private final Random random = new Random();
 
@@ -51,6 +51,8 @@ public class Valiente implements PersonajesInterface {
 
     public Valiente(String clase, int vida, int fuerza, int defensa, int habilidad, int velocidad) {
         this.inventario = new Inventario();
+        this.arma = new Arma("Palo", 0);
+        this.escudo = new Escudo("Toalla", 0);
         this.clase = clase;
         this.vida = vida;
         this.vidaMaxima = vida;
@@ -58,6 +60,7 @@ public class Valiente implements PersonajesInterface {
         this.defensa = defensa;
         this.habilidad = habilidad;
         this.velocidad = velocidad;
+        //metodo de guardar y que se equipe
     }
 
     // Metodos
