@@ -69,39 +69,29 @@ public class Inventario implements InventarioInterface {
 
     @Override
     public boolean MostrarInventario() {
-
         boolean hayObjetos = false;
-        int i = 0;
-        System.out.println("¡Obejtos Disponibles!");
+        System.out.println("¡Objetos disponibles!");
 
-        //Revisar los objetos del Invent
-        while (i < mochila.length && mochila[i] != null) {
-
-            System.out.println("-" + mochila[i].getNombre());
-
-            hayObjetos = true;
-            i++;
+        for (int i = 0; i < mochila.length; i++) {
+            if (mochila[i] != null) {
+                System.out.println("- " + mochila[i].getNombre());
+                hayObjetos = true;
+            }
         }
+
         if (!hayObjetos) {
             System.out.println("El inventario está vacío.");
         }
-
         return hayObjetos;
     }
 
     // Método para comprobar si hay alguna planta en el inventario
     public boolean TienePlantaCurativa() {
-        int i = 0;
-
-        while (i < mochila.length && mochila[i] != null) {
-
+        for (int i = 0; i < mochila.length; i++) {
             if (mochila[i] instanceof PlantaCurativa) {
-                return true; // Devolvemos true y salimos del método
+                return true;
             }
-            i++;
         }
-
-        // Si ha mirado todos los objetos y no ha entrado al 'if' de arriba, no hay plantas
         return false;
     }
 
