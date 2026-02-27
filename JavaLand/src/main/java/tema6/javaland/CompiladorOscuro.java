@@ -13,8 +13,8 @@ public class CompiladorOscuro extends Monstruo {
 
 
     //crear compilador oscuro
-    public CompiladorOscuro(String nombre, int vida, int fuerza, int defensa, int habilidad, int velocidad, int nivel) {
-        super("Compilador Oscuro", 150, fuerza * contador, defensa * contador, habilidad * contador, velocidad * contador, nivel);
+    public CompiladorOscuro(String nombre, int vida, int fuerza, int defensa, int habilidad, int velocidad, int NumMons) {
+        super("Compilador Oscuro", 150, fuerza * NumMons, defensa * NumMons, habilidad * NumMons, velocidad * NumMons);
     }
 
     @Override
@@ -87,12 +87,5 @@ public class CompiladorOscuro extends Monstruo {
         this.nivel = nivel;
     }
 
-    public static int getContador() {
-        return contador;
-    }
-
-    public static void setContador(int contador) {
-        Monstruo.contador = contador;
-    }
         
 }

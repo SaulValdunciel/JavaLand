@@ -4,80 +4,93 @@
  */
 package tema6.javaland;
 
-import java.util.Random;
-
 /**
  *
- * @author cuent
+ * @author PC
  */
+import java.util.Random;
+
 public class Valiente implements PersonajesInterface {
 
-    //Atributos
-    protected Inventario inventario; //Inventario del valiente
-    protected String clase; // Guerrero, Paladin, Mago, Picaro
-    protected int vida; //0-100
-    protected int fuerza; //0-20
-    protected int defensa; //0-20
-    protected int habilidad; //0-20
-    protected int velocidad; //0-20
+    // Atributos
+    protected Inventario inventario; // Inventario del valiente
+    protected String clase;          // Guerrero, Paladin, Mago, Picaro
+
+    protected int vida;        // vida 0-100
+    protected int vidaMaxima;  // vida max
+
+    protected int fuerza;     // 0-20
+    protected int defensa;    // 0-20
+    protected int habilidad;  // 0-20
+    protected int velocidad;  // 0-20
     protected int nivel = 1;
 
     private Arma arma = null;
     private Escudo escudo = null;
 
-    //objetivo actual
-    private Monstruo objetivo = null;
-
-    //El random
     private final Random random = new Random();
 
-    //Habilidades
+    // Habilidades
     // Guerrero: si tiene objeto equipado, siguiente ataque hace 3x fuerza
     private boolean guerreroTriplePendiente = false;
-    // Paladín: si el enemigo falla, ataque gratis; sigue activo hasta que el enemigo acierte
-    private boolean paladinActivo = false;
-    // Mago: duplica habilidad durante 2 turnos
+
+    // Mago: duplica habilidad durante 2 "turnos" se consume al atacar
     private int magoTurnos = 0;
-    // Pícaro: duplica velocidad (buff activo); si duplica la del enemigo, puede atacar 2 veces
+
+    // Pícaro: duplica velocidad para el siguiente ataque
     private boolean picaroVelocidadDuplicada = false;
 
-    //Constructores
+    //Atributos para el cooldown
+    
+    private int cooldownHabilidad = 0;
+    private static final int COOLDOWN_MAX = 2;
+    
+    // Constructores
     public Valiente() {
-
     }
 
     public Valiente(String clase, int vida, int fuerza, int defensa, int habilidad, int velocidad) {
-        inventario = new Inventario();
+        this.inventario = new Inventario();
         this.clase = clase;
         this.vida = vida;
+        this.vidaMaxima = vida;
         this.fuerza = fuerza;
         this.defensa = defensa;
         this.habilidad = habilidad;
         this.velocidad = velocidad;
     }
 
-    
-
-    //Metodos:
+    // Metodos
     @Override
     public <T> int atacar(T Personaje) {
+
         Monstruo monstruo = (Monstruo) Personaje;
-        this.objetivo = monstruo;
 
         // Tirada 0..100
         int tirada = random.nextInt(101);
 
-        // Si eres mago y buff activo -> habilidad x2
+        // MAGO: habilidad efectiva
         int habEfectiva = habilidad;
         if (magoTurnos > 0) {
             habEfectiva = habilidad * 2;
         }
 
-        // Fórmula de acierto: tirada < 4*habilidad - defensaEnemigo
+        // Fórmula acierto: tirada < 4*habilidad - defensaEnemigo
         int umbral = 4 * habEfectiva - monstruo.getDefensa();
 
+        // Si falla:
         if (tirada >= umbral) {
-            return 0; // fallo
+            // Consumimos turnos del mago porque ha pasado "su acción"
+            if (magoTurnos > 0) {
+                magoTurnos--;
+            }
+
+            // El pícaro solo dura este ataque, falle o acierte
+            if (picaroVelocidadDuplicada) {
+                picaroVelocidadDuplicada = false;
+            }
+
+            return 0;
         }
 
         int bonusArma = 0;
@@ -87,7 +100,7 @@ public class Valiente implements PersonajesInterface {
 
         int daño;
 
-        // Guerrero: si estaba pendiente el triple, se consume en este ataque
+        // GUERRERO: siguiente ataque 3x fuerza
         if (guerreroTriplePendiente) {
             daño = (fuerza * 3) + bonusArma;
             guerreroTriplePendiente = false;
@@ -95,11 +108,23 @@ public class Valiente implements PersonajesInterface {
             daño = fuerza + bonusArma;
         }
 
-        // Devolvemos el daño
+        // PÍCARO: velocidad x2 para el siguiente ataque; si duplica al enemigo -> 2 golpes (daño x2)
+        if (clase.equalsIgnoreCase("PICARO") && picaroVelocidadDuplicada) {
+            int velEf = velocidad * 2;
+            if (velEf >= monstruo.getVelocidad() * 2) {
+                daño = daño * 2; // simulamos dos ataques
+            }
+            picaroVelocidadDuplicada = false; // se consume
+        }
+
+        // Consumimos turno del mago al atacar (acierte o falle)
+        if (magoTurnos > 0) {
+            magoTurnos--;
+        }
+
         return daño;
     }
 
-    //Metodo recibir daño sobrescrito de la interfaz
     @Override
     public int recibirDaño(int cantidad) {
         if (cantidad < 0) {
@@ -115,58 +140,80 @@ public class Valiente implements PersonajesInterface {
     @Override
     public boolean ValienteUsarHabilidadEspecial() {
 
-        // GUERRERO
-        if (clase.equalsIgnoreCase("GUERRERO")) {
-            // Si tiene objeto equipado (arma o escudo) => siguiente ataque 3x fuerza
-            if (arma != null || escudo != null) {
-                guerreroTriplePendiente = true;
-                return true;
-            }
+        //si está en cooldown no se puede
+        if (cooldownHabilidad > 0) {
             return false;
         }
-
-        // PALADIN
-        if (clase.equalsIgnoreCase("PALADIN")) {
-            paladinActivo = true;
-            return true;
+        
+        boolean usada = false;
+        
+        // GUERRERO: si tiene arma o escudo, prepara el siguiente ataque triple
+        if (clase.equalsIgnoreCase("GUERRERO")) {
+            if (arma != null || escudo != null) {
+                guerreroTriplePendiente = true;
+                usada = true;
+            }
         }
 
-        // MAGO
+        // PALADIN: se cura un 50% de la vida max
+        if (clase.equalsIgnoreCase("PALADIN")) {
+            int cura = vidaMaxima / 2;
+            vida += cura;
+            if (vida > vidaMaxima) {
+                vida = vidaMaxima;
+            }
+            usada = true;
+        }
+
+        // MAGO: duplica habilidad durante 2 "turnos", se consumen en 2 acciones de atacar
         if (clase.equalsIgnoreCase("MAGO")) {
             magoTurnos = 2;
-            return true;
+            usada = true;
         }
 
-        // PICARO
+        // PICARO: duplica velocidad para el siguiente ataque
         if (clase.equalsIgnoreCase("PICARO")) {
             picaroVelocidadDuplicada = true;
-            return true;
+            usada = true;
         }
 
-        return false;
+        if (usada){
+            cooldownHabilidad = COOLDOWN_MAX;
+        }
+        
+        return usada;
     }
 
     @Override
     public void ValienteSubirNivel() {
-        nivel++; //Aumenta el nivel 
-        vida += 10; //Aumenta la vida
-        fuerza++; //Aumenta la fuerza
-        defensa++; //Aumenta la defensa
-        habilidad++; //Aumenta la habilidad
-        velocidad++; //Aumenta la velocidad
+        nivel++;
+
+        // Subimos vida máxima y también aumentamos vida, sin superar el máximo
+        vidaMaxima += 10;
+        vida += 10;
+        if (vida > vidaMaxima) {
+            vida = vidaMaxima;
+        }
+
+        fuerza += 1;
+        defensa += 1;
+        habilidad += 1;
+        velocidad += 1;
     }
 
-    //llamar cada turno desde combate para bajar turnos del mago y quitar buff del picaro 
-    public void tickTurno() {
-        if (magoTurnos > 0) magoTurnos--;
 
-        // Buff del pícaro: 1 ronda
-        if (picaroVelocidadDuplicada) {
-            picaroVelocidadDuplicada = false;
+    // Llama a esto UNA vez por turno del valiente (después de atacar o usar habilidad)
+    public void tickCooldown() {
+        if (cooldownHabilidad > 0) {
+            cooldownHabilidad--;
         }
     }
 
-    // Defensa total (defensa + escudo)
+    public int getCooldownHabilidad() {
+        return cooldownHabilidad;
+    }
+    
+    // metodos utiles
     public int getDefensaTotal() {
         int bonus = 0;
         if (escudo != null) {
@@ -174,112 +221,114 @@ public class Valiente implements PersonajesInterface {
         }
         return defensa + bonus;
     }
+    //metodo para recoger un objeto
+    public String recogerObjeto(Objeto obj) {
+    boolean añadido = inventario.AgregarObjeto(obj);
 
-    // Velocidad efectiva (si pícaro duplicó velocidad este turno)
-    public int getVelocidadEfectiva() {
-        if (picaroVelocidadDuplicada) {
-            return velocidad * 2;
-        }
-        return velocidad;
+    if (añadido) {
+        return "Has recogido: " + obj.getNombre();
+    } else {
+        return "La mochila está llena. No puedes recoger " + obj.getNombre();
+    }
+}
+
+    @Override
+    public String toString() {
+        return "Clase: " + clase
+                + "\nNivel: " + nivel
+                + "\nVida: " + vida + "/" + vidaMaxima
+                + "\nFuerza: " + fuerza
+                + "\nDefensa: " + defensa
+                + "\nHabilidad: " + habilidad
+                + "\nVelocidad: " + velocidad;
     }
 
-    // Paladín: Combate debe llamar esto cuando el monstruo FALLA su ataque
-    public boolean paladinDebeAtacarGratisSiEnemigoFalla() {
-        return paladinActivo;
-    }
-
-    // Paladín: Combate debe llamar esto cuando el monstruo ACIERTA (para apagar la habilidad)
-    public void paladinDesactivarSiEnemigoAcierta() {
-        paladinActivo = false;
-    }
-
-    // Pícaro: si con velocidad duplicada supera condición
-    public boolean picaroPuedeAtacarDosVeces() {
-        if (objetivo == null) {
-            return false;
-        }
-        int velEfectiva = getVelocidadEfectiva();
-        return velEfectiva >= (objetivo.getVelocidad() * 2);
-    }
-
-    public String getClase() {
-        return clase;
-    }
-    
-    public int getVida() {
-        return vida;
-    }
-
-    public int getVelocidad() {
-        return velocidad;
-    }
-
-    public int getFuerza() {
-        return fuerza;
-    }
-
-    public int getDefensa() {
-        return defensa;
-    }
-
-    public int getHabilidad() {
-        return habilidad;
-    }
-
-    public int getNivel() {
-        return nivel;
-    }
-
-    public Arma getArma() {
-        return arma;
-    }
-
-    public Escudo getEscudo() {
-        return escudo;
-    }
-
+    // getters y setters
     public Inventario getInventario() {
         return inventario;
-    }
-
-    public void setClase(String clase) {
-        this.clase = clase;
-    }
-    
-    public void setArma(Arma arma) {
-        this.arma = arma;
-    }
-
-    public void setEscudo(Escudo escudo) {
-        this.escudo = escudo;
     }
 
     public void setInventario(Inventario inventario) {
         this.inventario = inventario;
     }
 
+    public String getClase() {
+        return clase;
+    }
+
+    public void setClase(String clase) {
+        this.clase = clase;
+    }
+
+    public int getVida() {
+        return vida;
+    }
+
     public void setVida(int vida) {
         this.vida = vida;
+    }
+
+    public int getVidaMaxima() {
+        return vidaMaxima;
+    }
+
+    public void setVidaMaxima(int vidaMaxima) {
+        this.vidaMaxima = vidaMaxima;
+    }
+
+    public int getFuerza() {
+        return fuerza;
     }
 
     public void setFuerza(int fuerza) {
         this.fuerza = fuerza;
     }
 
+    public int getDefensa() {
+        return defensa;
+    }
+
     public void setDefensa(int defensa) {
         this.defensa = defensa;
+    }
+
+    public int getHabilidad() {
+        return habilidad;
     }
 
     public void setHabilidad(int habilidad) {
         this.habilidad = habilidad;
     }
 
+    public int getVelocidad() {
+        return velocidad;
+    }
+
     public void setVelocidad(int velocidad) {
         this.velocidad = velocidad;
     }
-    
-    @Override
-    public String toString() {
-        return "Valiente{" + "clase=" + clase + ", vida=" + vida + ", fuerza=" + fuerza + ", defensa=" + defensa + ", habilidad=" + habilidad + ", velocidad=" + velocidad + ", nivel=" + nivel + '}';
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
+    public Arma getArma() {
+        return arma;
+    }
+
+    public void setArma(Arma arma) {
+        this.arma = arma;
+    }
+
+    public Escudo getEscudo() {
+        return escudo;
+    }
+
+    public void setEscudo(Escudo escudo) {
+        this.escudo = escudo;
     }
 }
