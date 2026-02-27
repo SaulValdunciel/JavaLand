@@ -10,13 +10,30 @@ package tema6.javaland;
  */
 public class CompiladorOscuro extends Monstruo {
 
-
-
     //crear compilador oscuro
+
     public CompiladorOscuro(String nombre, int vida, int fuerza, int defensa, int habilidad, int velocidad, int NumMons) {
-        super("Compilador Oscuro", 150, fuerza * NumMons, defensa * NumMons, habilidad * NumMons, velocidad * NumMons);
+        super("Compilador Oscuro", 150, fuerza * NumMons,
+                defensa * NumMons, habilidad * NumMons, velocidad * NumMons);
+
     }
 
+    @Override
+    public <T> int atacar(T personaje) {
+        return super.atacar(personaje);
+    }
+
+    @Override
+    public int recibirDaño(int cantidad) {
+        return super.recibirDaño(cantidad);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+    //getters y setters
     @Override
     public String getNombre() {
         return nombre;
