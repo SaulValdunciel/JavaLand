@@ -53,7 +53,12 @@ public class Inventario implements InventarioInterface {
                 if (mochila[i] instanceof PlantaCurativa) {
 
                     // Como es consumible, lo borramos del inventario
+                    
                     mochila[i] = null;
+                    //For para que el Inventario sea Ordenado Automa.
+                    for (int j = i; j < mochila.length - 1; j++) {
+                    mochila[j] = mochila[j + 1]; }
+                    
                     return "Has consumido: " + nombre + " y te has curado.";
 
                 } else {
