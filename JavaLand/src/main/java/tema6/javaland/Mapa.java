@@ -85,6 +85,7 @@ public class Mapa {
             Casilla[fila][columna] = "R";
         }
     }
+    
 
 
     /*
@@ -97,33 +98,10 @@ public class Mapa {
      */
     public void mostrarMapa(int valienteFila, int valienteColumna) {
 
-        // Mostrar numeros superiores
-        System.out.print("     ");
-        for (int i = 0; i < tamano; i++) {
-
-            if (i < 10) {
-                System.out.print(" " + (i+1) + " ");
-            } else {
-                System.out.print((i+1) + " ");
-            }
-        }
-        System.out.println();
-
-        // Línea separadora
-        System.out.print("     ");
-        for (int i = 0; i < tamano; i++) {
-            System.out.print(" - ");
-        }
-        System.out.println();
-
         // Mostrar filas
         for (int fila = 0; fila < tamano; fila++) {
 
-            if (fila < 9) {//Esto si el numero es menor a 10 ya que son 1 digito
-                System.out.print(" " + (fila+1) + " | ");
-            } else {
-                System.out.print((fila+1) + " | ");//este numeros mayor de 10 ya que teinen 2 digitos
-            }
+
 
             for (int columna = 0; columna < tamano; columna++) {
 
@@ -231,7 +209,7 @@ public class Mapa {
          mapa1[11][2]= "R";mapa1[11][4]= "R";
          mapa1[12][6]= "R";mapa1[12][11]= "R";mapa1[12][13]= "R";
          mapa1[13][11]= "R";
-         mapa1[14][4]= "R";mapa1[14][7]= "R";
+         mapa1[14][4]= "R";mapa1[14][7]= "R";mapa1[14][14]= "C";
          
          
          mapa2[0][2]= "R";mapa2[0][3]= "R";mapa2[0][4]= "R";mapa2[0][5]= "R";
@@ -259,7 +237,7 @@ public class Mapa {
          mapa2[13][0]= "R";mapa2[13][8]= "R";mapa2[13][10]= "R";mapa2[13][13]= "R";
          mapa2[14][0]= "R";mapa2[14][1]= "R";mapa2[14][2]= "R";mapa2[14][5]= "R";
          mapa2[14][6]= "R";mapa2[14][9]= "R";mapa2[14][10]= "R";
-         mapa2[14][11]= "R";mapa2[14][12]= "R";mapa2[14][13]= "R";
+         mapa2[14][11]= "R";mapa2[14][12]= "R";mapa2[14][13]= "R";mapa2[14][14]= "C";
          
          
          mapa3[0][5]= "R";mapa3[0][6]= "R";mapa3[0][7]= "R";mapa3[0][8]= "R";
@@ -289,14 +267,23 @@ public class Mapa {
          mapa3[14][0]= "R";mapa3[14][1]= "R";mapa3[14][4]= "R";
          mapa3[14][5]= "R";mapa3[14][6]= "R";mapa3[14][7]= "R";
          mapa3[14][8]= "R";mapa3[14][9]= "R";mapa3[14][11]= "R";
-         mapa3[14][12]= "R";mapa3[14][13]= "R";
+         mapa3[14][12]= "R";mapa3[14][13]= "R";mapa3[14][14]= "C";
          
          
-        String[][][] mapas = { mapa1, mapa2, mapa3 };
-        int indiceAleatorio = (int) (Math.random() * mapas.length);
-        cargarMapaBase(mapas[indiceAleatorio]);
+      
+        int indiceAleatorio = (int) (Math.random() * 3);
+
+        if (indiceAleatorio == 0) {
+            cargarMapaBase(mapa1);
+        }
+        else if (indiceAleatorio == 1) {
+            cargarMapaBase(mapa2);
+        }
+        else {
+            cargarMapaBase(mapa3);
+        }
          
-     }
+    }
     
     private void cargarMapaBase(String[][] mapaBase) {
     for (int fila = 0; fila < tamano; fila++) {
@@ -320,7 +307,7 @@ public class Mapa {
     return null;
 }
 
-public void limpiarCasilla(int fila, int columna) {
+    public void limpiarCasilla(int fila, int columna) {
     if (posicionValida(fila, columna)) {
         Casilla[fila][columna] = ".";
     }

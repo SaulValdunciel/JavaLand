@@ -104,5 +104,5 @@ public class CompiladorOscuro extends Monstruo {
         this.nivel = nivel;
     }
 
-    
+        
 }
