@@ -6,20 +6,24 @@ package tema6.javaland;
 
 /**
  *
- * @author cuent
+ * @author M
  */
-public class GestorMostruos implements GestoresInterface {
+public class GestorMonstruos implements GestoresInterface {
 
     //array para guarfar niveles de monstruos
-    private Monstruo[] monstruos = new Monstruo[10];  //maximo 10
+    private Monstruo[] monstruos;  //maximo 10
 
     //Constructor vacio
-    public GestorMostruos() {
+    public GestorMonstruos() {
+        crear();
     }
 
     @Override
     public void crear() {
 
+        monstruos = new Monstruo[10];
+        
+        //monstruos
         monstruos[0] = new Monstruo("No muerto", 35, 6, 3, 9, 7);
         monstruos[1] = new Monstruo("Kobold", 30, 7, 5, 0, 9);
         monstruos[2] = new Monstruo("Orco", 35, 13, 9, 1, 7);
@@ -30,10 +34,10 @@ public class GestorMostruos implements GestoresInterface {
         
     }
 
-    // monstruo con estadisticas segun el nivel (lo año de lista)
-    public void GenerarMonstruo(int nivel) {
-
-    }
+//    // monstruo con estadisticas segun el nivel
+//    public void GenerarMonstruo(int nivel) {
+//
+//    }
 
     //Eliminar el ultimo monstruo derrotado
     public void eliminarMonstruo(String nombre) {
