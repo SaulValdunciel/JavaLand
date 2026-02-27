@@ -22,6 +22,7 @@ public class Juego {
     private Combate combate;
     private Valiente valiente;
     private Monstruo monstruo;
+    private int contMonstruos;
 
     // Constructor
     public Juego(int tamanoMapa) {
@@ -52,15 +53,20 @@ public class Juego {
             String opcion = new Scanner(System.in).nextLine();//Captura la linea completa que el usuario escribe y la guarda y se reinicia cada vez no hay qu cerrar ni limpiar
 
             switch (opcion) {
-                case "1" -> mostrarValiente();   // Mostrar informacion del valiente
-                case "2" -> equiparObjeto();     // Equipar objeto desde inventario
-                case "3" -> mapa.mostrarMapa(valienteFila, valienteColumna); // Mostrar mapa
-                case "4" -> explorarMapa(); // Moverse y explorar mapa
+                case "1" ->
+                    mostrarValiente();   // Mostrar informacion del valiente
+                case "2" ->
+                    equiparObjeto();     // Equipar objeto desde inventario
+                case "3" ->
+                    mapa.mostrarMapa(valienteFila, valienteColumna); // Mostrar mapa
+                case "4" ->
+                    explorarMapa(); // Moverse y explorar mapa
                 case "5" -> {
                     System.out.println("Saliendo del juego...");
                     juegoActivo = false; // Terminar juego
                 }
-                default -> System.out.println("Opcion no valida.");
+                default ->
+                    System.out.println("Opcion no valida.");
             }
         }
     }
@@ -157,10 +163,14 @@ public class Juego {
                 int nuevaColumna = valienteColumna;
 
                 switch (direcion) {
-                    case "w" -> nuevaFila--;
-                    case "s" -> nuevaFila++;
-                    case "a" -> nuevaColumna--;
-                    case "d" -> nuevaColumna++;
+                    case "w" ->
+                        nuevaFila--;
+                    case "s" ->
+                        nuevaFila++;
+                    case "a" ->
+                        nuevaColumna--;
+                    case "d" ->
+                        nuevaColumna++;
                     default -> {
                         System.out.println("Direccion no valida.");
                         nuevaFila = valienteFila; // No moverse
@@ -193,9 +203,12 @@ public class Juego {
                                 combate.iniciarCombate(valiente, monstruo);
 
                                 if (valiente.getVida() == 0) {
-                                    //llamar metodo metodo para terminar juego
-                                    explorando = false;
+                                    
+                                    System.out.println("FIN DEL JUEGO");
+                                    juegoActivo = false;
+
                                 } else {
+                                    contMonstruos++;//aumentar el contador de monstuos derrotados
                                     explorando = false;
                                     mapa.limpiarCasilla(valienteFila, valienteColumna);
                                 }

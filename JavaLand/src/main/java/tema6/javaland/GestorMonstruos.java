@@ -6,7 +6,7 @@ package tema6.javaland;
 
 /**
  *
- * @author cuent
+ * @author M
  */
 public class GestorMonstruos implements GestoresInterface {
 
@@ -34,10 +34,10 @@ public class GestorMonstruos implements GestoresInterface {
         
     }
 
-    // monstruo con estadisticas segun el nivel
-    public void GenerarMonstruo(int nivel) {
-
-    }
+//    // monstruo con estadisticas segun el nivel
+//    public void GenerarMonstruo(int nivel) {
+//
+//    }
 
     //Eliminar el ultimo monstruo derrotado
     public void eliminarMonstruo(String nombre) {
