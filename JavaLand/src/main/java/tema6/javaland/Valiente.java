@@ -51,8 +51,8 @@ public class Valiente implements PersonajesInterface {
 
     public Valiente(String clase, int vida, int fuerza, int defensa, int habilidad, int velocidad) {
         this.inventario = new Inventario();
-        this.arma = new Arma("Palo", 0);
-        this.escudo = new Escudo("Toalla", 0);
+        this.arma = new Arma("Palo", 0); //Esta es la espada por defecto
+        this.escudo = new Escudo("Toalla", 0); //Este es el escudo por defecto
         this.clase = clase;
         this.vida = vida;
         this.vidaMaxima = vida;
@@ -60,7 +60,6 @@ public class Valiente implements PersonajesInterface {
         this.defensa = defensa;
         this.habilidad = habilidad;
         this.velocidad = velocidad;
-        //metodo de guardar y que se equipe
     }
 
     // Metodos
@@ -97,7 +96,7 @@ public class Valiente implements PersonajesInterface {
         }
 
         int bonusArma = 0;
-        if (arma != null) {
+        if (arma.getAtaque() != 0) {
             bonusArma = arma.getAtaque();
         }
 
@@ -219,7 +218,7 @@ public class Valiente implements PersonajesInterface {
     // metodos utiles
     public int getDefensaTotal() {
         int bonus = 0;
-        if (escudo != null) {
+        if (escudo.getDefensa() != 0) {
             bonus = escudo.getDefensa();
         }
         return defensa + bonus;
