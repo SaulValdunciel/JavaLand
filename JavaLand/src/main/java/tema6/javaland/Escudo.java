@@ -27,4 +27,12 @@ public class Escudo extends Objeto {
     public int getDefensa(){
         return defensa;
     }
+    
+    @Override
+public boolean Equipar(Valiente valiente) {
+    valiente.setEscudo(this);
+    System.out.println("Te has equipado el escudo: " + nombre + " (+" + defensa + " defensa)");
+    return true;
+}
+    
 }
