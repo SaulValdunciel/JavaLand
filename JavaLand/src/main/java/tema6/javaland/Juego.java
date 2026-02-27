@@ -210,8 +210,9 @@ public class Juego {
 
                                 } else {
                                     contMonstruos++;//aumentar el contador de monstuos derrotados
-                                    explorando = false;
                                     mapa.limpiarCasilla(valienteFila, valienteColumna);
+                                    explorando = false;
+                                    
                                 }
 
                             } else if (casillaDestino.equals("O")) {
