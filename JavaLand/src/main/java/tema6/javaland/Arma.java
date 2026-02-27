@@ -27,4 +27,12 @@ public class Arma extends Objeto{
     public int getAtaque(){
         return ataque;
     }
+    
+    @Override
+public boolean Equipar(Valiente valiente) {
+    valiente.setArma(this);
+    System.out.println("Te has equipado el arma: " + nombre + " (+" + ataque + " ataque)");
+    return true;
+}
+    
 }
