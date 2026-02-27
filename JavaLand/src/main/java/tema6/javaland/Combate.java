@@ -63,6 +63,10 @@ public class Combate implements CombateInterface {
             System.out.println("2. Habilidad especial");
             System.out.println("3. Abrir mochila");
             
+            opcion = new Scanner(System.in).nextInt();
+            
+            
+            
             switch(opcion){
             
                 case 1 -> {//ataque normal
@@ -75,6 +79,8 @@ public class Combate implements CombateInterface {
                         + daño + " puntos de daño");
 
                 monstruo.recibirDaño(daño);
+                
+                System.out.println(monstruo.toString());
 
             } else {
 
@@ -98,6 +104,15 @@ public class Combate implements CombateInterface {
                 
                 case 3 -> {//curarse
                 
+                    if (valiente.getVida() < valiente.getVidaMaxima()) {//curar solo si le falta vida
+                        
+                        //llamar metodo de curacion
+                        
+                    } else {
+                    
+                        System.out.println("No puedes curarte cuando tienes la vida la máximo");
+                    }
+                    
                 }
                 
                 default -> {
@@ -138,7 +153,7 @@ public class Combate implements CombateInterface {
         
         if(valiente.getVida() > 0) {//subir de nivel y mostrar valiente
         
-            System.out.println("¡Ha ganado el combate! Subes de nivel");
+            System.out.println("¡Has ganado el combate! Subes de nivel");
             
             //subir estadisticas
             valiente.ValienteSubirNivel();
