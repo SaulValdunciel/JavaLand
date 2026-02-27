@@ -199,11 +199,12 @@ public class Juego {
                             if (casillaDestino.equals("M")) {
                                 System.out.println("¡Un monstruo aparece! Iniciando combate...");
 
+                                monstruo = monstruos.getMonstruo(contMonstruos);
                                 //iniciar combate
                                 combate.iniciarCombate(valiente, monstruo);
 
                                 if (valiente.getVida() == 0) {
-                                    
+
                                     System.out.println("FIN DEL JUEGO");
                                     juegoActivo = false;
 
@@ -218,6 +219,13 @@ public class Juego {
                                 mapa.limpiarCasilla(valienteFila, valienteColumna);
                                 // Inventario.agregarObjeto
                                 explorando = false; // Salir del bucle de movimiento
+                            } else if (casillaDestino.equals("C")) {
+                                System.out.println("Te encuentras con el Jefe Final el Compilador Oscuro");
+                                //iniciar combate
+                                combate.iniciarCombate(valiente, monstruo);
+                                mapa.limpiarCasilla(valienteFila, valienteColumna);
+                                explorando = false; // Salir del bucle de movimiento
+                                juegoActivo = false;
                             } else if (casillaDestino.equals(".")) {
                                 System.out.println("La casilla esta vacia.");
                             }
