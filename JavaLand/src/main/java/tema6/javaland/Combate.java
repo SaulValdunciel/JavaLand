@@ -118,6 +118,8 @@ public class Combate implements CombateInterface {
                         if (valiente.getVida() < valiente.getVidaMaxima()) {//curar solo si le falta vida
 
                             //llamar metodo de curacion
+                            valiente.getInventario().UsarObjeto("Planta Curativa", valiente);
+                            
                             finAccion = true;
 
                         } else {
