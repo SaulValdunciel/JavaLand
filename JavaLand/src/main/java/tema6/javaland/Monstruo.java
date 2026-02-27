@@ -124,6 +124,11 @@ public class Monstruo implements PersonajesInterface {
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
+
+    @Override
+    public String toString() {
+        return "Monstruo{" + "nombre=" + nombre + ", vida=" + vida + ", fuerza=" + fuerza + ", defensa=" + defensa + ", habilidad=" + habilidad + ", velocidad=" + velocidad + ", nivel=" + nivel + '}';
+    }
     
     //no usar
     @Override
