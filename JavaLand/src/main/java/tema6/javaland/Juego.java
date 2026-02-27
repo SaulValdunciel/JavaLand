@@ -11,11 +11,17 @@ import java.util.Scanner;
  * @author DAM126
  */
 public class Juego {
+
     Scanner teclado = new Scanner(System.in);
     private Mapa mapa;              // Mapa del juego
     private int valienteFila;       // Fila actual del valiente
     private int valienteColumna;    // Columna actual del valiente
     private boolean juegoActivo;    // Controla si el juego sigue activo
+    private GestorValientes listaValientes;
+    private GestorMonstruos monstruos;
+    private Combate combate;
+    private Valiente valiente;
+    private Monstruo monstruo;
 
     // Constructor
     public Juego(int tamanoMapa) {
@@ -26,11 +32,15 @@ public class Juego {
 
         mapa.mapas();                         // Cargar un mapa aleatorio con rocas
         mapa.generarYMostrarMapa(valienteFila, valienteColumna); // Mostrar mapa inicial
+
+        //??
+        listaValientes = new GestorValientes();
+        monstruos = new GestorMonstruos();
+        combate = new Combate();
     }
 
     // Metodo principal para iniciar el juego
     public void iniciarJuego() {
-
 
         System.out.println("Bienvenido a La Tierra de los Codigos Olvidados!");
         creacionOEleccionValiente(); // Crear o elegir valiente
@@ -42,24 +52,15 @@ public class Juego {
             String opcion = new Scanner(System.in).nextLine();//Captura la linea completa que el usuario escribe y la guarda y se reinicia cada vez no hay qu cerrar ni limpiar
 
             switch (opcion) {
-                case "1":
-                    mostrarValiente();   // Mostrar informacion del valiente
-                    break;
-                case "2":
-                    equiparObjeto();     // Equipar objeto desde inventario
-                    break;
-                case "3":
-                    mapa.mostrarMapa(valienteFila, valienteColumna); // Mostrar mapa
-                    break;
-                case "4":
-                    explorarMapa(); // Moverse y explorar mapa
-                    break;
-                case "5":
+                case "1" -> mostrarValiente();   // Mostrar informacion del valiente
+                case "2" -> equiparObjeto();     // Equipar objeto desde inventario
+                case "3" -> mapa.mostrarMapa(valienteFila, valienteColumna); // Mostrar mapa
+                case "4" -> explorarMapa(); // Moverse y explorar mapa
+                case "5" -> {
                     System.out.println("Saliendo del juego...");
                     juegoActivo = false; // Terminar juego
-                    break;
-                default:
-                    System.out.println("Opcion no valida.");
+                }
+                default -> System.out.println("Opcion no valida.");
             }
         }
     }
@@ -67,7 +68,42 @@ public class Juego {
     // Metodo para crear o elegir valiente
     public void creacionOEleccionValiente() {
         //Aqui GestorValientes
-        System.out.println("Creando o eligiendo valiente...");
+        System.out.println("ELEGIR o CREAR valiente");
+        String opcion = new Scanner(System.in).nextLine().toLowerCase().trim();
+
+        switch (opcion) {
+
+            case "crear" -> {
+
+                //crear valiente y sobreescribir el array segun su clase
+                valiente = listaValientes.getValiente(listaValientes.crear2());
+
+                //mostrar valiente creado
+                System.out.println("Su valiente: ");
+                System.out.println(valiente.toString());
+
+            }
+
+            case "elegir" -> {
+
+                //mostrar lista de valientes hechos
+                listaValientes.mostrarLista();
+
+                System.out.println("1 Guerrero\t 2 Paladin\t 3 Mago\t 4 Picaro ");
+
+                int seleccion = new Scanner(System.in).nextInt();
+
+                //asignar valiente de la lista al jugador
+                valiente = listaValientes.getValiente(seleccion - 1);
+
+                //mostrar valiente elegido
+                System.out.println("Su valiente: ");
+                System.out.println(valiente.toString());
+
+            }
+
+        }
+
         mapa.revelarAdyacentes(valienteFila, valienteColumna); // Revelar casilla inicial y adyacentes
         mapa.mostrarMapa(valienteFila, valienteColumna);       // Mostrar mapa inicial
     }
@@ -95,113 +131,113 @@ public class Juego {
         System.out.println("Equipando objeto...");
     }
 
-   // Metodo para mover y explorar el mapa
-public void explorarMapa() {
-    
-    boolean explorando = true; // Controla el bucle de movimiento
+    // Metodo para mover y explorar el mapa
+    public void explorarMapa() {
 
-    while (explorando) {
-        try {
-        // Mostrar mapa con la posicion actual del valiente
-        mapa.mostrarMapa(valienteFila, valienteColumna);
+        boolean explorando = true; // Controla el bucle de movimiento
 
-        System.out.println("Moverse: w=arriba, s=abajo, a=izquierda, d=derecha");
-        System.out.println("Presiona 'x' para salir de movimiento");
-        System.out.print("Direccion: ");
-        String direcion = new Scanner(System.in).nextLine().toLowerCase();
+        while (explorando) {
+            try {
+                // Mostrar mapa con la posicion actual del valiente
+                mapa.mostrarMapa(valienteFila, valienteColumna);
 
-        // Permitir salir del bucle de movimiento
-        if (direcion.equalsIgnoreCase("x")) {
-            explorando = false;
-            System.out.println("Saliendo del modo de movimiento...");
-        }
+                System.out.println("Moverse: w=arriba, s=abajo, a=izquierda, d=derecha");
+                System.out.println("Presiona 'x' para salir de movimiento");
+                System.out.print("Direccion: ");
+                String direcion = new Scanner(System.in).nextLine().toLowerCase();
 
-        // Calcular nueva posicion
-        int nuevaFila = valienteFila;
-        int nuevaColumna = valienteColumna;
+                // Permitir salir del bucle de movimiento
+                if (direcion.equalsIgnoreCase("x")) {
+                    explorando = false;
+                    System.out.println("Saliendo del modo de movimiento...");
+                }
 
-        switch (direcion) {
-            case "w": 
-                nuevaFila--;
-                break;
-            case "s":
-                nuevaFila++; 
-                break;
-            case "a": 
-                nuevaColumna--; 
-                break;
-            case "d": 
-                nuevaColumna++; 
-                break;
-            default:
-                System.out.println("Direccion no valida.");
-                nuevaFila = valienteFila; // No moverse
-                nuevaColumna = valienteColumna;
-        }
+                // Calcular nueva posicion
+                int nuevaFila = valienteFila;
+                int nuevaColumna = valienteColumna;
 
-        // Solo intentar mover si hay cambio de posicion
-        if (nuevaFila != valienteFila || nuevaColumna != valienteColumna) {
+                switch (direcion) {
+                    case "w" -> nuevaFila--;
+                    case "s" -> nuevaFila++;
+                    case "a" -> nuevaColumna--;
+                    case "d" -> nuevaColumna++;
+                    default -> {
+                        System.out.println("Direccion no valida.");
+                        nuevaFila = valienteFila; // No moverse
+                        nuevaColumna = valienteColumna;
+                    }
+                }
 
-            // Comprobar limites del mapa
-            if (mapa.posicionValida(nuevaFila, nuevaColumna)) {
+                // Solo intentar mover si hay cambio de posicion
+                if (nuevaFila != valienteFila || nuevaColumna != valienteColumna) {
 
-                // Comprobar si hay roca
-                String casillaDestino = mapa.leerCasilla(nuevaFila, nuevaColumna);
-                if (!casillaDestino.equals("R")) {
+                    // Comprobar limites del mapa
+                    if (mapa.posicionValida(nuevaFila, nuevaColumna)) {
 
-                    // Movimiento permitido
-                    valienteFila = nuevaFila;
-                    valienteColumna = nuevaColumna;
+                        // Comprobar si hay roca
+                        String casillaDestino = mapa.leerCasilla(nuevaFila, nuevaColumna);
+                        if (!casillaDestino.equals("R")) {
 
-                    // Revelar casilla actual y adyacentes
-                    mapa.revelarAdyacentes(valienteFila, valienteColumna);
+                            // Movimiento permitido
+                            valienteFila = nuevaFila;
+                            valienteColumna = nuevaColumna;
 
-                    // Revisar contenido de la casilla
-                    if (casillaDestino.equals("M")) {
-                        System.out.println("¡Un monstruo aparece! Iniciando combate...");
-                         // Combate.iniciarCombate
-                        mapa.limpiarCasilla(valienteFila, valienteColumna);
-                        explorando = false; // Salir del bucle de movimiento
-                    } else if (casillaDestino.equals("O")) {
-                        System.out.println("Has encontrado un objeto.");
-                        mapa.limpiarCasilla(valienteFila, valienteColumna);
-                         // Inventario.agregarObjeto
-                        explorando = false; // Salir del bucle de movimiento
-                    } else if (casillaDestino.equals(".")) {
-                        System.out.println("La casilla esta vacia.");
+                            // Revelar casilla actual y adyacentes
+                            mapa.revelarAdyacentes(valienteFila, valienteColumna);
+
+                            // Revisar contenido de la casilla
+                            if (casillaDestino.equals("M")) {
+                                System.out.println("¡Un monstruo aparece! Iniciando combate...");
+
+                                //iniciar combate
+                                combate.iniciarCombate(valiente, monstruo);
+
+                                if (valiente.getVida() == 0) {
+                                    //llamar metodo metodo para terminar juego
+                                    explorando = false;
+                                } else {
+                                    explorando = false;
+                                    mapa.limpiarCasilla(valienteFila, valienteColumna);
+                                }
+
+                            } else if (casillaDestino.equals("O")) {
+                                System.out.println("Has encontrado un objeto.");
+                                mapa.limpiarCasilla(valienteFila, valienteColumna);
+                                // Inventario.agregarObjeto
+                                explorando = false; // Salir del bucle de movimiento
+                            } else if (casillaDestino.equals(".")) {
+                                System.out.println("La casilla esta vacia.");
+                            }
+
+                        } else {
+                            System.out.println("Hay una roca! No puedes moverte ahi.");
+                        }
+
+                    } else {
+                        System.out.println("No puedes moverte fuera del mapa.");
                     }
 
                 } else {
-                    System.out.println("Hay una roca! No puedes moverte ahi.");
+                    // No se mueve
+                    if (!direcion.equals("w") && !direcion.equals("s") && !direcion.equals("a") && !direcion.equals("d")) {
+                        // Direccion invalida ya impresa
+                    } else {
+                        System.out.println("No puedes moverte en esa direccion.");
+                    }
                 }
-
-            } else {
-                System.out.println("No puedes moverte fuera del mapa.");
-            }
-
-        } else {
-            // No se mueve
-            if (!direcion.equals("w") && !direcion.equals("s") && !direcion.equals("a") && !direcion.equals("d")) {
-                // Direccion invalida ya impresa
-            } else {
-                System.out.println("No puedes moverte en esa direccion.");
+            } catch (NumberFormatException e) {
+                System.out.println("Error: introduce un numero");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Opcion fuera del menu");
+            } catch (NullPointerException e) {
+                System.out.println("Acceder a array sin crearlo");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Error Indice fuera del array");
+            } catch (Exception e) {
+                System.out.println("Error desconocido");
             }
         }
-    }catch(NumberFormatException e){
-        System.out.println("Error: introduce un numero");
-    }catch(IllegalArgumentException e){
-        System.out.println("Opcion fuera del menu");
-    }catch(NullPointerException e){
-        System.out.println("Acceder a array sin crearlo");
-    }catch(ArrayIndexOutOfBoundsException e){
-        System.out.println("Error Indice fuera del array");
-    }catch(Exception e){
-        System.out.println("Error desconocido");
-    } 
-  }    
-}
-
-
+    }
 
     // Mostrar estado del juego
     public void mostrarEstadoJuego() {

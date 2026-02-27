@@ -13,14 +13,17 @@ import java.util.Scanner;
  */
 public class Combate implements CombateInterface {
 
+    public Combate() {
+    }
+
     @Override
     public void iniciarCombate(Valiente valiente, Monstruo monstruo) {
 
         do {//bucle hasta que la vida de valiente o monstruo llegue a 0 o menos
 
-           //mostrar monstruo al que se va a enfrentar
+            //mostrar monstruo al que se va a enfrentar
             System.out.println(monstruo.getNombre());
-            
+
             //determinar orden
             Random randomV = new Random();//aleatorio para la iniciativa del valiente
             double Iniciativa_Valiente = valiente.getVelocidad() * (randomV.nextDouble(1) + 0.75);
@@ -30,18 +33,18 @@ public class Combate implements CombateInterface {
 
             //orden de los turnos según la iniciativa
             if (Iniciativa_Valiente > Iniciativa_Monstruo) {
-  
+
                 turno(valiente, monstruo);
-                turno(monstruo,valiente);
+                turno(monstruo, valiente);
 
             } else {
 
                 turno(monstruo, valiente);
-                turno(valiente,monstruo);
+                turno(valiente, monstruo);
             }
 
         } while (valiente.getVida() > 0 && monstruo.getVida() > 0);
-        
+
         //terminar combate
         combateTerminado(valiente, monstruo);
 
@@ -51,79 +54,87 @@ public class Combate implements CombateInterface {
     public <T> void turno(T atacante, T defensor) {
 
         //variables
-        int opcion=0;
+        int opcion;
+        boolean finAccion = false;
+
         //si el atacante es un objeto de Valiente
         if (atacante instanceof Valiente) {
 
-             Valiente valiente = (Valiente) atacante;
+            Valiente valiente = (Valiente) atacante;
             Monstruo monstruo = (Monstruo) defensor;
-            
-            System.out.println("\n-MENU DE BATALLA-");
-            System.out.println("1. Ataque básico");
-            System.out.println("2. Habilidad especial");
-            System.out.println("3. Abrir mochila");
-            
-            opcion = new Scanner(System.in).nextInt();
-            
-            
-            
-            switch(opcion){
-            
-                case 1 -> {//ataque normal
-                
-                    int daño = valiente.atacar(defensor);
 
-            if (daño > 0) {
+            do {
+                System.out.println("\n-MENU DE BATALLA-");
+                System.out.println("1. Ataque básico");
+                System.out.println("2. Habilidad especial");
+                System.out.println("3. Abrir mochila");
 
-                System.out.println(monstruo.getNombre() + " ha recibido "
-                        + daño + " puntos de daño");
+                opcion = new Scanner(System.in).nextInt();
 
-                monstruo.recibirDaño(daño);
-                
-                System.out.println(monstruo.toString());
+                switch (opcion) {
 
-            } else {
+                    case 1 -> {//ataque normal
 
-                System.out.println("El ataque falló");
-            }
-                    
-                    
-                }
-                
-                case 2 -> {//usar habilidad especial, se lanza en el siguiente turno al atacar
-                
-                    if (!valiente.ValienteUsarHabilidadEspecial()) {
-                        
-                        System.out.println("Habilidad lanzada");
-                    } else {
-                    
-                        System.out.println("Habilidad en cooldown");
-                    }   
-                    
-                }
-                
-                case 3 -> {//curarse
-                
-                    if (valiente.getVida() < valiente.getVidaMaxima()) {//curar solo si le falta vida
-                        
-                        //llamar metodo de curacion
-                        
-                    } else {
-                    
-                        System.out.println("No puedes curarte cuando tienes la vida la máximo");
+                        int daño = valiente.atacar(defensor);
+
+                        if (daño > 0) {
+
+                            System.out.println(monstruo.getNombre() + " ha recibido "
+                                    + daño + " puntos de daño");
+
+                            monstruo.recibirDaño(daño);
+
+                            System.out.println(monstruo.toString());
+
+                        } else {
+
+                            System.out.println("El ataque falló");
+
+                        }
+
+                        finAccion = true;
+
                     }
-                    
-                }
-                
-                default -> {
-                
-                    System.out.println("Default");
-                }
-            }
-           
-            //atacar al monstruo
-            
 
+                    case 2 -> {//usar habilidad especial, se lanza en el siguiente turno al atacar
+
+                        if (!valiente.ValienteUsarHabilidadEspecial()) {
+
+                            valiente.ValienteUsarHabilidadEspecial();
+                            System.out.println("Habilidad lanzada");
+
+                            finAccion = true;
+
+                        } else {
+
+                            System.out.println("Habilidad en cooldown");
+
+                        }
+
+                    }
+
+                    case 3 -> {//curarse
+
+                        if (valiente.getVida() < valiente.getVidaMaxima()) {//curar solo si le falta vida
+
+                            //llamar metodo de curacion
+                            finAccion = true;
+
+                        } else {
+
+                            System.out.println("No puedes curarte cuando tienes la vida la máximo");
+                        }
+
+                    }
+
+                    default -> {
+
+                        System.out.println("Default");
+                    }
+                }
+            } while (!finAccion);
+
+            //atacar al monstruo
         } else {// si el atacante es un objeto de Monstruo
 
             Monstruo monstruo = (Monstruo) atacante;
@@ -150,22 +161,22 @@ public class Combate implements CombateInterface {
 
     @Override
     public void combateTerminado(Valiente valiente, Monstruo monstruo) {
-        
-        if(valiente.getVida() > 0) {//subir de nivel y mostrar valiente
-        
+
+        if (valiente.getVida() > 0) {//subir de nivel y mostrar valiente
+
             System.out.println("¡Has ganado el combate! Subes de nivel");
-            
+
             //subir estadisticas
             valiente.ValienteSubirNivel();
-            
+
             //mostrar estadisicas
             System.out.println(valiente.toString());
-            
+
         } else {//perder combate
-        
+
             System.out.println("Has muerto");
         }
-        
+
     }
 
 }
