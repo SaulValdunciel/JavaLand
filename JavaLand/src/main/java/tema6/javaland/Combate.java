@@ -91,9 +91,9 @@ public class Combate implements CombateInterface {
                             System.out.println("El ataque falló");
 
                         }
-
+                        valiente.tickCooldown();
                         finAccion = true;
-
+                        
                     }
 
                     case 2 -> {
@@ -118,22 +118,22 @@ public class Combate implements CombateInterface {
 
                             //llamar metodo de curacion
                             valiente.getInventario().UsarObjeto("Planta Curativa", valiente);
-
+                            valiente.tickCooldown();
                             finAccion = true;
-
+                            
                         } else {
 
                             System.out.println("No puedes curarte cuando tienes la vida la máximo");
                         }
-
+                        
                     }
-
+                    
                     default -> {
 
                         System.out.println("Default");
                     }
                 }
-                valiente.tickCooldown();
+                
             } while (!finAccion);
 
             //atacar al monstruo
