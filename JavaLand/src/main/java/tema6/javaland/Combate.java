@@ -133,6 +133,7 @@ public class Combate implements CombateInterface {
                         System.out.println("Default");
                     }
                 }
+                valiente.tickCooldown();
             } while (!finAccion);
 
             //atacar al monstruo
