@@ -97,26 +97,25 @@ public class Combate implements CombateInterface {
                             System.out.println("El ataque falló");
 
                         }
-
+                        valiente.tickCooldown();
                         finAccion = true;
-
+                        
                     }
 
-                    case 2 -> {//usar habilidad especial, se lanza en el siguiente turno al atacar
+                    case 2 -> {
+                        boolean usada = valiente.ValienteUsarHabilidadEspecial();
 
-                        if (!valiente.ValienteUsarHabilidadEspecial()) {
-
-                            valiente.ValienteUsarHabilidadEspecial();
-                            System.out.println("Habilidad lanzada");
-
+                        // Cooldown bien: true = usada, false = en cooldown
+                        if (usada) {
+                            System.out.println("Habilidad lanzada. Cooldown: " + valiente.getCooldownHabilidad() + " turnos.");
+                            // Si la habilidad consume turno:
                             finAccion = true;
-
                         } else {
-
-                            System.out.println("Habilidad en cooldown");
-
+                            System.out.println("No puedes usar la habilidad. Cooldown: "
+                                    + valiente.getCooldownHabilidad() + " turnos.");
+                            System.out.println("Elige otra opción.");
+                            // no consume el turno
                         }
-
                     }
 
                     case 3 -> {//curarse
@@ -125,16 +124,16 @@ public class Combate implements CombateInterface {
 
                             //llamar metodo de curacion
                             valiente.getInventario().UsarObjeto("Planta Curativa", valiente);
-                            
+                            valiente.tickCooldown();
                             finAccion = true;
-
+                            
                         } else {
 
                             System.out.println("No puedes curarte cuando tienes la vida la máximo");
                         }
-
+                        
                     }
-
+                    
                     default -> {
 
                         System.out.println("Default");
