@@ -23,6 +23,7 @@ public class Juego {
     private Valiente valiente;
     private Monstruo monstruo;
     private int contMonstruos;
+    private GestorObjeto gestorObjeto;
 
     // Constructor
     public Juego(int tamanoMapa) {
@@ -38,6 +39,9 @@ public class Juego {
         listaValientes = new GestorValientes();
         monstruos = new GestorMonstruos();
         combate = new Combate();
+        
+        gestorObjeto = new GestorObjeto();
+        gestorObjeto.crear();
     }
 
     // Metodo principal para iniciar el juego
@@ -146,15 +150,58 @@ public class Juego {
 
     // Mostrar informacion del valiente
     public void mostrarValiente() {
-        // Aqui se mostrarian atributos, inventario, etc.
+        //por si no hay valiente
+        if (valiente == null) {
+            System.out.println("No hay valiente creado todavía.");
+            return;
+        }
+        //Llamamos a los metodos para ver las stats y demas
+        System.out.println("\n===== INFORMACIÓN DEL VALIENTE =====");
 
-        System.out.println("Mostrando informacion del valiente...");
+        System.out.println(valiente);
+
+        System.out.println("\n--- EQUIPAMIENTO ---");
+        System.out.println("Arma: " + valiente.getArma().getNombre()
+                + " (+" + valiente.getArma().getAtaque() + " ataque)");
+
+        System.out.println("Escudo: " + valiente.getEscudo().getNombre()
+                + " (+" + valiente.getEscudo().getDefensa() + " defensa)");
+
+        System.out.println("\nDefensa total: " + valiente.getDefensaTotal());
+        System.out.println("Cooldown habilidad: " + valiente.getCooldownHabilidad() + " turnos");
+
+        System.out.println("\n--- INVENTARIO ---");
+        valiente.getInventario().MostrarInventario();
     }
 
     // Equipar objeto 
     public void equiparObjeto() {
-        // Aqui se mostrarian objetos, inventario.
-        System.out.println("Equipando objeto...");
+        //por si no hay valiente creao
+        if (valiente == null) {
+            System.out.println("Aún no hay valiente creado.");
+            return;
+        }
+
+        System.out.println("\n===== INVENTARIO =====");
+
+        boolean hay = valiente.getInventario().MostrarInventario();
+        if (!hay) {
+            return;
+        }
+
+        System.out.println("\nEscribe el nombre exacto del objeto que quieres usar/equipar");
+        System.out.println("(o escribe X para cancelar)");
+        System.out.print("Objeto: ");
+        String nombre = teclado.nextLine();
+
+        if (nombre.equalsIgnoreCase("x")) {
+            System.out.println("Cancelado.");
+            return;
+        }
+
+        // Usar / Equipar / Curar según el tipo real del objeto (Arma, Escudo, PlantaCurativa)
+        String resultado = valiente.getInventario().UsarObjeto(nombre, valiente);
+        System.out.println(resultado);
     }
 
     // Metodo para mover y explorar el mapa
@@ -251,8 +298,13 @@ public class Juego {
                                 valienteColumna = nuevaColumna;
                                 mapa.revelarAdyacentes(valienteFila, valienteColumna);
                                 System.out.println("Has encontrado un objeto.");
+
+                                // ===== CAMBIO 3: recoger objeto y guardarlo en inventario =====
+                                int indice = (int) (Math.random() * 7); // 0..6 (ajusta si tu gestor tiene otro tamaño)
+                                Objeto encontrado = gestorObjeto.getObjeto(indice);
+                                System.out.println(valiente.recogerObjeto(encontrado));
+
                                 mapa.limpiarCasilla(valienteFila, valienteColumna);
-                                // Inventario.agregarObjeto
                                 explorando = false; // Salir del bucle de movimiento
                             } else if (casillaDestino.equals("C")) {
                                 valienteFila = nuevaFila;
