@@ -44,7 +44,7 @@ public class Juego {
         gestorObjeto.crear();
     }
 
-    // Metodo principal para iniciar el juego
+    // Metodo principal para iniciar el juego.
     public void iniciarJuego() {
 
         System.out.println();
