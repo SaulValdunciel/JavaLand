@@ -11,7 +11,7 @@ import java.util.Scanner;
  * @author DAM126
  */
 public class Juego {
-
+    
     Scanner teclado = new Scanner(System.in);
     private Mapa mapa;              // Mapa del juego
     private int valienteFila;       // Fila actual del valiente
@@ -78,12 +78,17 @@ public class Juego {
 
     // Metodo para crear o elegir valiente
     public void creacionOEleccionValiente() {
-        //Aqui GestorValientes
-        System.out.println("ELEGIR o CREAR valiente");
-        String opcion = new Scanner(System.in).nextLine().toLowerCase().trim();
-
+        
+        String opcion = " ";
+        
+        while (!opcion.equalsIgnoreCase("elegir") || opcion.equalsIgnoreCase("crear")) {
+            
+            System.out.println("ELEGIR o CREAR valiente");
+            opcion = new Scanner(System.in).nextLine().toLowerCase().trim();
+        }
+        
         switch (opcion) {
-
+            
             case "crear" -> {
 
                 //crear valiente y sobreescribir el array segun su clase
@@ -92,16 +97,16 @@ public class Juego {
                 //mostrar valiente creado
                 System.out.println("Su valiente: ");
                 System.out.println(valiente.toString());
-
+                
             }
-
+            
             case "elegir" -> {
 
                 //mostrar lista de valientes hechos
                 listaValientes.mostrarLista();
-
+                
                 System.out.println("1 Guerrero\t 2 Paladin\t 3 Mago\t 4 Picaro ");
-
+                
                 int seleccion = new Scanner(System.in).nextInt();
 
                 //asignar valiente de la lista al jugador
@@ -110,11 +115,16 @@ public class Juego {
                 //mostrar valiente elegido
                 System.out.println("Su valiente: ");
                 System.out.println(valiente.toString());
-
+                
             }
-
+            
+            default -> {
+            
+                System.out.println("default de elegir o crear");
+            }
+            
         }
-
+        
         mapa.revelarAdyacentes(valienteFila, valienteColumna); // Revelar casilla inicial y adyacentes
         mapa.mostrarMapa(valienteFila, valienteColumna);       // Mostrar mapa inicial
     }
@@ -149,14 +159,14 @@ public class Juego {
 
     // Metodo para mover y explorar el mapa
     public void explorarMapa() {
-
+        
         boolean explorando = true; // Controla el bucle de movimiento
 
         while (explorando) {
             try {
                 // Mostrar mapa con la posicion actual del valiente
                 mapa.mostrarMapa(valienteFila, valienteColumna);
-
+                
                 System.out.println("Moverse: w=arriba, s=abajo, a=izquierda, d=derecha");
                 System.out.println("Presiona 'x' para salir de movimiento");
                 System.out.print("Direccion: ");
@@ -235,7 +245,7 @@ public class Juego {
                                     valienteFila = valienteFila;// No moverse
                                     valienteColumna = valienteColumna;
                                 }
-
+                                
                             } else if (casillaDestino.equals("O")) {
                                 valienteFila = nuevaFila;
                                 valienteColumna = nuevaColumna;
@@ -260,15 +270,15 @@ public class Juego {
                                 mapa.revelarAdyacentes(valienteFila, valienteColumna);
                                 System.out.println("La casilla esta vacia.");
                             }
-
+                            
                         } else {
                             System.out.println("Hay una roca! No puedes moverte ahi.");
                         }
-
+                        
                     } else {
                         System.out.println("No puedes moverte fuera del mapa.");
                     }
-
+                    
                 } else {
                     // No se mueve
                     if (!direccion.equals("w") && !direccion.equals("s") && !direccion.equals("a") && !direccion.equals("d")) {
