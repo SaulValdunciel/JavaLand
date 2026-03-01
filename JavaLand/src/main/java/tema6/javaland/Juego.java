@@ -11,7 +11,7 @@ import java.util.Scanner;
  * @author DAM126
  */
 public class Juego {
-
+    
     Scanner teclado = new Scanner(System.in);
     private Mapa mapa;              // Mapa del juego
     private int valienteFila;       // Fila actual del valiente
@@ -43,13 +43,18 @@ public class Juego {
     // Metodo principal para iniciar el juego
     public void iniciarJuego() {
 
-        System.out.println("Bienvenido a La Tierra de los Codigos Olvidados!");
+        System.out.println();
+        System.out.println("  +===========================================+");
+        System.out.println("  |       Bienvenido a La Tierra de los       |");
+        System.out.println("  |             Codigos Olvidados!            |");
+        System.out.println("  +===========================================+");
+        System.out.println();
         creacionOEleccionValiente(); // Crear o elegir valiente
 
         while (juegoActivo) {
             mostrarMenuPrincipal(); // Mostrar opciones del menu
             System.out.print("Elige una opcion: ");
-            //Captura la linea completa que el usuario escribe y la guarda y se reinicia cada vez no hay qu cerrar ni limpiar
+            //Captura la linea completa que el usuario escribe y la guarda y se reinicia cada vez, no hay qu cerrar ni limpiar
             String opcion = new Scanner(System.in).nextLine();//Captura la linea completa que el usuario escribe y la guarda y se reinicia cada vez no hay qu cerrar ni limpiar
 
             switch (opcion) {
@@ -73,12 +78,17 @@ public class Juego {
 
     // Metodo para crear o elegir valiente
     public void creacionOEleccionValiente() {
-        //Aqui GestorValientes
-        System.out.println("ELEGIR o CREAR valiente");
-        String opcion = new Scanner(System.in).nextLine().toLowerCase().trim();
-
+        
+        String opcion = " ";
+        
+        while (!opcion.equalsIgnoreCase("elegir") || opcion.equalsIgnoreCase("crear")) {
+            
+            System.out.println("ELEGIR o CREAR valiente");
+            opcion = new Scanner(System.in).nextLine().toLowerCase().trim();
+        }
+        
         switch (opcion) {
-
+            
             case "crear" -> {
 
                 //crear valiente y sobreescribir el array segun su clase
@@ -87,16 +97,16 @@ public class Juego {
                 //mostrar valiente creado
                 System.out.println("Su valiente: ");
                 System.out.println(valiente.toString());
-
+                
             }
-
+            
             case "elegir" -> {
 
                 //mostrar lista de valientes hechos
                 listaValientes.mostrarLista();
-
+                
                 System.out.println("1 Guerrero\t 2 Paladin\t 3 Mago\t 4 Picaro ");
-
+                
                 int seleccion = new Scanner(System.in).nextInt();
 
                 //asignar valiente de la lista al jugador
@@ -105,23 +115,33 @@ public class Juego {
                 //mostrar valiente elegido
                 System.out.println("Su valiente: ");
                 System.out.println(valiente.toString());
-
+                
             }
-
+            
+            default -> {
+            
+                System.out.println("default de elegir o crear");
+            }
+            
         }
-
+        
         mapa.revelarAdyacentes(valienteFila, valienteColumna); // Revelar casilla inicial y adyacentes
         mapa.mostrarMapa(valienteFila, valienteColumna);       // Mostrar mapa inicial
     }
 
     // Mostrar menu principal
     public void mostrarMenuPrincipal() {
-        System.out.println("     Menu Principal");
-        System.out.println("1. Mostrar valiente");
-        System.out.println("2. Equipar objeto");
-        System.out.println("3. Mostrar mapa");
-        System.out.println("4. Moverse / Explorar mapa");
-        System.out.println("5. Salir del juego");
+        System.out.println();
+        System.out.println("  +================================+");
+        System.out.println("  |       MENU  PRINCIPAL          |");
+        System.out.println("  +================================+");
+        System.out.println("  |  1.  Mostrar valiente          |");
+        System.out.println("  |  2.  Equipar objeto            |");
+        System.out.println("  |  3.  Mostrar mapa              |");
+        System.out.println("  |  4.  Explorar mapa             |");
+        System.out.println("  |  5.  Salir del juego           |");
+        System.out.println("  +================================+");
+        System.out.println();
     }
 
     // Mostrar informacion del valiente
@@ -139,21 +159,21 @@ public class Juego {
 
     // Metodo para mover y explorar el mapa
     public void explorarMapa() {
-
+        
         boolean explorando = true; // Controla el bucle de movimiento
 
         while (explorando) {
             try {
                 // Mostrar mapa con la posicion actual del valiente
                 mapa.mostrarMapa(valienteFila, valienteColumna);
-
+                
                 System.out.println("Moverse: w=arriba, s=abajo, a=izquierda, d=derecha");
                 System.out.println("Presiona 'x' para salir de movimiento");
                 System.out.print("Direccion: ");
-                String direcion = new Scanner(System.in).nextLine().toLowerCase();
+                String direccion = new Scanner(System.in).nextLine().toLowerCase();
 
                 // Permitir salir del bucle de movimiento
-                if (direcion.equalsIgnoreCase("x")) {
+                if (direccion.equalsIgnoreCase("x")) {
                     explorando = false;
                     System.out.println("Saliendo del modo de movimiento...");
                 }
@@ -162,7 +182,8 @@ public class Juego {
                 int nuevaFila = valienteFila;
                 int nuevaColumna = valienteColumna;
 
-                switch (direcion) {
+                switch (direccion) {
+
                     case "w" ->
                         nuevaFila--;
                     case "s" ->
@@ -188,39 +209,55 @@ public class Juego {
                         String casillaDestino = mapa.leerCasilla(nuevaFila, nuevaColumna);
                         if (!casillaDestino.equals("R")) {
 
-                            // Movimiento permitido
-                            valienteFila = nuevaFila;
-                            valienteColumna = nuevaColumna;
-
-                            // Revelar casilla actual y adyacentes
-                            mapa.revelarAdyacentes(valienteFila, valienteColumna);
-
                             // Revisar contenido de la casilla
                             if (casillaDestino.equals("M")) {
-                                System.out.println("¡Un monstruo aparece! Iniciando combate...");
+                                System.out.println("Hay un monstruo");
+                                System.out.print("¿Quieres atacar? (s/n): ");
+                                String respuesta = new Scanner(System.in).nextLine().toLowerCase();
+                                if (respuesta.equals("s")) {
 
-                                monstruo = monstruos.getMonstruo(contMonstruos);
-                                //iniciar combate
-                                combate.iniciarCombate(valiente, monstruo);
+                                    // mover jugador
+                                    valienteFila = nuevaFila;
+                                    valienteColumna = nuevaColumna;
 
-                                if (valiente.getVida() == 0) {
+                                    mapa.revelarAdyacentes(valienteFila, valienteColumna);
 
-                                    System.out.println("FIN DEL JUEGO");
-                                    juegoActivo = false;
+                                    System.out.println("Iniciando combate...");
+                                    monstruo = monstruos.getMonstruo(contMonstruos);
+                                    //iniciar combate
+                                    combate.iniciarCombate(valiente, monstruo);
 
+                                    if (valiente.getVida() == 0) {
+
+                                        System.out.println("FIN DEL JUEGO");
+                                        juegoActivo = false;
+                                        explorando = false;
+
+                                    } else {
+                                        contMonstruos++;//aumentar el contador de monstuos derrotados
+                                        mapa.limpiarCasilla(valienteFila, valienteColumna);
+                                        explorando = false;
+
+                                    }
                                 } else {
-                                    contMonstruos++;//aumentar el contador de monstuos derrotados
-                                    mapa.limpiarCasilla(valienteFila, valienteColumna);
-                                    explorando = false;
-                                    
-                                }
 
+                                    System.out.println("Decides no atacar. Permaneces en tu posicion.");
+                                    valienteFila = valienteFila;// No moverse
+                                    valienteColumna = valienteColumna;
+                                }
+                                
                             } else if (casillaDestino.equals("O")) {
+                                valienteFila = nuevaFila;
+                                valienteColumna = nuevaColumna;
+                                mapa.revelarAdyacentes(valienteFila, valienteColumna);
                                 System.out.println("Has encontrado un objeto.");
                                 mapa.limpiarCasilla(valienteFila, valienteColumna);
                                 // Inventario.agregarObjeto
                                 explorando = false; // Salir del bucle de movimiento
                             } else if (casillaDestino.equals("C")) {
+                                valienteFila = nuevaFila;
+                                valienteColumna = nuevaColumna;
+                                mapa.revelarAdyacentes(valienteFila, valienteColumna);
                                 System.out.println("Te encuentras con el Jefe Final el Compilador Oscuro");
                                 //iniciar combate
                                 combate.iniciarCombate(valiente, monstruo);
@@ -228,20 +265,23 @@ public class Juego {
                                 explorando = false; // Salir del bucle de movimiento
                                 juegoActivo = false;
                             } else if (casillaDestino.equals(".")) {
+                                valienteFila = nuevaFila;
+                                valienteColumna = nuevaColumna;
+                                mapa.revelarAdyacentes(valienteFila, valienteColumna);
                                 System.out.println("La casilla esta vacia.");
                             }
-
+                            
                         } else {
                             System.out.println("Hay una roca! No puedes moverte ahi.");
                         }
-
+                        
                     } else {
                         System.out.println("No puedes moverte fuera del mapa.");
                     }
-
+                    
                 } else {
                     // No se mueve
-                    if (!direcion.equals("w") && !direcion.equals("s") && !direcion.equals("a") && !direcion.equals("d")) {
+                    if (!direccion.equals("w") && !direccion.equals("s") && !direccion.equals("a") && !direccion.equals("d")) {
                         // Direccion invalida ya impresa
                     } else {
                         System.out.println("No puedes moverte en esa direccion.");
@@ -260,8 +300,8 @@ public class Juego {
             }
         }
     }
-
     // Mostrar estado del juego
+
     public void mostrarEstadoJuego() {
         // Aqui se mostrarian monstruos derrotados, objetos recojido, etc.
         System.out.println("Mostrando estado del juego...");
