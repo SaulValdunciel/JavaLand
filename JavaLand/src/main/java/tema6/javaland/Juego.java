@@ -11,7 +11,7 @@ import java.util.Scanner;
  * @author DAM126
  */
 public class Juego {
-
+    
     Scanner teclado = new Scanner(System.in);
     private Mapa mapa;              // Mapa del juego
     private int valienteFila;       // Fila actual del valiente
@@ -42,7 +42,7 @@ public class Juego {
 
     // Metodo principal para iniciar el juego
     public void iniciarJuego() {
-
+        
         System.out.println("Bienvenido a La Tierra de los Codigos Olvidados!");
         creacionOEleccionValiente(); // Crear o elegir valiente
 
@@ -73,12 +73,17 @@ public class Juego {
 
     // Metodo para crear o elegir valiente
     public void creacionOEleccionValiente() {
-        //Aqui GestorValientes
-        System.out.println("ELEGIR o CREAR valiente");
-        String opcion = new Scanner(System.in).nextLine().toLowerCase().trim();
-
+        
+        String opcion = " ";
+        
+        while (!opcion.equalsIgnoreCase("elegir") || opcion.equalsIgnoreCase("crear")) {
+            
+            System.out.println("ELEGIR o CREAR valiente");
+            opcion = new Scanner(System.in).nextLine().toLowerCase().trim();
+        }
+        
         switch (opcion) {
-
+            
             case "crear" -> {
 
                 //crear valiente y sobreescribir el array segun su clase
@@ -87,16 +92,16 @@ public class Juego {
                 //mostrar valiente creado
                 System.out.println("Su valiente: ");
                 System.out.println(valiente.toString());
-
+                
             }
-
+            
             case "elegir" -> {
 
                 //mostrar lista de valientes hechos
                 listaValientes.mostrarLista();
-
+                
                 System.out.println("1 Guerrero\t 2 Paladin\t 3 Mago\t 4 Picaro ");
-
+                
                 int seleccion = new Scanner(System.in).nextInt();
 
                 //asignar valiente de la lista al jugador
@@ -105,11 +110,16 @@ public class Juego {
                 //mostrar valiente elegido
                 System.out.println("Su valiente: ");
                 System.out.println(valiente.toString());
-
+                
             }
-
+            
+            default -> {
+            
+                System.out.println("default de elegir o crear");
+            }
+            
         }
-
+        
         mapa.revelarAdyacentes(valienteFila, valienteColumna); // Revelar casilla inicial y adyacentes
         mapa.mostrarMapa(valienteFila, valienteColumna);       // Mostrar mapa inicial
     }
@@ -139,14 +149,14 @@ public class Juego {
 
     // Metodo para mover y explorar el mapa
     public void explorarMapa() {
-
+        
         boolean explorando = true; // Controla el bucle de movimiento
 
         while (explorando) {
             try {
                 // Mostrar mapa con la posicion actual del valiente
                 mapa.mostrarMapa(valienteFila, valienteColumna);
-
+                
                 System.out.println("Moverse: w=arriba, s=abajo, a=izquierda, d=derecha");
                 System.out.println("Presiona 'x' para salir de movimiento");
                 System.out.print("Direccion: ");
@@ -161,7 +171,7 @@ public class Juego {
                 // Calcular nueva posicion
                 int nuevaFila = valienteFila;
                 int nuevaColumna = valienteColumna;
-
+                
                 switch (direcion) {
                     case "w" ->
                         nuevaFila--;
@@ -198,23 +208,23 @@ public class Juego {
                             // Revisar contenido de la casilla
                             if (casillaDestino.equals("M")) {
                                 System.out.println("¡Un monstruo aparece! Iniciando combate...");
-
+                                
                                 monstruo = monstruos.getMonstruo(contMonstruos);
                                 //iniciar combate
                                 combate.iniciarCombate(valiente, monstruo);
-
+                                
                                 if (valiente.getVida() == 0) {
-
+                                    
                                     System.out.println("FIN DEL JUEGO");
                                     juegoActivo = false;
-
+                                    
                                 } else {
                                     contMonstruos++;//aumentar el contador de monstuos derrotados
                                     mapa.limpiarCasilla(valienteFila, valienteColumna);
                                     explorando = false;
                                     
                                 }
-
+                                
                             } else if (casillaDestino.equals("O")) {
                                 System.out.println("Has encontrado un objeto.");
                                 mapa.limpiarCasilla(valienteFila, valienteColumna);
@@ -230,15 +240,15 @@ public class Juego {
                             } else if (casillaDestino.equals(".")) {
                                 System.out.println("La casilla esta vacia.");
                             }
-
+                            
                         } else {
                             System.out.println("Hay una roca! No puedes moverte ahi.");
                         }
-
+                        
                     } else {
                         System.out.println("No puedes moverte fuera del mapa.");
                     }
-
+                    
                 } else {
                     // No se mueve
                     if (!direcion.equals("w") && !direcion.equals("s") && !direcion.equals("a") && !direcion.equals("d")) {
