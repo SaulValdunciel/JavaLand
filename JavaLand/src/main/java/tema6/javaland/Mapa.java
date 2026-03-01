@@ -68,21 +68,21 @@ public class Mapa {
     //Coloca un monstruo en el mapa
     public void ponerMonstruo(int fila, int columna) {
         if (posicionValida(fila, columna)) {
-            Casilla[fila][columna] = "M";
+            Contenido[fila][columna] = "M";
         }
     }
 
     //Coloca un objeto en el mapa
     public void ponerObjeto(int fila, int columna) {
         if (posicionValida(fila, columna)) {
-            Casilla[fila][columna] = "O";
+            Contenido[fila][columna] = "O";
         }
     }
 
     //Coloca un Rocas en el mapa
     public void ponerRocas(int fila, int columna) {
         if (posicionValida(fila, columna)) {
-            Casilla[fila][columna] = "R";
+            Contenido[fila][columna] = "R";
         }
     }
     
@@ -181,7 +181,7 @@ public class Mapa {
     revelarAdyacentes(valienteFila, valienteColumna);
 
     // mostrar mapa inicial
-    mostrarMapa(valienteFila, valienteColumna);
+    //mostrarMapa(valienteFila, valienteColumna);
 }
 
     
@@ -302,7 +302,7 @@ public class Mapa {
 
     public String leerCasilla(int fila, int columna) {
     if (posicionValida(fila, columna)) {
-        return Casilla[fila][columna];
+        return Contenido[fila][columna];
     }
     return null;
 }
