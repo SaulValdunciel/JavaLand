@@ -259,8 +259,14 @@ public class Juego {
                             // Revisar contenido de la casilla
                             if (casillaDestino.equals("M")) {
                                 System.out.println("Hay un monstruo");
-                                System.out.print("¿Quieres atacar? (s/n): ");
-                                String respuesta = new Scanner(System.in).nextLine().toLowerCase();
+                                 String respuesta;
+                                do {
+                                    System.out.print("¿Quieres atacar? (s/n): ");
+                                    respuesta = new Scanner(System.in).nextLine().toLowerCase();
+                                    if (!respuesta.equals("s") && !respuesta.equals("n")) {
+                                        System.out.println("Opcion no valida. Escribe s o n.");
+                                    }
+                                } while (!respuesta.equals("s") && !respuesta.equals("n"));
                                 if (respuesta.equals("s")) {
 
                                     // mover jugador
