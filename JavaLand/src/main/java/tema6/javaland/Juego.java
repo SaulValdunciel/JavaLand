@@ -85,7 +85,7 @@ public class Juego {
         
         String opcion = " ";
         
-        while (!opcion.equalsIgnoreCase("elegir") || opcion.equalsIgnoreCase("crear")) {
+        while (!opcion.equalsIgnoreCase("elegir") && !opcion.equalsIgnoreCase("crear")) {
             
             System.out.println("ELEGIR o CREAR valiente");
             opcion = new Scanner(System.in).nextLine().toLowerCase().trim();
