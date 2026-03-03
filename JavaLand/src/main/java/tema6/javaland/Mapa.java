@@ -310,6 +310,7 @@ public class Mapa {
     public void limpiarCasilla(int fila, int columna) {
     if (posicionValida(fila, columna)) {
         Casilla[fila][columna] = ".";
+        Contenido[fila][columna] = ".";
     }
 }
 
