@@ -32,6 +32,7 @@ public class GestorMonstruos implements GestoresInterface {
         monstruos[5] = new Monstruo("Hombre Tigre", 40,2,6,15,10);
         monstruos[6] = new Monstruo("Tiefling", 50, 15, 8, 0, 15);
         
+        
     }
 
     //Eliminar el ultimo monstruo derrotado por nombre
