@@ -40,14 +40,13 @@ public class GestorMonstruos implements GestoresInterface {
         for (int i = 0; i < monstruos.length; i++) {
             
             // Evitar NullPointerException
-            if (monstruos[i]!= null && monstruos[i].getNombre().equalsIgnoreCase(nombre)) {
+            if (monstruos[i].getNombre().equalsIgnoreCase(nombre)) {
                 
                 monstruos[i]= null; // borrar monstruo
-                System.out.println("Monstruo eliminado: " + nombre);
-                return;
+                
             }
         }
-            System.out.println("No se encuentro el monstruo: " + nombre);
+            
     }
     
     public Monstruo getMonstruo(int indice){
