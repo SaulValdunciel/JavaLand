@@ -139,7 +139,6 @@ public class Combate implements CombateInterface {
                             }
                         }
                     }
-
                 } catch (NumberFormatException e) {
 
                     System.out.println("debes introducir un numero");

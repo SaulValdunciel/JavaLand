@@ -37,10 +37,12 @@ public class GestorValientes implements GestoresInterface {
 
         //variables
         String clase = "";
-        int puntos = 40;
-        int aux = 0;
-        int indice = 0;
+        int puntos = 40;// puntos para repartir
+        int aux = 0; //valor temporal
+        int indice = 0;// indice del valiente elegido
+        boolean salir = false;
 
+        //elegir clase vida
         while (!clase.equalsIgnoreCase("guerrero") && !clase.equalsIgnoreCase("paladin")
                 && !clase.equalsIgnoreCase("mago") && !clase.equalsIgnoreCase("picaro")) {
 
@@ -48,38 +50,37 @@ public class GestorValientes implements GestoresInterface {
             clase = new Scanner(System.in).nextLine().trim().toLowerCase();
 
         }
-        
-        switch(clase){//aisgnar un indice segun la clase
-        
-            case "guerrero"-> {
-            
+
+        switch (clase) {//aisgnar un indice segun la clase
+
+            case "guerrero" -> {
+
                 indice = 0;
             }
-            
+
             case "paladin" -> {
-            
-                 indice = 1;
+
+                indice = 1;
             }
-            
+
             case "mago" -> {
-            
+
                 indice = 2;
             }
-            
+
             case "picaro" -> {
-            
+
                 indice = 3;
             }
-            
-            default ->{
-            
+
+            default -> {
+
                 System.out.println("default");
             }
-            
+
         }
 
-      
-
+        // Buscar el valiente correspondiente y modificar sus estadísticas
         for (int i = 0; i < valientes.length; i++) {
 
             if (valientes[i].getClase().equalsIgnoreCase(clase)) {
@@ -90,9 +91,7 @@ public class GestorValientes implements GestoresInterface {
                 do {
 
                     //vida
-                    System.out.println("Vida: (entre 0 - 100) ");
-                    aux = new Scanner(System.in).nextInt();
-                    valientes[i].setVida(aux);
+                    valientes[i].setVida(100);
 
                     System.out.println(puntos + " puntos disponibles");
 
@@ -128,7 +127,9 @@ public class GestorValientes implements GestoresInterface {
                     aux = new Scanner(System.in).nextInt();
                     valientes[i].setVelocidad(aux);
 
-                } while (puntos > 0);
+                    salir = true;
+
+                } while (puntos > 0 || !salir);
 
             }
         }
@@ -141,6 +142,7 @@ public class GestorValientes implements GestoresInterface {
         return valientes[indice];
     }
 
+    // Muestra todos los valientes
     public void mostrarLista() {
 
         for (int i = 0; i < valientes.length; i++) {
