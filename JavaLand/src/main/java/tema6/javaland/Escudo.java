@@ -3,28 +3,38 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package tema6.javaland;
+
 /**
  *
  * @author DAM102
  */
 public class Escudo extends Objeto {
+
     // atributos: defensa
     private int defensa;
-    
+
     //constructor: crear un escudo con nombre y defensa
-    public Escudo(String nombre,int defensa){
-       super(nombre);
+    public Escudo(String nombre, int defensa) {
+        super(nombre);
         this.defensa = defensa;
     }
-    
+
     //metodos: para obtener los valores 
     //getNombre
-    public String getNombre(){
+    public String getNombre() {
         return nombre;
     }
-    
+
     //getDefensa
-    public int getDefensa(){
+    public int getDefensa() {
         return defensa;
     }
+
+    @Override
+    public boolean Equipar(Valiente valiente) {
+        valiente.setEscudo(this);
+        System.out.println("Te has equipado el escudo: " + nombre + " (+" + defensa + " defensa)");
+        return true;
+    }
+
 }

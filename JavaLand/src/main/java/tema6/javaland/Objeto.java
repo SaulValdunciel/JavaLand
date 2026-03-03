@@ -16,7 +16,6 @@ public class Objeto implements ObjetoInterface {
         this.nombre = nombre;
     }
 
-
     public String getNombre() {
         return nombre;
     }
@@ -25,7 +24,5 @@ public class Objeto implements ObjetoInterface {
     public boolean Equipar(Valiente valiente) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    
 
 }

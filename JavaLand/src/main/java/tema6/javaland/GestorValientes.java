@@ -14,54 +14,72 @@ import java.util.Scanner;
 public class GestorValientes implements GestoresInterface {
 
     // Array simple para guardar nombres de valientes
-    private Valiente[] valientes = new Valiente[4];
+    private Valiente[] valientes;
 
     public GestorValientes() {
 
+        crear();
     }
 
     //crear valientes por defecto
     @Override
     public void crear() {
 
+        valientes = new Valiente[4];
         valientes[0] = new Valiente("guerrero", 15, 10, 7, 8, 8);
         valientes[1] = new Valiente("paladin", 8, 15, 7, 10, 7);
         valientes[2] = new Valiente("mago", 7, 8, 17, 8, 8);
         valientes[3] = new Valiente("picaro", 8, 7, 10, 15, 10);
 
     }
-
+    
     public int crear2() {
 
         //variables
         String clase = "";
-        int puntos = 40;
-        int aux = 0;
-        int indice = 0;
+        int puntos = 40;// puntos para repartir
+        int aux = 0; //valor temporal
+        int indice = 0;// indice del valiente elegido
 
+        //elegir clase vida
         while (!clase.equalsIgnoreCase("guerrero") && !clase.equalsIgnoreCase("paladin")
                 && !clase.equalsIgnoreCase("mago") && !clase.equalsIgnoreCase("picaro")) {
-            
+
             System.out.println("Elegir clase: Guerrero, Paladín, Mago, Picaro");
-            clase = new Scanner(System.in).nextLine().trim();
+            clase = new Scanner(System.in).nextLine().trim().toLowerCase();
 
         }
-
-        if (clase.equalsIgnoreCase("Guerrero")) {
-
-            indice = 0;
-
-        } else if (clase.equalsIgnoreCase("paladin")) {
-
-            indice = 1;
-        } else if (clase.equalsIgnoreCase("mago")) {
-
-            indice = 2;
-        } else if (clase.equalsIgnoreCase("picaro")) {
-
-            indice = 3;
+        
+        switch(clase){//aisgnar un indice segun la clase
+        
+            case "guerrero"-> {
+            
+                indice = 0;
+            }
+            
+            case "paladin" -> {
+            
+                 indice = 1;
+            }
+            
+            case "mago" -> {
+            
+                indice = 2;
+            }
+            
+            case "picaro" -> {
+            
+                indice = 3;
+            }
+            
+            default ->{
+            
+                System.out.println("default");
+            }
+            
         }
-
+      
+        // Buscar el valiente correspondiente y modificar sus estadísticas
         for (int i = 0; i < valientes.length; i++) {
 
             if (valientes[i].getClase().equalsIgnoreCase(clase)) {
@@ -69,44 +87,48 @@ public class GestorValientes implements GestoresInterface {
                 //gastar puntos en las estadisticas
                 System.out.println(puntos + " puntos disponibles");
 
-                //vida
-                System.out.println("Vida: (entre 0 - 100) ");
-                aux = new Scanner(System.in).nextInt();
-                valientes[i].setVida(aux);
+                do {
 
-                System.out.println(puntos + " puntos disponibles");
+                    //vida
+                    System.out.println("Vida: (entre 0 - 100) ");
+                    aux = new Scanner(System.in).nextInt();
+                    valientes[i].setVida(aux);
 
-                //fuerza
-                System.out.println("Fuerza: ");
-                aux = new Scanner(System.in).nextInt();
-                valientes[i].setFuerza(aux);
+                    System.out.println(puntos + " puntos disponibles");
 
-                puntos -= aux;
+                    //fuerza
+                    System.out.println("Fuerza: ");
+                    aux = new Scanner(System.in).nextInt();
+                    valientes[i].setFuerza(aux);
 
-                System.out.println(puntos + " puntos disponibles");
+                    puntos -= aux;
 
-                //defensa
-                System.out.println("Defensa: ");
-                aux = new Scanner(System.in).nextInt();
-                valientes[i].setDefensa(aux);
+                    System.out.println(puntos + " puntos disponibles");
 
-                puntos -= aux;
+                    //defensa
+                    System.out.println("Defensa: ");
+                    aux = new Scanner(System.in).nextInt();
+                    valientes[i].setDefensa(aux);
 
-                System.out.println(puntos + " puntos disponibles");
+                    puntos -= aux;
 
-                //habilidad
-                System.out.println("Habilidad: ");
-                aux = new Scanner(System.in).nextInt();
-                valientes[i].setHabilidad(aux);
+                    System.out.println(puntos + " puntos disponibles");
 
-                puntos -= aux;
+                    //habilidad
+                    System.out.println("Habilidad: ");
+                    aux = new Scanner(System.in).nextInt();
+                    valientes[i].setHabilidad(aux);
 
-                System.out.println(puntos + " puntos disponibles");
+                    puntos -= aux;
 
-                //velocidad
-                System.out.println("Velocidad: ");
-                aux = new Scanner(System.in).nextInt();
-                valientes[i].setVelocidad(aux);
+                    System.out.println(puntos + " puntos disponibles");
+
+                    //velocidad
+                    System.out.println("Velocidad: ");
+                    aux = new Scanner(System.in).nextInt();
+                    valientes[i].setVelocidad(aux);
+
+                } while (puntos > 0);
 
             }
         }
@@ -114,8 +136,17 @@ public class GestorValientes implements GestoresInterface {
         return indice;
     }
 
+    //devuelve el valiente que se encuentra en el indice
     public Valiente getValiente(int indice) {
         return valientes[indice];
+    }
+    // Muestra todos los valientes
+    public void mostrarLista() {
+
+        for (int i = 0; i < valientes.length; i++) {
+
+            System.out.println(valientes[i].toString());
+        }
     }
 
 }

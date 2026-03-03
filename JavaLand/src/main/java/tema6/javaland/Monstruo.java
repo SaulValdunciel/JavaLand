@@ -18,18 +18,17 @@ public class Monstruo implements PersonajesInterface {
     protected int defensa; // entre 1 y 20
     protected int habilidad; // entre 1 y 20
     protected int velocidad; // entre 1 y 20
-    protected int nivel;// define las estadísticas según GestorMosntruos
-    protected static int contador = 0; // contador de monstruos totales
+    protected int nivel = 1;// define las estadísticas según GestorMosntruos
 
-    public Monstruo(String nombre, int vida, int fuerza, int defensa, int habilidad, int velocidad, int nivel) {
+    public Monstruo(String nombre, int vida, int fuerza, int defensa, int habilidad, int velocidad) {
         this.nombre = nombre;
         this.vida = vida;
         this.fuerza = fuerza;
         this.defensa = defensa;
         this.habilidad = habilidad;
         this.velocidad = velocidad;
-        this.nivel = nivel;
-        contador++;
+        nivel++;
+        
     }
 
     @Override
@@ -40,13 +39,13 @@ public class Monstruo implements PersonajesInterface {
         int Variable_aleatoria = random.nextInt(101);
         int daño;
 
-        if (Variable_aleatoria < (4 * (habilidad - (valiente.getDefensa() + valiente.getEscudo().getDefensa())))) {
+        if (Variable_aleatoria < (4 * (habilidad - (valiente.getDefensaTotal())))) {
 
             //restar vida al valiente según la fuerza del monstruo
             daño = valiente.getVida() - fuerza;
 
         } else {
-        
+
             daño = 0;
         }
 
@@ -55,18 +54,17 @@ public class Monstruo implements PersonajesInterface {
 
     @Override
     public int recibirDaño(int cantidad) {
-        
+
         vida -= cantidad;
-        
+
         return vida;
     }
-    
-    public void monstruosTotales(int num){
-    
-         contador = num;
-        
-    }
 
+    
+    public void subirNivel(){
+    
+        nivel++;
+    }
 
     //getters y setters
     public int getFuerza() {
@@ -124,7 +122,17 @@ public class Monstruo implements PersonajesInterface {
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
-    
+
+    @Override
+    public String toString() {
+        return nombre + " de nivel " + nivel
+                + "\nHP: " + vida
+                + "\nfuerza: " + fuerza
+                + "\ndefensa: " + defensa
+                + "\nhabilidad: " + habilidad
+                + "\nvelocidad: " + velocidad;
+    }
+
     //no usar
     @Override
     public boolean ValienteUsarHabilidadEspecial() {
@@ -132,10 +140,8 @@ public class Monstruo implements PersonajesInterface {
     }
 
     @Override
-    public int ValienteSubirNivel() {
+    public void ValienteSubirNivel() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    
 
 }

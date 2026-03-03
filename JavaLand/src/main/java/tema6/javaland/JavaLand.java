@@ -11,6 +11,14 @@ package tema6.javaland;
 public class JavaLand {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        int tamanoMapa = 15;
+        
+        
+        // Crear juego
+        Juego juego = new Juego(tamanoMapa);
+        
+
+        // Iniciar juego
+        juego.iniciarJuego();
     }
 }

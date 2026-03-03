@@ -3,34 +3,37 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package tema6.javaland;
+
 /**
  *
  * @author DAM105
  */
 public class PlantaCurativa extends Objeto {
-    
 
-    // 2. Constructor
+    //Constructor
     public PlantaCurativa(String nombre) {
-        super(nombre); 
+        super(nombre);
     }
 
-    // 3. Método Equipar modificado para curar
+    // Método Equipar modificado para curar un % de su vida máxima
     @Override
     public boolean Equipar(Valiente valiente) {
-        
-        // 1. Obtenemos la vida que tiene en este momento
-        int vidaActual = valiente.getVida();
-        
-        // 2. Calculamos el 50% de esa vida
-        int curacion = vidaActual / 2; 
-        
-        // 3. Se lo sumamos y actualizamos la vida del Valiente
-        int nuevaVida = vidaActual + curacion;
+
+        // Calculamos el 50% de esa vida máxima
+        int curacion = valiente.getVidaMaxima() / 2;
+
+        // Se lo sumamos y actualizamos la vida del Valiente actual
+        int nuevaVida = valiente.getVida() + curacion;
+
+        //Comprobamos si es mayor o no la nueva vida para que no pueda ser mayor a la máxima
+        if (nuevaVida > valiente.getVidaMaxima()) {
+            nuevaVida = valiente.getVidaMaxima();
+        }
+
         valiente.setVida(nuevaVida);
-        
-        System.out.println("Te has comido " + this.nombre + " y te has curado " + curacion + " puntos (50% de tu vida).");
-                           
+
+        System.out.println("Te has comido " + this.nombre + " y te has curado " + curacion + " puntos.");
+
         return true;
     }
 }
