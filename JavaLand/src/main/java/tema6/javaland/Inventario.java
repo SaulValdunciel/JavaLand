@@ -12,7 +12,7 @@ public class Inventario implements InventarioInterface {
 //Lista ARRAY para Guardar Objetos en el INVENTARIO
 
     private Objeto[] mochila;
-    private final int OBJETOS_MAX = 999;
+    private final int OBJETOS_MAX = 10;
 
     public Inventario() {
 
@@ -42,33 +42,70 @@ public class Inventario implements InventarioInterface {
     @Override
     public String UsarObjeto(String nombre, Valiente valiente) {
 
+        // Recorremos la mochila
         for (int i = 0; i < mochila.length; i++) {
 
+            // Comprobamos que no sea null y que el nombre coincida
+            if (mochila[i] != null && mochila[i].getNombre().equalsIgnoreCase(nombre)) {
+
+                mochila[i].Equipar(valiente);
+
+                if (mochila[i] instanceof PlantaCurativa) {
+
+                    // Como es consumible, lo borramos del inventario
+                    
+                    mochila[i] = null;
+                    //For para que el Inventario sea Ordenado Automa.
+                    for (int j = i; j < mochila.length - 1; j++) {
+                    mochila[j] = mochila[j + 1]; }
+                    
+                    return "Has consumido: " + nombre + " y te has curado.";
+
+                } else {
+
+                    return "Te has equipado: " + nombre;
+                }
+            }
         }
-        return null;
+
+        // Si termina el for y no ha devuelto nada, es que no lo encontró
+        return "No tienes el objeto " + nombre + " en tu mochila.";
     }
 
     @Override
     public boolean MostrarInventario() {
-
         boolean hayObjetos = false;
-        int i = 0;
-        System.out.println("¡Obejtos Disponibles!");
+        System.out.println("¡Objetos disponibles!");
 
-        //Revisar los objetos del Invent
-        while (i < mochila.length && mochila[i] != null) {
-            
-            System.out.println("-" + mochila[i].getNombre());
-            
-            hayObjetos = true;
-            i++;
+        for (int i = 0; i < mochila.length; i++) {
+            if (mochila[i] != null) {
+                System.out.println("- " + mochila[i].getNombre());
+                hayObjetos = true;
+            }
         }
+
         if (!hayObjetos) {
-        System.out.println("El inventario está vacío.");
+            System.out.println("El inventario está vacío.");
+        }
+        return hayObjetos;
     }
-    
-    return hayObjetos;
+
+    // Método para comprobar si hay alguna planta en el inventario
+    public boolean TienePlantaCurativa() {
+        for (int i = 0; i < mochila.length; i++) {
+            if (mochila[i] instanceof PlantaCurativa) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Objeto[] getMochila() {
+        return mochila;
+    }
+
+    public void setMochila(Objeto[] mochila) {
+        this.mochila = mochila;
+    }
+
 }
-    }
-    
-    

@@ -6,20 +6,24 @@ package tema6.javaland;
 
 /**
  *
- * @author cuent
+ * @author M
  */
-public class GestorMostruos implements GestoresInterface {
+public class GestorMonstruos implements GestoresInterface {
 
     //array para guarfar niveles de monstruos
-    private Monstruo[] monstruos = new Monstruo[10];  //maximo 10
+    private Monstruo[] monstruos;  //maximo 10
 
-    //Constructor vacio
-    public GestorMostruos() {
+    //Constructor
+    public GestorMonstruos() {
+        crear();
     }
 
     @Override
     public void crear() {
 
+        monstruos = new Monstruo[10];
+        
+        //monstruos
         monstruos[0] = new Monstruo("No muerto", 35, 6, 3, 9, 7);
         monstruos[1] = new Monstruo("Kobold", 30, 7, 5, 0, 9);
         monstruos[2] = new Monstruo("Orco", 35, 13, 9, 1, 7);
@@ -30,22 +34,20 @@ public class GestorMostruos implements GestoresInterface {
         
     }
 
-    // monstruo con estadisticas segun el nivel (lo año de lista)
-    public void GenerarMonstruo(int nivel) {
-
-    }
-
-    //Eliminar el ultimo monstruo derrotado
+    //Eliminar el ultimo monstruo derrotado por nombre
     public void eliminarMonstruo(String nombre) {
 
         for (int i = 0; i < monstruos.length; i++) {
             
-            if (monstruos[i].getNombre().equalsIgnoreCase(nombre)) {
+            // Evitar NullPointerException
+            if (monstruos[i]!= null && monstruos[i].getNombre().equalsIgnoreCase(nombre)) {
                 
-                monstruos[i]= null;
+                monstruos[i]= null; // borrar monstruo
+                System.out.println("Monstruo eliminado: " + nombre);
+                return;
             }
         }
-        
+            System.out.println("No se encuentro el monstruo: " + nombre);
     }
     
     public Monstruo getMonstruo(int indice){

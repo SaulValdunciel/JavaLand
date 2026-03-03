@@ -68,23 +68,24 @@ public class Mapa {
     //Coloca un monstruo en el mapa
     public void ponerMonstruo(int fila, int columna) {
         if (posicionValida(fila, columna)) {
-            Casilla[fila][columna] = "M";
+            Contenido[fila][columna] = "M";
         }
     }
 
     //Coloca un objeto en el mapa
     public void ponerObjeto(int fila, int columna) {
         if (posicionValida(fila, columna)) {
-            Casilla[fila][columna] = "O";
+            Contenido[fila][columna] = "O";
         }
     }
 
     //Coloca un Rocas en el mapa
     public void ponerRocas(int fila, int columna) {
         if (posicionValida(fila, columna)) {
-            Casilla[fila][columna] = "R";
+            Contenido[fila][columna] = "R";
         }
     }
+    
 
 
     /*
@@ -180,7 +181,7 @@ public class Mapa {
     revelarAdyacentes(valienteFila, valienteColumna);
 
     // mostrar mapa inicial
-    mostrarMapa(valienteFila, valienteColumna);
+    //mostrarMapa(valienteFila, valienteColumna);
 }
 
     
@@ -208,7 +209,7 @@ public class Mapa {
          mapa1[11][2]= "R";mapa1[11][4]= "R";
          mapa1[12][6]= "R";mapa1[12][11]= "R";mapa1[12][13]= "R";
          mapa1[13][11]= "R";
-         mapa1[14][4]= "R";mapa1[14][7]= "R";
+         mapa1[14][4]= "R";mapa1[14][7]= "R";mapa1[14][14]= "C";
          
          
          mapa2[0][2]= "R";mapa2[0][3]= "R";mapa2[0][4]= "R";mapa2[0][5]= "R";
@@ -236,7 +237,7 @@ public class Mapa {
          mapa2[13][0]= "R";mapa2[13][8]= "R";mapa2[13][10]= "R";mapa2[13][13]= "R";
          mapa2[14][0]= "R";mapa2[14][1]= "R";mapa2[14][2]= "R";mapa2[14][5]= "R";
          mapa2[14][6]= "R";mapa2[14][9]= "R";mapa2[14][10]= "R";
-         mapa2[14][11]= "R";mapa2[14][12]= "R";mapa2[14][13]= "R";
+         mapa2[14][11]= "R";mapa2[14][12]= "R";mapa2[14][13]= "R";mapa2[14][14]= "C";
          
          
          mapa3[0][5]= "R";mapa3[0][6]= "R";mapa3[0][7]= "R";mapa3[0][8]= "R";
@@ -266,7 +267,7 @@ public class Mapa {
          mapa3[14][0]= "R";mapa3[14][1]= "R";mapa3[14][4]= "R";
          mapa3[14][5]= "R";mapa3[14][6]= "R";mapa3[14][7]= "R";
          mapa3[14][8]= "R";mapa3[14][9]= "R";mapa3[14][11]= "R";
-         mapa3[14][12]= "R";mapa3[14][13]= "R";
+         mapa3[14][12]= "R";mapa3[14][13]= "R";mapa3[14][14]= "C";
          
          
       
@@ -301,7 +302,7 @@ public class Mapa {
 
     public String leerCasilla(int fila, int columna) {
     if (posicionValida(fila, columna)) {
-        return Casilla[fila][columna];
+        return Contenido[fila][columna];
     }
     return null;
 }
