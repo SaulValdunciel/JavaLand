@@ -77,8 +77,6 @@ public class Combate implements CombateInterface {
                         System.out.println("  |  1.  Ataque básico             |");
                         System.out.println("  |  2.  Habilidad especial        |");
                         System.out.println("  |  3.  Abrir mochila             |");
-                        System.out.println("  |  4.  Explorar mapa             |");
-                        System.out.println("  |  5.  Salir del juego           |");
                         System.out.println("  +================================+");
                         System.out.println("");
 
