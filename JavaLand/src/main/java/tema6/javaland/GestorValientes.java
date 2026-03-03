@@ -32,15 +32,16 @@ public class GestorValientes implements GestoresInterface {
         valientes[3] = new Valiente("picaro", 8, 7, 10, 15, 10);
 
     }
-
+    
     public int crear2() {
 
         //variables
         String clase = "";
-        int puntos = 40;
-        int aux = 0;
-        int indice = 0;
+        int puntos = 40;// puntos para repartir
+        int aux = 0; //valor temporal
+        int indice = 0;// indice del valiente elegido
 
+        //elegir clase vida
         while (!clase.equalsIgnoreCase("guerrero") && !clase.equalsIgnoreCase("paladin")
                 && !clase.equalsIgnoreCase("mago") && !clase.equalsIgnoreCase("picaro")) {
 
@@ -77,9 +78,8 @@ public class GestorValientes implements GestoresInterface {
             }
             
         }
-
       
-
+        // Buscar el valiente correspondiente y modificar sus estadísticas
         for (int i = 0; i < valientes.length; i++) {
 
             if (valientes[i].getClase().equalsIgnoreCase(clase)) {
@@ -140,7 +140,7 @@ public class GestorValientes implements GestoresInterface {
     public Valiente getValiente(int indice) {
         return valientes[indice];
     }
-
+    // Muestra todos los valientes
     public void mostrarLista() {
 
         for (int i = 0; i < valientes.length; i++) {
