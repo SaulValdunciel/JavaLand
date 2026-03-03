@@ -112,7 +112,7 @@ public class Juego {
                 //mostrar lista de valientes hechos
                 listaValientes.mostrarLista();
                 
-                System.out.println("1 Guerrero\t 2 Paladin\t 3 Mago\t 4 Picaro ");
+                System.out.println("1-Guerrero 2-Paladin 3-Mago 4-Picaro ");
                 
                 int seleccion = new Scanner(System.in).nextInt();
 
