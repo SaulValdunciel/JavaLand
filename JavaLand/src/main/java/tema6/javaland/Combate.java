@@ -4,6 +4,7 @@
  */
 package tema6.javaland;
 
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -19,10 +20,10 @@ public class Combate implements CombateInterface {
     @Override
     public void iniciarCombate(Valiente valiente, Monstruo monstruo) {
 
+        //mostrar monstruo al que se va a enfrentar
+        System.out.println("Aparece un " + monstruo.getNombre() + " de nivel "
+                + monstruo.getNivel());
         do {//bucle hasta que la vida de valiente o monstruo llegue a 0 o menos
-
-            //mostrar monstruo al que se va a enfrentar
-            System.out.println(monstruo.getNombre());
 
             //determinar orden
             Random randomV = new Random();//aleatorio para la iniciativa del valiente
@@ -54,7 +55,7 @@ public class Combate implements CombateInterface {
     public <T> void turno(T atacante, T defensor) {
 
         //variables
-        int opcion;
+        int opcion = 0;
         boolean finAccion = false;
 
         //si el atacante es un objeto de Valiente
@@ -64,73 +65,87 @@ public class Combate implements CombateInterface {
             Monstruo monstruo = (Monstruo) defensor;
 
             do {
-                System.out.println("\n-MENU DE BATALLA-");
-                System.out.println("1. Ataque básico");
-                System.out.println("2. Habilidad especial");
-                System.out.println("3. Abrir mochila");
 
-                opcion = new Scanner(System.in).nextInt();
+                try {
 
-                switch (opcion) {
+                    while (opcion < 1 || opcion > 3) {
+                        System.out.println("\n-MENU DE BATALLA-");
+                        System.out.println("1. Ataque básico");
+                        System.out.println("2. Habilidad especial");
+                        System.out.println("3. Abrir mochila");
 
-                    case 1 -> {//ataque normal
-
-                        int daño = valiente.atacar(defensor);
-
-                        if (daño > 0) {
-
-                            System.out.println(monstruo.getNombre() + " ha recibido "
-                                    + daño + " puntos de daño");
-
-                            monstruo.recibirDaño(daño);
-
-                            System.out.println(monstruo.toString());
-
-                        } else {
-
-                            System.out.println("El ataque falló");
-
-                        }
-
-                        finAccion = true;
+                        opcion = new Scanner(System.in).nextInt();
 
                     }
 
-                    case 2 -> {//usar habilidad especial, se lanza en el siguiente turno al atacar
+                    switch (opcion) {
 
-                        if (!valiente.ValienteUsarHabilidadEspecial()) {
+                        case 1 -> {//ataque normal
 
-                            valiente.ValienteUsarHabilidadEspecial();
-                            System.out.println("Habilidad lanzada");
+                            int daño = valiente.atacar(defensor);
 
+                            if (daño > 0) {
+
+                                System.out.println(monstruo.getNombre() + " ha recibido "
+                                        + daño + " puntos de daño");
+
+                                monstruo.recibirDaño(daño);
+
+                                System.out.println(monstruo.toString());
+
+                            } else {
+
+                                System.out.println("Tu ataque falló");
+
+                            }
+                            valiente.tickCooldown();
                             finAccion = true;
 
-                        } else {
+                        }
 
-                            System.out.println("Habilidad en cooldown");
+                        case 2 -> {
+                            boolean usada = valiente.ValienteUsarHabilidadEspecial();
+
+                            // Cooldown bien: true = usada, false = en cooldown
+                            if (usada) {
+                                System.out.println("Habilidad lanzada. Cooldown: " + valiente.getCooldownHabilidad() + " turnos.");
+                                // Si la habilidad consume turno:
+                                finAccion = true;
+                            } else {
+                                System.out.println("No puedes usar la habilidad. Cooldown: "
+                                        + valiente.getCooldownHabilidad() + " turnos.");
+                                System.out.println("Elige otra opción.");
+                                // no consume el turno
+                            }
+                        }
+
+                        case 3 -> {//curarse
+
+                            if (valiente.getVida() < valiente.getVidaMaxima()) {//curar solo si le falta vida
+
+                                //llamar metodo de curacion
+                                valiente.getInventario().UsarObjeto("Planta Curativa", valiente);
+                                valiente.tickCooldown();
+                                finAccion = true;
+
+                            } else {
+
+                                System.out.println("No puedes curarte cuando tienes la vida la máximo");
+                            }
 
                         }
 
-                    }
+                        default -> {
 
-                    case 3 -> {//curarse
-
-                        if (valiente.getVida() < valiente.getVidaMaxima()) {//curar solo si le falta vida
-
-                            //llamar metodo de curacion
-                            finAccion = true;
-
-                        } else {
-
-                            System.out.println("No puedes curarte cuando tienes la vida la máximo");
+                            System.out.println("Default");
                         }
-
                     }
 
-                    default -> {
+                } catch (NumberFormatException e) {
 
-                        System.out.println("Default");
-                    }
+                    System.out.println("debes introducir un numero");
+                } catch (InputMismatchException e) {
+                    System.out.println("formato incorrecto");
                 }
             } while (!finAccion);
 
@@ -152,7 +167,7 @@ public class Combate implements CombateInterface {
                         + valiente.getVida() + " puntos de vida");
             } else {
 
-                System.out.println("El ataque falló");
+                System.out.println("El ataque del monstruo falló");
             }
 
         }

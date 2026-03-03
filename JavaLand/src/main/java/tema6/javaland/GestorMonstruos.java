@@ -6,14 +6,14 @@ package tema6.javaland;
 
 /**
  *
- * @author cuent
+ * @author M
  */
 public class GestorMonstruos implements GestoresInterface {
 
     //array para guarfar niveles de monstruos
     private Monstruo[] monstruos;  //maximo 10
 
-    //Constructor vacio
+    //Constructor
     public GestorMonstruos() {
         crear();
     }
@@ -34,16 +34,12 @@ public class GestorMonstruos implements GestoresInterface {
         
     }
 
-    // monstruo con estadisticas segun el nivel
-    public void GenerarMonstruo(int nivel) {
-
-    }
-
-    //Eliminar el ultimo monstruo derrotado
+    //Eliminar el ultimo monstruo derrotado por nombre
     public void eliminarMonstruo(String nombre) {
 
         for (int i = 0; i < monstruos.length; i++) {
             
+            // Evitar NullPointerException
             if (monstruos[i].getNombre().equalsIgnoreCase(nombre)) {
                 
                 monstruos[i]= null;
