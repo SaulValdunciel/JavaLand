@@ -76,71 +76,69 @@ public class Combate implements CombateInterface {
 
                         opcion = new Scanner(System.in).nextInt();
 
-                    }
+                        switch (opcion) {
 
-                    switch (opcion) {
+                            case 1 -> {//ataque normal
 
-                        case 1 -> {//ataque normal
+                                int daño = valiente.atacar(defensor);
 
-                            int daño = valiente.atacar(defensor);
+                                if (daño > 0) {
 
-                            if (daño > 0) {
+                                    System.out.println(monstruo.getNombre() + " ha recibido "
+                                            + daño + " puntos de daño");
 
-                                System.out.println(monstruo.getNombre() + " ha recibido "
-                                        + daño + " puntos de daño");
+                                    monstruo.recibirDaño(daño);
 
-                                monstruo.recibirDaño(daño);
+                                    System.out.println(monstruo.toString());
 
-                                System.out.println(monstruo.toString());
+                                } else {
 
-                            } else {
+                                    System.out.println("Tu ataque falló");
 
-                                System.out.println("Tu ataque falló");
-
-                            }
-                            valiente.tickCooldown();
-                            finAccion = true;
-
-                        }
-
-                        case 2 -> {
-                            boolean usada = valiente.ValienteUsarHabilidadEspecial();
-
-                            // Cooldown bien: true = usada, false = en cooldown
-                            if (usada) {
-                                System.out.println("Habilidad lanzada. Cooldown: " + valiente.getCooldownHabilidad() + " turnos.");
-                                // Si la habilidad consume turno:
-                                finAccion = true;
-                            } else {
-                                System.out.println("No puedes usar la habilidad. Cooldown: "
-                                        + valiente.getCooldownHabilidad() + " turnos.");
-                                System.out.println("Elige otra opción.");
-                                // no consume el turno
-                            }
-                        }
-
-                        case 3 -> {//curarse
-
-                            if (valiente.getVida() < valiente.getVidaMaxima()) {//curar solo si le falta vida
-
-                                //llamar metodo de curacion
-                                valiente.getInventario().UsarObjeto("Planta Curativa", valiente);
+                                }
                                 valiente.tickCooldown();
                                 finAccion = true;
 
-                            } else {
-
-                                System.out.println("No puedes curarte cuando tienes la vida la máximo");
                             }
 
-                        }
+                            case 2 -> {
+                                boolean usada = valiente.ValienteUsarHabilidadEspecial();
 
-                        default -> {
+                                // Cooldown bien: true = usada, false = en cooldown
+                                if (usada) {
+                                    System.out.println("Habilidad lanzada. Cooldown: " + valiente.getCooldownHabilidad() + " turnos.");
+                                    // Si la habilidad consume turno:
+                                    finAccion = true;
+                                } else {
+                                    System.out.println("No puedes usar la habilidad. Cooldown: "
+                                            + valiente.getCooldownHabilidad() + " turnos.");
+                                    System.out.println("Elige otra opción.");
+                                    // no consume el turno
+                                }
+                            }
 
-                            System.out.println("Default");
+                            case 3 -> {//curarse
+
+                                if (valiente.getVida() < valiente.getVidaMaxima()) {//curar solo si le falta vida
+
+                                    //llamar metodo de curacion
+                                    valiente.getInventario().UsarObjeto("Planta Curativa", valiente);
+                                    valiente.tickCooldown();
+                                    finAccion = true;
+
+                                } else {
+
+                                    System.out.println("No puedes curarte cuando tienes la vida la máximo");
+                                }
+
+                            }
+
+                            default -> {
+
+                                System.out.println("Default");
+                            }
                         }
                     }
-
                 } catch (NumberFormatException e) {
 
                     System.out.println("debes introducir un numero");
