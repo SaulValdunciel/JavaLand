@@ -18,6 +18,9 @@ public class Mapa {
 
     // Tamaño del mapa (n x n)
     private int tamano;
+    
+    private int monstruos;
+    private int objetos;
 
     /*
      * Constructor del mapa
@@ -35,6 +38,16 @@ public class Mapa {
                 Contenido[fila][columna] = "."; // todo vacío inicialmente
             }
         }
+        monstruos = 10;
+        objetos = 6;
+    }
+
+    public int getMonstruos() {
+        return monstruos;
+    }
+
+    public int getObjetos() {
+        return objetos;
     }
 
     
@@ -171,8 +184,8 @@ public class Mapa {
     }
      public void generarYMostrarMapa(int valienteFila, int valienteColumna) {
     // colocar monstruos y objetos aleatorios solo si la casilla esta oculta
-    int monstruos = 5;
-    int objetos = 5;
+    int monstruos = 10;
+    int objetos = 6;
 
     colocarElementos("M", monstruos, false);
     colocarElementos("O", objetos, false);
@@ -310,6 +323,7 @@ public class Mapa {
     public void limpiarCasilla(int fila, int columna) {
     if (posicionValida(fila, columna)) {
         Casilla[fila][columna] = ".";
+        Contenido[fila][columna] = ".";
     }
 }
 
