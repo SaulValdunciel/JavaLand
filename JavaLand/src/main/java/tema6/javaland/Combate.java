@@ -69,10 +69,16 @@ public class Combate implements CombateInterface {
                 try {
 
                     while (opcion < 1 || opcion > 3) {
-                        System.out.println("\n-MENU DE BATALLA-");
-                        System.out.println("1. Ataque básico");
-                        System.out.println("2. Habilidad especial");
-                        System.out.println("3. Abrir mochila");
+
+                        System.out.println("");
+                        System.out.println("  +================================+");
+                        System.out.println("  |       MENU DE BATALLA          |");
+                        System.out.println("  +================================+");
+                        System.out.println("  |  1.  Ataque básico             |");
+                        System.out.println("  |  2.  Habilidad especial        |");
+                        System.out.println("  |  3.  Abrir mochila             |");
+                        System.out.println("  +================================+");
+                        System.out.println("");
 
                         opcion = new Scanner(System.in).nextInt();
 
