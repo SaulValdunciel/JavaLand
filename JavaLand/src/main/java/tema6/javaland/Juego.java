@@ -4,6 +4,7 @@
  */
 package tema6.javaland;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -89,9 +90,19 @@ public class Juego {
         String opcion = " ";
         
         while (!opcion.equalsIgnoreCase("elegir") && !opcion.equalsIgnoreCase("crear")) {
-            
+            try {
+                
             System.out.println("ELEGIR o CREAR valiente");
             opcion = new Scanner(System.in).nextLine().toLowerCase().trim();
+            
+            } catch (InputMismatchException e){
+
+                System.out.println("debe introducir las palabras ELEGIR o CREAR");
+                
+            } catch (Exception e){
+            
+                System.out.println("Excepcion desconocida");
+            }
         }
         
         switch (opcion) {
