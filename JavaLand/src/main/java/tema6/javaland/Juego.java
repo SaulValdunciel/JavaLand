@@ -24,6 +24,7 @@ public class Juego {
     private Monstruo monstruo;
     private int contMonstruos;
     private GestorObjeto gestorObjeto;
+    private CompiladorOscuro ComOscuro;
 
     // Constructor
     public Juego(int tamanoMapa) {
@@ -42,6 +43,8 @@ public class Juego {
         
         gestorObjeto = new GestorObjeto();
         gestorObjeto.crear();
+        
+        
     }
 
     // Metodo principal para iniciar el juego.
@@ -315,6 +318,10 @@ public class Juego {
                             } else if (casillaDestino.equals("C")) {
                                 valienteFila = nuevaFila;
                                 valienteColumna = nuevaColumna;
+                                
+                                //añadir al compilador oscuro
+                                ComOscuro = new CompiladorOscuro("Compilador Oscuro", 150, 3, 3, 3, 3, mapa.getMonstruos() );
+                                
                                 mapa.revelarAdyacentes(valienteFila, valienteColumna);
                                 System.out.println("Te encuentras con el Jefe Final el Compilador Oscuro");
                                 //iniciar combate
