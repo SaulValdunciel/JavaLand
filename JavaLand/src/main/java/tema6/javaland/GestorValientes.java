@@ -40,10 +40,10 @@ public class GestorValientes implements GestoresInterface {
         try {
 
             valientes = new Valiente[4];
-            valientes[0] = new Valiente("guerrero", 15, 10, 7, 8, 8);
-            valientes[1] = new Valiente("paladin", 8, 15, 7, 10, 7);
-            valientes[2] = new Valiente("mago", 7, 8, 17, 8, 8);
-            valientes[3] = new Valiente("picaro", 8, 7, 10, 15, 10);
+            valientes[0] = new Valiente("guerrero", 80, 18, 9, 7, 6);
+            valientes[1] = new Valiente("paladin", 80, 9, 15, 7, 9);
+            valientes[2] = new Valiente("mago", 80, 8, 9, 15, 8);
+            valientes[3] = new Valiente("picaro", 80, 6, 9, 8, 17);
 
         } catch (NullPointerException e) {
             System.out.println("Error al inicializar el array de valientes.");
@@ -164,7 +164,11 @@ public class GestorValientes implements GestoresInterface {
 
                 }
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (InputMismatchException e){
+        
+            System.out.println("Tipo de dato erroneo");
+        } 
+        catch (ArrayIndexOutOfBoundsException e) {
 
             System.out.println("Error: índice fuera del array.");
 
