@@ -151,10 +151,8 @@ public class Valiente implements PersonajesInterface {
         
         // GUERRERO: si tiene arma o escudo, prepara el siguiente ataque triple
         if (clase.equalsIgnoreCase("GUERRERO")) {
-            if (arma.getAtaque() != 0 || escudo.getDefensa() != 0) {
                 guerreroTriplePendiente = true;
                 usada = true;
-            }
         }
 
         // PALADIN: se cura un 50% de la vida max
