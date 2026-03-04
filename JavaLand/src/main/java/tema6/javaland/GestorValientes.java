@@ -118,7 +118,7 @@ public class GestorValientes implements GestoresInterface {
                     do {
 
                         //vida
-                        valientes[i].setVida(100);
+                        valientes[i].setVida(80);
 
                         System.out.println(puntos + " puntos disponibles");
                         try {
@@ -215,6 +215,7 @@ public class GestorValientes implements GestoresInterface {
             for (int i = 0; i < valientes.length; i++) {
 
                 System.out.println(valientes[i].toString());
+                System.out.println("");
             }
 
         } catch (NullPointerException e) {
