@@ -145,7 +145,7 @@ public class Mapa {
         boolean puedeColocar = true;
 
         // Solo colocar en casillas vacías en el contenido real
-        if (!Contenido[fila][columna].equals("\u25CF")) {
+        if (!Contenido[fila][columna].equals("\u25CF")|| (fila == 0 && columna == 0) ) {
             puedeColocar = false;
         } else if (comprobarAdyacentes && comprobarAlrededor(fila, columna)) {
             puedeColocar = false;
