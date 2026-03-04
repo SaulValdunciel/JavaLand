@@ -9,5 +9,7 @@ package tema6.javaland;
  * @author cuent
  */
 public interface GestoresInterface {
-    void crear();
+
+    public void crear();
+    
 }
