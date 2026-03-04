@@ -27,6 +27,12 @@ public class Mapa {
      * tamano = tamaño del mapa (ej: 10 para 10x10)
      * revelarTodo = si empieza todo visible o no
      */
+    /**
+     * 
+     * @param tamano
+     * @param revelarTodo
+     * @author Alberto
+     */
     public Mapa(int tamano, boolean revelarTodo) {
         this.tamano = tamano;
         Casilla = new String[tamano][tamano];
