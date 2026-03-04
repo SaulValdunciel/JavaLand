@@ -15,7 +15,12 @@ public class PlantaCurativa extends Objeto {
         super(nombre);
     }
 
-    // Método Equipar modificado para curar un % de su vida máxima
+    /**
+     * Método Equipar modificado para curar un % de su vida máxima
+     * @param valiente
+     * @return 
+     * @author Sergio
+     */
     @Override
     public boolean Equipar(Valiente valiente) {
 

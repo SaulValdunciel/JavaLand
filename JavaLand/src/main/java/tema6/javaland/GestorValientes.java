@@ -176,7 +176,7 @@ public class GestorValientes implements GestoresInterface {
 
             System.out.println("Error desconocido al crear el valiente.");
         }
-<<<<<<< HEAD
+
 
         switch (clase) {//aisgnar un indice segun la clase
 
@@ -262,8 +262,7 @@ public class GestorValientes implements GestoresInterface {
             }
         }
 
-=======
->>>>>>> c12423ef44d4c4f0c091330a8c745c7f3c78d341
+
         return indice;
     }
     //devuelve el valiente que se encuentra en el indice
