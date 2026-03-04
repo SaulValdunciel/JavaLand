@@ -34,7 +34,7 @@ public class Mapa {
 
         for (int fila = 0; fila < tamano; fila++) {
             for (int columna = 0; columna < tamano; columna++) {
-                Casilla[fila][columna] = revelarTodo ? "\u25CF" : "\u25A1";
+                Casilla[fila][columna] = revelarTodo ? "\u26AA" : "\u25A1";
                 Contenido[fila][columna] = "\u25CF"; // todo vacío inicialmente
             }
         }
@@ -81,7 +81,7 @@ public class Mapa {
     //Coloca un monstruo en el mapa
     public void ponerMonstruo(int fila, int columna) {
         if (posicionValida(fila, columna)) {
-            Contenido[fila][columna] = "\u2620";
+            Contenido[fila][columna] = "\u2622";
         }
     }
 
@@ -145,7 +145,7 @@ public class Mapa {
         boolean puedeColocar = true;
 
         // Solo colocar en casillas vacías en el contenido real
-        if (!Contenido[fila][columna].equals("\u25CF")|| (fila == 0 && columna == 0) ) {
+        if (!Contenido[fila][columna].equals("\u26AA")|| (fila == 0 && columna == 0) ) {
             puedeColocar = false;
         } else if (comprobarAdyacentes && comprobarAlrededor(fila, columna)) {
             puedeColocar = false;
@@ -161,22 +161,22 @@ public class Mapa {
 
     private boolean comprobarAlrededor(int fila, int columna){
         if(fila > 0){
-            if(!Casilla[fila -1][columna].equals("\u25CF")){
+            if(!Casilla[fila -1][columna].equals("\u26AA")){
                 return true;
             }
         }
         if(fila < tamano -1){
-            if(!Casilla[fila +1][columna].equals("\u25CF")){
+            if(!Casilla[fila +1][columna].equals("\u26AA")){
                 return true;
             }
         }
         if(columna > 0){
-            if(!Casilla[fila][columna -1].equals("\u25CF")){
+            if(!Casilla[fila][columna -1].equals("\u26AA")){
                 return true;
             }
         }
         if(columna < tamano -1){
-            if(!Casilla[fila][columna +1].equals("\u25CF")){
+            if(!Casilla[fila][columna +1].equals("\u26AA")){
                 return true;
             }
         }
@@ -187,7 +187,7 @@ public class Mapa {
     int monstruos = 10;
     int objetos = 6;
 
-    colocarElementos("\u2620", monstruos, false);
+    colocarElementos("\u2622", monstruos, false);
     colocarElementos("\u2606", objetos, false);
 
     // revelar la posicion inicial y adyacentes
@@ -306,7 +306,7 @@ public class Mapa {
         for (int columna = 0; columna < tamano; columna++) {
             if (mapaBase[fila][columna] == null) {
                 Casilla[fila][columna] = "\u25A1";       // oculto
-                Contenido[fila][columna] = "\u25CF";     // vacío real
+                Contenido[fila][columna] = "\u26AA";     // vacío real
             } else {
                 Casilla[fila][columna] = "\u25A1";       // oculto también
                 Contenido[fila][columna] = mapaBase[fila][columna]; // roca u objeto real
@@ -325,8 +325,8 @@ public class Mapa {
 
     public void limpiarCasilla(int fila, int columna) {
     if (posicionValida(fila, columna)) {
-        Casilla[fila][columna] = "\u25CF";
-        Contenido[fila][columna] = "\u25CF";
+        Casilla[fila][columna] = "\u26AA";
+        Contenido[fila][columna] = "\u26AA";
     }
 }
 

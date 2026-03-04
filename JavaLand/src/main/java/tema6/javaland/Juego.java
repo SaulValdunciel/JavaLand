@@ -274,7 +274,7 @@ public class Juego {
                         if (!casillaDestino.equals("\u2617")) {
 
                             // Revisar contenido de la casilla
-                            if (casillaDestino.equals("\u2620")) {
+                            if (casillaDestino.equals("\u2622")) {
                                 System.out.println("Hay un monstruo");
                                  String respuesta;
                                 do {
@@ -343,7 +343,7 @@ public class Juego {
                                 mapa.limpiarCasilla(valienteFila, valienteColumna);
                                 explorando = false; // Salir del bucle de movimiento
                                 juegoActivo = false;
-                            } else if (casillaDestino.equals("\u25CF")) {
+                            } else if (casillaDestino.equals("\u26AA")) {
                                 valienteFila = nuevaFila;
                                 valienteColumna = nuevaColumna;
                                 mapa.revelarAdyacentes(valienteFila, valienteColumna);
