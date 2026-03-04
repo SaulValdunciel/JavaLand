@@ -9,6 +9,13 @@ package tema6.javaland;
  * @author DAM126
  */
 public class Mapa {
+         // ⛹ persona  → valiente
+         // ☢ monstruo
+         // ☆ estrella vacia  → nivel/exp
+         // ☐ cuadrado blanco 
+         // ⚪ circulo blanco   → casilla
+         // ☗ roca
+         // ♚    → jefe final
 
     //Mapa variable sengun las dificultades representado con Strings
     //Cada posición es una casilla del mapa
@@ -23,9 +30,14 @@ public class Mapa {
     private int objetos;
 
     /*
+     
+     */
+    /**
      * Constructor del mapa
-     * tamano = tamaño del mapa (ej: 10 para 10x10)
-     * revelarTodo = si empieza todo visible o no
+     * revelarTodo = si empieza todo visible o no 
+     * @param tamano
+     * @param revelarTodo 
+     * @autor Alberto
      */
     /**
      * 
@@ -57,25 +69,40 @@ public class Mapa {
     }
 
     
-    //Comprueba si una posición esta dentro del mapa
+    /**
+     * Comprueba si una posición esta dentro del mapa
+     * @param fila
+     * @param columna
+     * @autor Alberto
+     * @return 
+     */
+    
     public boolean posicionValida(int fila, int columna) {
         return fila >= 0 && fila < tamano && columna >= 0 && columna < tamano;
     }
 
-    /*
+    /**
      * Revela solo la casilla actual
      * fila y columna son los índices de la matriz
+     * @param fila
+     * @param columna 
+     * @autor Alberto
      */
+
     public void revelarCasilla(int fila, int columna) {
         if (posicionValida(fila, columna) && Casilla[fila][columna].equals("\u25A1")) {
         Casilla[fila][columna] = Contenido[fila][columna]; // <- copiar el contenido real
         }
     }
-
-    /*
+    
+    /**
      * Revela la casilla actual y las adyacentes
      * (arriba, abajo, izquierda, derecha)
+     * @param fila
+     * @param columna 
+     * @autor Alberto
      */
+    
     public void revelarAdyacentes(int fila, int columna) {
         revelarCasilla(fila, columna);       // actual
         revelarCasilla(fila - 1, columna);   // arriba
@@ -107,13 +134,21 @@ public class Mapa {
     
 
 
+    /**
+     * Muestra el mapa
+     * @param valienteFila
+     * @param valienteColumna 
+     * @autor Alberto
+     */
     /*
      * Muestra el mapa por consola
-     * V = Valiente
-     * M = Monstruo
-     * O = Objeto
-     * . = Vacío revelado
-     * ? = No revelado
+     * ⛹ = Valiente
+     * ☢ = Monstruo
+     * ☆ = Objeto
+     * ⚪ = Vacío revelado
+     * ☐ = No revelado
+     * ☗ = roca  
+     * ♚ = Compilador Oscuro
      */
     public void mostrarMapa(int valienteFila, int valienteColumna) {
 
@@ -135,12 +170,18 @@ public class Mapa {
         
     }
 
-    /*
+    /**
      * Metodo interno para colocar elementos automaticamente
-     * elemento: "R", "M", "O"
+     * ☢ = Monstruo
+     * ☆ = Objeto
      * cantidad: numero de elementos
      * comprobarAdyacentes: true solo para rocas
+     * @param elemento
+     * @param cantidad
+     * @param comprobarAdyacentes 
+     * @autor Alberto
      */
+    
     private void colocarElementos(String elemento, int cantidad, boolean comprobarAdyacentes) {
     int colocados = 0;
 
@@ -165,6 +206,14 @@ public class Mapa {
 }
 
 
+    /**
+     * Comprueba las casillas alrededor 
+     * @param fila
+     * @param columna
+     * @autor Alberto
+     * @return 
+     */
+    
     private boolean comprobarAlrededor(int fila, int columna){
         if(fila > 0){
             if(!Casilla[fila -1][columna].equals("\u26AA")){
@@ -188,8 +237,13 @@ public class Mapa {
         }
         return false;
     }
+    /**
+     * Metodo genera y muestra el mapa y coloca los monstruos y los objetos
+     * @param valienteFila
+     * @param valienteColumna 
+     * @autor Alberto
+     */
      public void generarYMostrarMapa(int valienteFila, int valienteColumna) {
-    // colocar monstruos y objetos aleatorios solo si la casilla esta oculta
     int monstruos = 10;
     int objetos = 6;
 
@@ -199,12 +253,13 @@ public class Mapa {
     // revelar la posicion inicial y adyacentes
     revelarAdyacentes(valienteFila, valienteColumna);
 
-    // mostrar mapa inicial
-    //mostrarMapa(valienteFila, valienteColumna);
+    
 }
 
-    
-    //Metodo de mapas creados a mano que ponen las rocas
+    /**
+     * Metodo de mapas creados a mano que ponen las rocas
+     * @autor Alberto
+     */
     public void mapas(){
         String[][] mapa1 = new String[tamano][tamano];
         String[][] mapa2 = new String[tamano][tamano];
@@ -306,7 +361,12 @@ public class Mapa {
         }
          
     }
-    
+    /**
+     * Carga el mapa base
+     * @param mapaBase 
+     * @autor Alberto
+     */
+    //
     private void cargarMapaBase(String[][] mapaBase) {
     for (int fila = 0; fila < tamano; fila++) {
         for (int columna = 0; columna < tamano; columna++) {
@@ -321,7 +381,14 @@ public class Mapa {
       }
     }
 
-
+    /**
+     * Metodo que lee lo que hay en la casilla
+     * @param fila
+     * @param columna
+     * @autor Alberto
+     * @return 
+     */
+    //
     public String leerCasilla(int fila, int columna) {
     if (posicionValida(fila, columna)) {
         return Contenido[fila][columna];
@@ -329,6 +396,12 @@ public class Mapa {
     return null;
 }
 
+    /**
+     * Limpia las casillas poniendo un circulo
+     * @param fila
+     * @param columna 
+     * @autor Alberto
+     */
     public void limpiarCasilla(int fila, int columna) {
     if (posicionValida(fila, columna)) {
         Casilla[fila][columna] = "\u26AA";
