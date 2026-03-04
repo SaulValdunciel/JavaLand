@@ -18,7 +18,12 @@ public class Inventario implements InventarioInterface {
 
         this.mochila = new Objeto[OBJETOS_MAX];
     }
-
+/**
+ * Agregar Objeto donde se recorre el inventario buscando huecos libres
+ * @param obj
+ * @return 
+ * @Author Sergio
+ */
     @Override
     public boolean AgregarObjeto(Objeto obj) {
         boolean validar = false;
@@ -38,7 +43,13 @@ public class Inventario implements InventarioInterface {
         return validar;
 
     }
-
+/**
+ * Recorrer la Mochila para Usar Objeto, Al usarlo el Inventario se ordena, Objeto 2 Cosumido, El 3 pasa al 2
+ * @param nombre
+ * @param valiente
+ * @return 
+ * @Author Sergio
+ */
     @Override
     public String UsarObjeto(String nombre, Valiente valiente) {
 
@@ -71,7 +82,11 @@ public class Inventario implements InventarioInterface {
         // Si termina el for y no ha devuelto nada, es que no lo encontró
         return "No tienes el objeto " + nombre + " en tu mochila.";
     }
-
+/**
+ * Mostrar el Inventario al valiente, Indicamiento de si esta vacio-hay Plant. curativas
+ * @return 
+ * @Author Sergio
+ */
     @Override
     public boolean MostrarInventario() {
         boolean hayObjetos = false;

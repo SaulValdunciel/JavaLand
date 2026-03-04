@@ -27,6 +27,8 @@ public class Combate implements CombateInterface {
      */
     @Override
     public void iniciarCombate(Valiente valiente, Monstruo monstruo) {
+        
+        
 
         int contTurnos = 1;
         try {
