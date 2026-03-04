@@ -19,7 +19,7 @@ public interface CombateInterface {
      */
 
     /**
-     * 
+     * Empieza el combate
      * @param valiente
      * @param monstruo 
      * @author Maya

@@ -16,17 +16,19 @@ public class Combate implements CombateInterface {
 
     public Combate() {
     }
-/**
- * comienza el combate con los dos objetos recibidos por parámetro y decide el orden 
- * de ataque según la iniciativa que se calcula en cada iteración
- * 
- * @param valiente
- * @param monstruo 
- * @author Maya, Saúl
- */
+
+    /**
+     * comienza el combate con los dos objetos recibidos por parámetro y decide
+     * el orden de ataque según la iniciativa que se calcula en cada iteración
+     *
+     * @param valiente
+     * @param monstruo
+     * @author Maya, Saúl
+     */
     @Override
     public void iniciarCombate(Valiente valiente, Monstruo monstruo) {
 
+        int contTurnos = 1;
         try {
             if (valiente == null || monstruo == null) {
                 System.out.println("Error: valiente o monstruo es null. No se puede iniciar combate.");
@@ -47,13 +49,19 @@ public class Combate implements CombateInterface {
                 //orden de los turnos según la iniciativa
                 if (Iniciativa_Valiente > Iniciativa_Monstruo) {
 
+                    System.out.println("");
+                    System.out.println("\tTURNO " + contTurnos);
                     turno(valiente, monstruo);
                     turno(monstruo, valiente);
+                    contTurnos++;
 
                 } else {
 
+                    System.out.println("");
+                    System.out.println("ºtTURNO " + contTurnos);
                     turno(monstruo, valiente);
                     turno(valiente, monstruo);
+                    contTurnos++;
                 }
 
             } while (valiente.getVida() > 0 && monstruo.getVida() > 0);
@@ -66,13 +74,15 @@ public class Combate implements CombateInterface {
             System.out.println("Error desconocido al iniciar el combate.");
         }
     }
+
     /**
-     * gestiona las acciones de los personajes involucrados en el combate
-     * Los monstruos atacan automáticamente y los valientes pueden elegir entre 
+     * gestiona las acciones de los personajes involucrados en el combate Los
+     * monstruos atacan automáticamente y los valientes pueden elegir entre
      * varias opciones.
+     *
      * @param <T>
      * @param atacante
-     * @param defensor 
+     * @param defensor
      * @author Maya, Saúl
      */
 
@@ -164,7 +174,7 @@ public class Combate implements CombateInterface {
 
                                     System.out.println("No puedes curarte cuando tienes la vida la máximo");
                                     System.out.println("");
-                                    
+
                                 }
 
                             }
@@ -213,15 +223,15 @@ public class Combate implements CombateInterface {
         }
 
     }
-    
+
     /**
-     * Sube de nivel al valiente cada vez que gana una pelea o termina sale del bucle de combate para
-     * terminar el juego.
+     * Sube de nivel al valiente cada vez que gana una pelea o termina sale del
+     * bucle de combate para terminar el juego.
+     *
      * @param valiente
-     * @param monstruo 
+     * @param monstruo
      * @author Maya, Saúl
      */
-
     @Override
     public void combateTerminado(Valiente valiente, Monstruo monstruo) {
 

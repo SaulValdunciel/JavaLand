@@ -59,7 +59,7 @@ public class Monstruo implements PersonajesInterface {
         int daño = 0;
 
         try {
-            if (Variable_aleatoria <= (4 * (habilidad - (valiente.getDefensaTotal())))) {
+            if (Variable_aleatoria <= (8 * (habilidad - (valiente.getDefensaTotal())))) {
 
                 //restar vida al valiente según la fuerza del monstruo
                 daño = valiente.getVida() - fuerza;
