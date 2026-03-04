@@ -33,6 +33,8 @@ public class Combate implements CombateInterface {
   
     @Override
     public void iniciarCombate(Valiente valiente, Monstruo monstruo) {
+        
+        
 
         int contTurnos = 1;
         try {
@@ -112,13 +114,13 @@ public class Combate implements CombateInterface {
                     do {
 
                         System.out.println("");
-                        System.out.println("  +================================+");
-                        System.out.println("  |       MENU DE BATALLA          |");
-                        System.out.println("  +================================+");
-                        System.out.println("  |  1.  Ataque básico             |");
-                        System.out.println("  |  2.  Habilidad especial        |");
-                        System.out.println("  |  3.  Abrir mochila             |");
-                        System.out.println("  +================================+");
+                        System.out.println("  \\u001B[34m+================================+\\u001B[0m");
+                        System.out.println("  \\u001B[34m|       \\u001B[33mMENU DE BATALLA\\u001B[34m          |\\u001B[0m");
+                        System.out.println("  \\u001B[34m+================================+\\u001B[0m");
+                        System.out.println("  \\u001B[34m|  1.  Ataque básico             |\\u001B[0m");
+                        System.out.println("  \\u001B[34m|  2.  Habilidad especial        |\\u001B[0m");
+                        System.out.println("  \\u001B[34m|  3.  Abrir mochila             |\\u001B[0m");
+                        System.out.println("  \\u001B[34m+================================+\\u001B[0m");
                         System.out.println("");
 
                         opcion = new Scanner(System.in).nextInt();

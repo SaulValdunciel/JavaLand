@@ -30,6 +30,12 @@ public class Arma extends Objeto {
         return ataque;
     }
 
+    /**
+     * Equipar Arma
+     *
+     * @return
+     * @Author Saúl
+     */
     @Override
     public boolean Equipar(Valiente valiente) {
         valiente.setArma(this);

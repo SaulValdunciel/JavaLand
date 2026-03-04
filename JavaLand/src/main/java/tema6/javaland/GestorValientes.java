@@ -40,10 +40,10 @@ public class GestorValientes implements GestoresInterface {
         try {
 
             valientes = new Valiente[4];
-            valientes[0] = new Valiente("guerrero", 15, 10, 7, 8, 8);
-            valientes[1] = new Valiente("paladin", 8, 15, 7, 10, 7);
-            valientes[2] = new Valiente("mago", 7, 8, 17, 8, 8);
-            valientes[3] = new Valiente("picaro", 8, 7, 10, 15, 10);
+            valientes[0] = new Valiente("guerrero", 80, 18, 9, 7, 6);
+            valientes[1] = new Valiente("paladin", 80, 9, 15, 7, 9);
+            valientes[2] = new Valiente("mago", 80, 8, 9, 15, 8);
+            valientes[3] = new Valiente("picaro", 80, 6, 9, 8, 17);
 
         } catch (NullPointerException e) {
             System.out.println("Error al inicializar el array de valientes.");
@@ -180,6 +180,93 @@ public class GestorValientes implements GestoresInterface {
 
             System.out.println("Error desconocido al crear el valiente.");
         }
+
+
+        switch (clase) {//aisgnar un indice segun la clase
+
+            case "guerrero" -> {
+
+                indice = 0;
+            }
+
+            case "paladin" -> {
+
+                indice = 1;
+            }
+
+            case "mago" -> {
+
+                indice = 2;
+            }
+
+            case "picaro" -> {
+
+                indice = 3;
+            }
+
+            default -> {
+
+                System.out.println("default");
+            }
+
+        }
+
+        // Buscar el valiente correspondiente y modificar sus estadísticas
+        for (int i = 0; i < valientes.length; i++) {
+
+            if (valientes[i].getClase().equalsIgnoreCase(clase)) {
+
+                //gastar puntos en las estadisticas
+                System.out.println(puntos + " puntos disponibles");
+
+                do {
+
+                    //vida
+                    valientes[i].setVida(100);
+                   valientes[i].setVidaMaxima(100);
+
+                    
+
+                    //fuerza
+                    System.out.println("Fuerza: ");
+                    aux = new Scanner(System.in).nextInt();
+                    valientes[i].setFuerza(aux);
+
+                    puntos -= aux;
+
+                    System.out.println(puntos + " puntos disponibles");
+
+                    //defensa
+                    System.out.println("Defensa: ");
+                    aux = new Scanner(System.in).nextInt();
+                    valientes[i].setDefensa(aux);
+
+                    puntos -= aux;
+
+                    System.out.println(puntos + " puntos disponibles");
+
+                    //habilidad
+                    System.out.println("Habilidad: ");
+                    aux = new Scanner(System.in).nextInt();
+                    valientes[i].setHabilidad(aux);
+
+                    puntos -= aux;
+
+                    System.out.println(puntos + " puntos disponibles");
+
+                    //velocidad
+                    System.out.println("Velocidad: ");
+                    aux = new Scanner(System.in).nextInt();
+                    valientes[i].setVelocidad(aux);
+
+                    salir = true;
+
+                } while (puntos > 0 || !salir);
+
+            }
+        }
+
+
         return indice;
     }
     //devuelve el valiente que se encuentra en el indice

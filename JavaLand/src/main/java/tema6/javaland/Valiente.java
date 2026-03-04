@@ -45,10 +45,26 @@ public class Valiente implements PersonajesInterface {
     private int cooldownHabilidad = 0;
     private static final int COOLDOWN_MAX = 2;
     
-    // Constructores
+    /**
+     * constructor vacío del valiente
+     * crea un valiente sin inicializar atributos
+     *
+     * @author Saúl
+     */
     public Valiente() {
     }
-
+    /**
+     * constructor que inicializa un valiente con sus estadísticas básicas
+     * también crea inventario y equipa arma y escudo por defecto
+     * 
+     * @param clase
+     * @param vida
+     * @param fuerza
+     * @param defensa
+     * @param habilidad
+     * @param velocidad
+     * @author Saúl
+     */
     public Valiente(String clase, int vida, int fuerza, int defensa, int habilidad, int velocidad) {
         this.inventario = new Inventario();
         this.arma = new Arma("Palo", 0); //Esta es la espada por defecto
@@ -62,7 +78,15 @@ public class Valiente implements PersonajesInterface {
         this.velocidad = velocidad;
     }
 
-    // Metodos
+    /**
+     * calcula el daño que hace el valiente a un monstruo
+     * tiene en cuenta habilidades activas, arma equipada y probabilidad de acierto
+     * 
+     * @param <T>
+     * @param Personaje
+     * @return 
+     * @author Saúl
+     */
     @Override
     public <T> int atacar(T Personaje) {
 
@@ -126,7 +150,13 @@ public class Valiente implements PersonajesInterface {
 
         return daño;
     }
-
+    /**
+     * reduce la vida del valiente cuando recibe daño
+     * 
+     * @param cantidad
+     * @return 
+     * @author Saúl
+     */
     @Override
     public int recibirDaño(int cantidad) {
         if (cantidad < 0) {
@@ -138,7 +168,13 @@ public class Valiente implements PersonajesInterface {
         }
         return vida;
     }
-
+    /**
+     * ejecuta la habilidad especial según la clase del valiente
+     * también aplica el cooldown de la habilidad
+     * 
+     * @return 
+     * @author Saúl
+     */
     @Override
     public boolean ValienteUsarHabilidadEspecial() {
 
@@ -151,10 +187,8 @@ public class Valiente implements PersonajesInterface {
         
         // GUERRERO: si tiene arma o escudo, prepara el siguiente ataque triple
         if (clase.equalsIgnoreCase("GUERRERO")) {
-            if (arma.getAtaque() != 0 || escudo.getDefensa() != 0) {
                 guerreroTriplePendiente = true;
                 usada = true;
-            }
         }
 
         // PALADIN: se cura un 50% de la vida max
@@ -185,7 +219,11 @@ public class Valiente implements PersonajesInterface {
         
         return usada;
     }
-
+    /**
+     * aumenta las estadísticas del valiente al subir de nivel
+     * 
+     * @author Saúl
+     */
     @Override
     public void ValienteSubirNivel() {
         nivel++;
@@ -203,19 +241,32 @@ public class Valiente implements PersonajesInterface {
         velocidad += 1;
     }
 
-
-    // Llama a esto UNA vez por turno del valiente (después de atacar o usar habilidad)
+    /**
+     * aumenta las estadísticas del valiente al subir de nivel
+     * 
+     * @author Saúl
+     */
     public void tickCooldown() {
         if (cooldownHabilidad > 0) {
             cooldownHabilidad--;
         }
     }
-
+    /**
+     * devuelve el cooldown actual de la habilidad
+     * 
+     * @return
+     * @author Saúl
+     */
     public int getCooldownHabilidad() {
         return cooldownHabilidad;
     }
     
-    // metodos utiles
+    /**
+     * calcula la defensa total sumando defensa base y defensa del escudo
+     * 
+     * @return 
+     * @author Saúl
+     */
     public int getDefensaTotal() {
         int bonus = 0;
         if (escudo.getDefensa() != 0) {
@@ -223,7 +274,14 @@ public class Valiente implements PersonajesInterface {
         }
         return defensa + bonus;
     }
-    //metodo para recoger un objeto
+    
+    /**
+     * añade un objeto al inventario del valiente
+     * 
+     * @param obj
+     * @return 
+     * @author Saúl
+     */
     public String recogerObjeto(Objeto obj) {
     boolean añadido = inventario.AgregarObjeto(obj);
 
@@ -233,7 +291,12 @@ public class Valiente implements PersonajesInterface {
         return "La mochila está llena. No puedes recoger " + obj.getNombre();
     }
 }
-
+    /**
+     * devuelve la información completa del valiente en formato texto
+     * 
+     * @return 
+     * @author Saúl
+     */
     @Override
     public String toString() {
         return "Clase: " + clase

@@ -30,6 +30,13 @@ public class Escudo extends Objeto {
         return defensa;
     }
 
+    /**
+     * Accion de Equipar Escudo
+     *
+     * @param valiente
+     * @return
+     * @Author Saúl
+     */
     @Override
     public boolean Equipar(Valiente valiente) {
         valiente.setEscudo(this);
