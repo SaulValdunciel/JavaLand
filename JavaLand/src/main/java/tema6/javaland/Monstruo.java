@@ -8,7 +8,7 @@ import java.util.Random;
 
 /**
  *
- * @author cuent
+ * @author Maya
  */
 public class Monstruo implements PersonajesInterface {
 
@@ -18,8 +18,19 @@ public class Monstruo implements PersonajesInterface {
     protected int defensa; // entre 1 y 20
     protected int habilidad; // entre 1 y 20
     protected int velocidad; // entre 1 y 20
-    protected int nivel = 1;// define las estadísticas según GestorMosntruos
+    protected int nivel = 0;// define las estadísticas según GestorMosntruos
 
+    /**
+     * 
+     * @param nombre
+     * @param vida
+     * @param fuerza
+     * @param defensa
+     * @param habilidad
+     * @param velocidad 
+     * @author Maya
+     * 
+     */
     public Monstruo(String nombre, int vida, int fuerza, int defensa, int habilidad, int velocidad) {
         this.nombre = nombre;
         this.vida = vida;
@@ -27,31 +38,51 @@ public class Monstruo implements PersonajesInterface {
         this.defensa = defensa;
         this.habilidad = habilidad;
         this.velocidad = velocidad;
-        nivel++;
-        
+        subirNivel();
+
     }
 
+    /**
+     * Ataca un valiente recibido por parametro
+     * @param <T>
+     * @param personaje
+     * @return 
+     * @author Maya
+     * 
+     */
     @Override
     public <T> int atacar(T personaje) {
 
         Valiente valiente = (Valiente) personaje;
         Random random = new Random();
         int Variable_aleatoria = random.nextInt(101);
-        int daño;
+        int daño = 0;
 
-        if (Variable_aleatoria < (4 * (habilidad - (valiente.getDefensaTotal())))) {
+        try {
+            if (Variable_aleatoria <= (8 * (habilidad - (valiente.getDefensaTotal())))) {
 
-            //restar vida al valiente según la fuerza del monstruo
-            daño = valiente.getVida() - fuerza;
+                //restar vida al valiente según la fuerza del monstruo
+                daño = valiente.getVida() - fuerza;
 
-        } else {
+            } else {
 
-            daño = 0;
+                daño = 0;
+            }
+        } catch (NullPointerException e) {
+
+            System.out.println("null");
         }
 
         return daño;
     }
 
+    /**
+     * resta la cantidad de daño recibida por parametro a la vida del monstruo
+     * @param cantidad
+     * @return 
+     * @author Maya
+     * 
+     */
     @Override
     public int recibirDaño(int cantidad) {
 
@@ -61,8 +92,12 @@ public class Monstruo implements PersonajesInterface {
     }
 
     
-    public void subirNivel(){
-    
+    /**
+     * aumentar el nivel del mosntruo
+     * @author Maya
+     */
+    public void subirNivel() {
+
         nivel++;
     }
 
@@ -122,7 +157,12 @@ public class Monstruo implements PersonajesInterface {
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
-
+/**
+ * 
+ * @return 
+ * @author Maya
+ * 
+ */
     @Override
     public String toString() {
         return nombre + " de nivel " + nivel
