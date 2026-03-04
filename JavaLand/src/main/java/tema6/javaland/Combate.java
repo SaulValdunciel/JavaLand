@@ -20,35 +20,44 @@ public class Combate implements CombateInterface {
     @Override
     public void iniciarCombate(Valiente valiente, Monstruo monstruo) {
 
-        //mostrar monstruo al que se va a enfrentar
-        System.out.println("Aparece un " + monstruo.getNombre() + " de nivel "
-                + monstruo.getNivel());
-        do {//bucle hasta que la vida de valiente o monstruo llegue a 0 o menos
-
-            //determinar orden
-            Random randomV = new Random();//aleatorio para la iniciativa del valiente
-            double Iniciativa_Valiente = valiente.getVelocidad() * (randomV.nextDouble(1) + 0.75);
-
-            Random randomM = new Random();//aleatorio para la iniciativa del monstruo
-            double Iniciativa_Monstruo = monstruo.getVelocidad() * (randomM.nextDouble(1) + 0.75);
-
-            //orden de los turnos según la iniciativa
-            if (Iniciativa_Valiente > Iniciativa_Monstruo) {
-
-                turno(valiente, monstruo);
-                turno(monstruo, valiente);
-
-            } else {
-
-                turno(monstruo, valiente);
-                turno(valiente, monstruo);
+        try {
+            if (valiente == null || monstruo == null) {
+                System.out.println("Error: valiente o monstruo es null. No se puede iniciar combate.");
+                return;
             }
+            //mostrar monstruo al que se va a enfrentar
+            System.out.println("Aparece un " + monstruo.getNombre() + " de nivel "
+                    + monstruo.getNivel());
+            do {//bucle hasta que la vida de valiente o monstruo llegue a 0 o menos
 
-        } while (valiente.getVida() > 0 && monstruo.getVida() > 0);
+                //determinar orden
+                Random randomV = new Random();//aleatorio para la iniciativa del valiente
+                double Iniciativa_Valiente = valiente.getVelocidad() * (randomV.nextDouble(1) + 0.75);
 
-        //terminar combate
-        combateTerminado(valiente, monstruo);
+                Random randomM = new Random();//aleatorio para la iniciativa del monstruo
+                double Iniciativa_Monstruo = monstruo.getVelocidad() * (randomM.nextDouble(1) + 0.75);
 
+                //orden de los turnos según la iniciativa
+                if (Iniciativa_Valiente > Iniciativa_Monstruo) {
+
+                    turno(valiente, monstruo);
+                    turno(monstruo, valiente);
+
+                } else {
+
+                    turno(monstruo, valiente);
+                    turno(valiente, monstruo);
+                }
+
+            } while (valiente.getVida() > 0 && monstruo.getVida() > 0);
+
+            //terminar combate
+            combateTerminado(valiente, monstruo);
+        } catch (NullPointerException e) {
+            System.out.println("Error: se ha intentado usar un objeto null durante el combate.");
+        } catch (Exception e) {
+            System.out.println("Error desconocido al iniciar el combate.");
+        }
     }
 
     @Override
@@ -181,19 +190,30 @@ public class Combate implements CombateInterface {
     @Override
     public void combateTerminado(Valiente valiente, Monstruo monstruo) {
 
-        if (valiente.getVida() > 0) {//subir de nivel y mostrar valiente
+        try {
+            if (valiente == null || monstruo == null) {
+                System.out.println("Error: combate terminado con valiente/monstruo null.");
+                return;
+            }
 
-            System.out.println("¡Has ganado el combate! Subes de nivel");
+            if (valiente.getVida() > 0) {//subir de nivel y mostrar valiente
 
-            //subir estadisticas
-            valiente.ValienteSubirNivel();
+                System.out.println("¡Has ganado el combate! Subes de nivel");
 
-            //mostrar estadisicas
-            System.out.println(valiente.toString());
+                //subir estadisticas
+                valiente.ValienteSubirNivel();
 
-        } else {//perder combate
+                //mostrar estadisicas
+                System.out.println(valiente.toString());
 
-            System.out.println("Has muerto");
+            } else {//perder combate
+
+                System.out.println("Has muerto");
+            }
+        } catch (NullPointerException e) {
+            System.out.println("Error: null al terminar el combate.");
+        } catch (Exception e) {
+            System.out.println("Error desconocido al terminar el combate.");
         }
 
     }
