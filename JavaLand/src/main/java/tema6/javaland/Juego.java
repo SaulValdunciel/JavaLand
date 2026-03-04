@@ -27,7 +27,11 @@ public class Juego {
     private GestorObjeto gestorObjeto;
     private CompiladorOscuro ComOscuro;
 
-    // Constructor
+    /**
+     * 
+     * @param tamanoMapa 
+     * @author Alberto, Maya, Saúl
+     */
     public Juego(int tamanoMapa) {
         mapa = new Mapa(tamanoMapa, false);  // Crear mapa sin revelar todo o revelando
         valienteFila = 0;                    // Posicion inicial del valiente (fila 0)
@@ -48,7 +52,11 @@ public class Juego {
         
     }
 
-    // Metodo principal para iniciar el juego.
+    /**
+     * Metodo principal para iniciar el juego.
+     *@author Alberto
+     * 
+     */
     public void iniciarJuego() {
 
                 System.out.println();
@@ -85,7 +93,12 @@ public class Juego {
         }
     }
 
-    // Metodo para crear o elegir valiente
+    /**
+     * Metodo para crear o elegir valiente
+     * @author Maya, Alberto
+     * 
+     */
+    
     public void creacionOEleccionValiente() {
         
         String opcion = " ";
@@ -148,7 +161,10 @@ public class Juego {
         mapa.mostrarMapa(valienteFila, valienteColumna);       // Mostrar mapa inicial
     }
 
-    // Mostrar menu principal
+    /**
+     * Mostrar menú del juego
+     * @author Alberto
+     */
     public void mostrarMenuPrincipal() {
         System.out.println();
         System.out.println("\u001B[34m  +================================+\u001B[0m");
@@ -165,7 +181,11 @@ public class Juego {
 
     }
 
-    // Mostrar informacion del valiente
+    /**
+     * Mostrar informacion del valiente
+     * @author Alberto
+     * 
+     */
     public void mostrarValiente() {
         //por si no hay valiente
         if (valiente == null) {
@@ -191,7 +211,11 @@ public class Juego {
         valiente.getInventario().MostrarInventario();
     }
 
-    // Equipar objeto 
+    /**
+     * Equipar objeto al valiente
+     * @author Saúl
+     * 
+     */
     public void equiparObjeto() {
         //por si no hay valiente creao
         if (valiente == null) {
@@ -221,7 +245,11 @@ public class Juego {
         System.out.println(resultado);
     }
 
-    // Metodo para mover y explorar el mapa
+    /**
+     * Metodo para mover y explorar el mapa
+     * @author Alberto, Maya
+     * 
+     */
     public void explorarMapa() {
         
         boolean explorando = true; // Controla el bucle de movimiento
@@ -379,7 +407,10 @@ public class Juego {
             }
         }
     }
-    // Mostrar estado del juego
+    /**
+     * Mostrar estado del juego
+     * @author Alberto
+     */
 
     public void mostrarEstadoJuego() {
         // Aqui se mostrarian monstruos derrotados, objetos recojido, etc.

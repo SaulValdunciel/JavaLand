@@ -17,7 +17,10 @@ public class GestorObjeto implements GestoresInterface {
     public GestorObjeto() {
 
     }
-
+/**
+ * Dar los Nombres y parametros en las Armas
+ * @author Saul
+ */
     @Override
     public void crear() {
         objetos[0] = new Arma("Espada Desgastada", 2);
@@ -31,7 +34,12 @@ public class GestorObjeto implements GestoresInterface {
         objetos[6] = new PlantaCurativa("Planta Curativa");
         
     }
-
+/**
+ * Devuelve el Indice
+ * @param indice
+ * @return 
+ * @Author Saul
+ */
     public Objeto getObjeto(int indice) {
 
         return objetos[indice];

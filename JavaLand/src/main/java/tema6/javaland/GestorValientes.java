@@ -14,9 +14,12 @@ import java.util.InputMismatchException;
 // Esta clase controla los valientes del juego
 public class GestorValientes implements GestoresInterface {
 
-    // Array simple para guardar nombres de valientes
     private Valiente[] valientes;
 
+   /**
+    * Constructor que llama al metodo crear() que genera los valientes por defecto
+    * @author Maya
+    */
     public GestorValientes() {
 
         try {
@@ -26,7 +29,11 @@ public class GestorValientes implements GestoresInterface {
         }
     }
 
-    //crear valientes por defecto
+    /**
+     * crear valientes por defecto
+     * @author Maya, Saúl
+     * 
+     */
     @Override
     public void crear() {
 
@@ -45,6 +52,13 @@ public class GestorValientes implements GestoresInterface {
         }
 
     }
+    
+    /**
+     * Crear un valiente según su clase y sustituirlo con los nuevos datos
+     * en la posición del array que corresponda
+     * @return 
+     * @author Maya
+     */
 
     public int crear2() {
 
@@ -162,10 +176,104 @@ public class GestorValientes implements GestoresInterface {
 
             System.out.println("Error desconocido al crear el valiente.");
         }
+
+
+        switch (clase) {//aisgnar un indice segun la clase
+
+            case "guerrero" -> {
+
+                indice = 0;
+            }
+
+            case "paladin" -> {
+
+                indice = 1;
+            }
+
+            case "mago" -> {
+
+                indice = 2;
+            }
+
+            case "picaro" -> {
+
+                indice = 3;
+            }
+
+            default -> {
+
+                System.out.println("default");
+            }
+
+        }
+
+        // Buscar el valiente correspondiente y modificar sus estadísticas
+        for (int i = 0; i < valientes.length; i++) {
+
+            if (valientes[i].getClase().equalsIgnoreCase(clase)) {
+
+                //gastar puntos en las estadisticas
+                System.out.println(puntos + " puntos disponibles");
+
+                do {
+
+                    //vida
+                    valientes[i].setVida(100);
+                   valientes[i].setVidaMaxima(100);
+
+                    
+
+                    //fuerza
+                    System.out.println("Fuerza: ");
+                    aux = new Scanner(System.in).nextInt();
+                    valientes[i].setFuerza(aux);
+
+                    puntos -= aux;
+
+                    System.out.println(puntos + " puntos disponibles");
+
+                    //defensa
+                    System.out.println("Defensa: ");
+                    aux = new Scanner(System.in).nextInt();
+                    valientes[i].setDefensa(aux);
+
+                    puntos -= aux;
+
+                    System.out.println(puntos + " puntos disponibles");
+
+                    //habilidad
+                    System.out.println("Habilidad: ");
+                    aux = new Scanner(System.in).nextInt();
+                    valientes[i].setHabilidad(aux);
+
+                    puntos -= aux;
+
+                    System.out.println(puntos + " puntos disponibles");
+
+                    //velocidad
+                    System.out.println("Velocidad: ");
+                    aux = new Scanner(System.in).nextInt();
+                    valientes[i].setVelocidad(aux);
+
+                    salir = true;
+
+                } while (puntos > 0 || !salir);
+
+            }
+        }
+
+
         return indice;
     }
     //devuelve el valiente que se encuentra en el indice
 
+    /**
+     * devueleve un valiente del array según el índice que recibe por parametro
+     * @param indice
+     * @return
+     * @author Maya, Saúl
+     * 
+     */
     public Valiente getValiente(int indice) {
         try {
             return valientes[indice];
@@ -181,7 +289,12 @@ public class GestorValientes implements GestoresInterface {
         }
     }
 
-    // Muestra todos los valientes
+    /**
+     * 
+     * muestra la lista de valientes
+     * @author Maya, Saúl
+     * 
+     */
     public void mostrarLista() {
 
         try {

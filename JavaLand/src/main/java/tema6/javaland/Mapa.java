@@ -39,6 +39,12 @@ public class Mapa {
      * @param revelarTodo 
      * @autor Alberto
      */
+    /**
+     * 
+     * @param tamano
+     * @param revelarTodo
+     * @author Alberto
+     */
     public Mapa(int tamano, boolean revelarTodo) {
         this.tamano = tamano;
         Casilla = new String[tamano][tamano];
