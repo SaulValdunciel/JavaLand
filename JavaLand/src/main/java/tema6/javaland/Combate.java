@@ -77,7 +77,7 @@ public class Combate implements CombateInterface {
 
                 try {
 
-                    while (opcion < 1 || opcion > 3) {
+                   do {
 
                         System.out.println("");
                         System.out.println("  +================================+");
@@ -153,12 +153,15 @@ public class Combate implements CombateInterface {
                                 System.out.println("Default");
                             }
                         }
-                    }
+                    }  while (opcion < 1 || opcion > 3);
                 } catch (NumberFormatException e) {
 
                     System.out.println("debes introducir un numero");
                 } catch (InputMismatchException e) {
                     System.out.println("formato incorrecto");
+                } catch (Exception e){
+                
+                    System.out.println("Excepcion desconocida");
                 }
             } while (!finAccion);
 
