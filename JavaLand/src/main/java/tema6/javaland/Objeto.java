@@ -19,12 +19,14 @@ public class Objeto implements ObjetoInterface {
     public String getNombre() {
         return nombre;
     }
-/**
- * Metodo para Utilizar las Plantas, En Desuso
- * @param valiente
- * @return 
- * @Author Maya
- */
+
+    /**
+     * Metodo para Utilizar las Plantas, En Desuso
+     *
+     * @param valiente
+     * @return
+     * @Author Maya
+     */
     @Override
     public boolean Equipar(Valiente valiente) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
