@@ -325,7 +325,7 @@ public class Juego {
                                 mapa.revelarAdyacentes(valienteFila, valienteColumna);
                                 System.out.println("Te encuentras con el Jefe Final el Compilador Oscuro");
                                 //iniciar combate
-                                combate.iniciarCombate(valiente, monstruo);
+                                combate.iniciarCombate(valiente, ComOscuro);
                                 mapa.limpiarCasilla(valienteFila, valienteColumna);
                                 explorando = false; // Salir del bucle de movimiento
                                 juegoActivo = false;

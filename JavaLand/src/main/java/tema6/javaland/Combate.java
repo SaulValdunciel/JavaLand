@@ -19,6 +19,8 @@ public class Combate implements CombateInterface {
 
     @Override
     public void iniciarCombate(Valiente valiente, Monstruo monstruo) {
+        
+        
 
         //mostrar monstruo al que se va a enfrentar
         System.out.println("Aparece un " + monstruo.getNombre() + " de nivel "

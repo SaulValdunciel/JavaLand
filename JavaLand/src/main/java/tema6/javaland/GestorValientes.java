@@ -92,8 +92,9 @@ public class GestorValientes implements GestoresInterface {
 
                     //vida
                     valientes[i].setVida(100);
+                   valientes[i].setVidaMaxima(100);
 
-                    System.out.println(puntos + " puntos disponibles");
+                    
 
                     //fuerza
                     System.out.println("Fuerza: ");
