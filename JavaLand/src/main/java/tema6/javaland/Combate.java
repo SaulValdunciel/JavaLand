@@ -14,6 +14,11 @@ import java.util.Scanner;
  */
 public class Combate implements CombateInterface {
 
+    /**
+     * Constructor por defecto
+     * @author maya
+     * 
+     */
     public Combate() {
     }
 
@@ -25,6 +30,7 @@ public class Combate implements CombateInterface {
      * @param monstruo
      * @author Maya, Saúl
      */
+  
     @Override
     public void iniciarCombate(Valiente valiente, Monstruo monstruo) {
         
@@ -60,7 +66,7 @@ public class Combate implements CombateInterface {
                 } else {
 
                     System.out.println("");
-                    System.out.println("ºtTURNO " + contTurnos);
+                    System.out.println("\tTURNO " + contTurnos);
                     turno(monstruo, valiente);
                     turno(valiente, monstruo);
                     contTurnos++;
