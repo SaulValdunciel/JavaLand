@@ -52,7 +52,7 @@ public class Mapa {
 
         for (int fila = 0; fila < tamano; fila++) {
             for (int columna = 0; columna < tamano; columna++) {
-                Casilla[fila][columna] = revelarTodo ? "\u26AA" : "\u25A1";
+                Casilla[fila][columna] = revelarTodo ? "\u25CB" : "\u25A1";
                 Contenido[fila][columna] = "\u25CF"; // todo vacío inicialmente
             }
         }
@@ -192,7 +192,7 @@ public class Mapa {
         boolean puedeColocar = true;
 
         // Solo colocar en casillas vacías en el contenido real
-        if (!Contenido[fila][columna].equals("\u26AA")|| (fila == 0 && columna == 0) ) {
+        if (!Contenido[fila][columna].equals("\u25CB")|| (fila == 0 && columna == 0) ) {
             puedeColocar = false;
         } else if (comprobarAdyacentes && comprobarAlrededor(fila, columna)) {
             puedeColocar = false;
@@ -216,22 +216,22 @@ public class Mapa {
     
     private boolean comprobarAlrededor(int fila, int columna){
         if(fila > 0){
-            if(!Casilla[fila -1][columna].equals("\u26AA")){
+            if(!Casilla[fila -1][columna].equals("\u25CB")){
                 return true;
             }
         }
         if(fila < tamano -1){
-            if(!Casilla[fila +1][columna].equals("\u26AA")){
+            if(!Casilla[fila +1][columna].equals("\u25CB")){
                 return true;
             }
         }
         if(columna > 0){
-            if(!Casilla[fila][columna -1].equals("\u26AA")){
+            if(!Casilla[fila][columna -1].equals("\u25CB")){
                 return true;
             }
         }
         if(columna < tamano -1){
-            if(!Casilla[fila][columna +1].equals("\u26AA")){
+            if(!Casilla[fila][columna +1].equals("\u25CB")){
                 return true;
             }
         }
@@ -372,7 +372,7 @@ public class Mapa {
         for (int columna = 0; columna < tamano; columna++) {
             if (mapaBase[fila][columna] == null) {
                 Casilla[fila][columna] = "\u25A1";       // oculto
-                Contenido[fila][columna] = "\u26AA";     // vacío real
+                Contenido[fila][columna] = "\u25CB";     // vacío real
             } else {
                 Casilla[fila][columna] = "\u25A1";       // oculto también
                 Contenido[fila][columna] = mapaBase[fila][columna]; // roca u objeto real
@@ -404,8 +404,8 @@ public class Mapa {
      */
     public void limpiarCasilla(int fila, int columna) {
     if (posicionValida(fila, columna)) {
-        Casilla[fila][columna] = "\u26AA";
-        Contenido[fila][columna] = "\u26AA";
+        Casilla[fila][columna] = "\u25CB";
+        Contenido[fila][columna] = "\u25CB";
     }
 }
 
