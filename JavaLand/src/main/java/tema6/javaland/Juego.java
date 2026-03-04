@@ -386,7 +386,7 @@ public class Juego {
                                 mapa.limpiarCasilla(valienteFila, valienteColumna);
                                 explorando = false; // Salir del bucle de movimiento
                                 juegoActivo = false;
-                            } else if (casillaDestino.equals("\u26AA")) {
+                            } else if (casillaDestino.equals("\u25CB")) {
                                 valienteFila = nuevaFila;
                                 valienteColumna = nuevaColumna;
                                 mapa.revelarAdyacentes(valienteFila, valienteColumna);
