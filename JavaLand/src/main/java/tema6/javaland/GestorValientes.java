@@ -100,8 +100,6 @@ public class GestorValientes implements GestoresInterface {
 
                 if (valientes[i].getClase().equalsIgnoreCase(clase)) {
 
-                    //gastar puntos en las estadisticas
-                    System.out.println(puntos + " puntos disponibles");
 
                     do {
 
@@ -148,7 +146,7 @@ public class GestorValientes implements GestoresInterface {
                             System.out.println("Error: debes introducir un número.");
                             sc.nextLine(); // limpiar buffer
                         }
-                    } while (puntos > 0 || !salir);
+                    } while (puntos > 0 && !salir);
 
                 }
             }
