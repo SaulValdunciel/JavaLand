@@ -4,6 +4,7 @@
  */
 package tema6.javaland;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -24,6 +25,7 @@ public class Juego {
     private Monstruo monstruo;
     private int contMonstruos;
     private GestorObjeto gestorObjeto;
+    private CompiladorOscuro ComOscuro;
 
     // Constructor
     public Juego(int tamanoMapa) {
@@ -42,6 +44,8 @@ public class Juego {
         
         gestorObjeto = new GestorObjeto();
         gestorObjeto.crear();
+        
+        
     }
 
     // Metodo principal para iniciar el juego.
@@ -86,9 +90,19 @@ public class Juego {
         String opcion = " ";
         
         while (!opcion.equalsIgnoreCase("elegir") && !opcion.equalsIgnoreCase("crear")) {
-            
+            try {
+                
             System.out.println("ELEGIR o CREAR valiente");
             opcion = new Scanner(System.in).nextLine().toLowerCase().trim();
+            
+            } catch (InputMismatchException e){
+
+                System.out.println("debe introducir las palabras ELEGIR o CREAR");
+                
+            } catch (Exception e){
+            
+                System.out.println("Excepcion desconocida");
+            }
         }
         
         switch (opcion) {
@@ -109,7 +123,7 @@ public class Juego {
                 //mostrar lista de valientes hechos
                 listaValientes.mostrarLista();
                 
-                System.out.println("1 Guerrero\t 2 Paladin\t 3 Mago\t 4 Picaro ");
+                System.out.println("1-Guerrero 2-Paladin 3-Mago 4-Picaro ");
                 
                 int seleccion = new Scanner(System.in).nextInt();
 
@@ -315,6 +329,10 @@ public class Juego {
                             } else if (casillaDestino.equals("C")) {
                                 valienteFila = nuevaFila;
                                 valienteColumna = nuevaColumna;
+                                
+                                //añadir al compilador oscuro
+                                ComOscuro = new CompiladorOscuro("Compilador Oscuro", 150, 3, 3, 3, 3, mapa.getMonstruos() );
+                                
                                 mapa.revelarAdyacentes(valienteFila, valienteColumna);
                                 System.out.println("Te encuentras con el Jefe Final el Compilador Oscuro");
                                 //iniciar combate
