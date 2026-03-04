@@ -30,7 +30,7 @@ public class Juego {
     /**
      * 
      * @param tamanoMapa 
-     * @author Alberto, Maya
+     * @author Alberto, Maya, Saúl
      */
     public Juego(int tamanoMapa) {
         mapa = new Mapa(tamanoMapa, false);  // Crear mapa sin revelar todo o revelando
@@ -213,7 +213,7 @@ public class Juego {
 
     /**
      * Equipar objeto al valiente
-     * @author
+     * @author Saúl
      * 
      */
     public void equiparObjeto() {
