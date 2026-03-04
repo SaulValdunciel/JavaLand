@@ -4,6 +4,7 @@
  */
 package tema6.javaland;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -26,7 +27,11 @@ public class Juego {
     private GestorObjeto gestorObjeto;
     private CompiladorOscuro ComOscuro;
 
-    // Constructor
+    /**
+     * 
+     * @param tamanoMapa 
+     * @author Alberto, Maya
+     */
     public Juego(int tamanoMapa) {
         mapa = new Mapa(tamanoMapa, false);  // Crear mapa sin revelar todo o revelando
         valienteFila = 0;                    // Posicion inicial del valiente (fila 0)
@@ -47,15 +52,20 @@ public class Juego {
         
     }
 
-    // Metodo principal para iniciar el juego.
+    /**
+     * Metodo principal para iniciar el juego.
+     *@author Alberto
+     * 
+     */
     public void iniciarJuego() {
 
+                System.out.println();
+        System.out.println("\u001B[32m  +===========================================+\u001B[0m");
+        System.out.println("\u001B[32m  |       \u001B[36;1mBienvenido a La Tierra de los\u001B[0m\u001B[32m       |\u001B[0m");
+        System.out.println("\u001B[32m  |             \u001B[36;1mCodigos Olvidados!\u001B[0m\u001B[32m            |\u001B[0m");
+        System.out.println("\u001B[32m  +===========================================+\u001B[0m");
         System.out.println();
-        System.out.println("  +===========================================+");
-        System.out.println("  |       Bienvenido a La Tierra de los       |");
-        System.out.println("  |             Codigos Olvidados!            |");
-        System.out.println("  +===========================================+");
-        System.out.println();
+
         creacionOEleccionValiente(); // Crear o elegir valiente
 
         while (juegoActivo) {
@@ -83,15 +93,30 @@ public class Juego {
         }
     }
 
-    // Metodo para crear o elegir valiente
+    /**
+     * Metodo para crear o elegir valiente
+     * @author Maya, Alberto
+     * 
+     */
+    
     public void creacionOEleccionValiente() {
         
         String opcion = " ";
         
         while (!opcion.equalsIgnoreCase("elegir") && !opcion.equalsIgnoreCase("crear")) {
-            
+            try {
+                
             System.out.println("ELEGIR o CREAR valiente");
             opcion = new Scanner(System.in).nextLine().toLowerCase().trim();
+            
+            } catch (InputMismatchException e){
+
+                System.out.println("debe introducir las palabras ELEGIR o CREAR");
+                
+            } catch (Exception e){
+            
+                System.out.println("Excepcion desconocida");
+            }
         }
         
         switch (opcion) {
@@ -112,7 +137,7 @@ public class Juego {
                 //mostrar lista de valientes hechos
                 listaValientes.mostrarLista();
                 
-                System.out.println("1 Guerrero\t 2 Paladin\t 3 Mago\t 4 Picaro ");
+                System.out.println("1-Guerrero 2-Paladin 3-Mago 4-Picaro ");
                 
                 int seleccion = new Scanner(System.in).nextInt();
 
@@ -136,22 +161,31 @@ public class Juego {
         mapa.mostrarMapa(valienteFila, valienteColumna);       // Mostrar mapa inicial
     }
 
-    // Mostrar menu principal
+    /**
+     * Mostrar menú del juego
+     * @author Alberto
+     */
     public void mostrarMenuPrincipal() {
         System.out.println();
-        System.out.println("  +================================+");
-        System.out.println("  |       MENU  PRINCIPAL          |");
-        System.out.println("  +================================+");
-        System.out.println("  |  1.  Mostrar valiente          |");
-        System.out.println("  |  2.  Equipar objeto            |");
-        System.out.println("  |  3.  Mostrar mapa              |");
-        System.out.println("  |  4.  Explorar mapa             |");
-        System.out.println("  |  5.  Salir del juego           |");
-        System.out.println("  +================================+");
+        System.out.println("\u001B[34m  +================================+\u001B[0m");
+        System.out.println("\u001B[34m  |       \u001B[37m\u001B[1mMENU  PRINCIPAL\u001B[0m\u001B[34m          |\u001B[0m");
+        System.out.println("\u001B[34m  +================================+\u001B[0m");
+        System.out.println("\u001B[34m  |  \u001B[37m1.  Mostrar valiente          \u001B[34m|\u001B[0m");
+        System.out.println("\u001B[34m  |  \u001B[37m2.  Equipar objeto            \u001B[34m|\u001B[0m");
+        System.out.println("\u001B[34m  |  \u001B[37m3.  Mostrar mapa              \u001B[34m|\u001B[0m");
+        System.out.println("\u001B[34m  |  \u001B[37m4.  Explorar mapa             \u001B[34m|\u001B[0m");
+        System.out.println("\u001B[34m  |  \u001B[31m5.  Salir del juego           \u001B[34m|\u001B[0m");
+        System.out.println("\u001B[34m  +================================+\u001B[0m");
         System.out.println();
+
+
     }
 
-    // Mostrar informacion del valiente
+    /**
+     * Mostrar informacion del valiente
+     * @author Alberto
+     * 
+     */
     public void mostrarValiente() {
         //por si no hay valiente
         if (valiente == null) {
@@ -177,7 +211,11 @@ public class Juego {
         valiente.getInventario().MostrarInventario();
     }
 
-    // Equipar objeto 
+    /**
+     * Equipar objeto al valiente
+     * @author
+     * 
+     */
     public void equiparObjeto() {
         //por si no hay valiente creao
         if (valiente == null) {
@@ -207,7 +245,11 @@ public class Juego {
         System.out.println(resultado);
     }
 
-    // Metodo para mover y explorar el mapa
+    /**
+     * Metodo para mover y explorar el mapa
+     * @author Alberto, Maya
+     * 
+     */
     public void explorarMapa() {
         
         boolean explorando = true; // Controla el bucle de movimiento
@@ -257,10 +299,10 @@ public class Juego {
 
                         // Comprobar si hay roca
                         String casillaDestino = mapa.leerCasilla(nuevaFila, nuevaColumna);
-                        if (!casillaDestino.equals("R")) {
+                        if (!casillaDestino.equals("\u2617")) {
 
                             // Revisar contenido de la casilla
-                            if (casillaDestino.equals("M")) {
+                            if (casillaDestino.equals("\u2622")) {
                                 System.out.println("Hay un monstruo");
                                  String respuesta;
                                 do {
@@ -302,7 +344,7 @@ public class Juego {
                                     valienteColumna = valienteColumna;
                                 }
                                 
-                            } else if (casillaDestino.equals("O")) {
+                            } else if (casillaDestino.equals("\u2606")) {
                                 valienteFila = nuevaFila;
                                 valienteColumna = nuevaColumna;
                                 mapa.revelarAdyacentes(valienteFila, valienteColumna);
@@ -315,7 +357,7 @@ public class Juego {
 
                                 mapa.limpiarCasilla(valienteFila, valienteColumna);
                                 explorando = false; // Salir del bucle de movimiento
-                            } else if (casillaDestino.equals("C")) {
+                            } else if (casillaDestino.equals("\u265A")) {
                                 valienteFila = nuevaFila;
                                 valienteColumna = nuevaColumna;
                                 
@@ -329,7 +371,7 @@ public class Juego {
                                 mapa.limpiarCasilla(valienteFila, valienteColumna);
                                 explorando = false; // Salir del bucle de movimiento
                                 juegoActivo = false;
-                            } else if (casillaDestino.equals(".")) {
+                            } else if (casillaDestino.equals("\u26AA")) {
                                 valienteFila = nuevaFila;
                                 valienteColumna = nuevaColumna;
                                 mapa.revelarAdyacentes(valienteFila, valienteColumna);
@@ -365,7 +407,10 @@ public class Juego {
             }
         }
     }
-    // Mostrar estado del juego
+    /**
+     * Mostrar estado del juego
+     * @author Alberto
+     */
 
     public void mostrarEstadoJuego() {
         // Aqui se mostrarian monstruos derrotados, objetos recojido, etc.
