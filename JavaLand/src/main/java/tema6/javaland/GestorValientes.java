@@ -164,7 +164,11 @@ public class GestorValientes implements GestoresInterface {
 
                 }
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (InputMismatchException e){
+        
+            System.out.println("Tipo de dato erroneo");
+        } 
+        catch (ArrayIndexOutOfBoundsException e) {
 
             System.out.println("Error: índice fuera del array.");
 
