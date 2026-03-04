@@ -34,8 +34,8 @@ public class Mapa {
 
         for (int fila = 0; fila < tamano; fila++) {
             for (int columna = 0; columna < tamano; columna++) {
-                Casilla[fila][columna] = revelarTodo ? "." : "?";
-                Contenido[fila][columna] = "."; // todo vacío inicialmente
+                Casilla[fila][columna] = revelarTodo ? "\u26AA" : "\u25A1";
+                Contenido[fila][columna] = "\u25CF"; // todo vacío inicialmente
             }
         }
         monstruos = 10;
@@ -61,7 +61,7 @@ public class Mapa {
      * fila y columna son los índices de la matriz
      */
     public void revelarCasilla(int fila, int columna) {
-        if (posicionValida(fila, columna) && Casilla[fila][columna].equals("?")) {
+        if (posicionValida(fila, columna) && Casilla[fila][columna].equals("\u25A1")) {
         Casilla[fila][columna] = Contenido[fila][columna]; // <- copiar el contenido real
         }
     }
@@ -81,21 +81,21 @@ public class Mapa {
     //Coloca un monstruo en el mapa
     public void ponerMonstruo(int fila, int columna) {
         if (posicionValida(fila, columna)) {
-            Contenido[fila][columna] = "M";
+            Contenido[fila][columna] = "\u2622";
         }
     }
 
     //Coloca un objeto en el mapa
     public void ponerObjeto(int fila, int columna) {
         if (posicionValida(fila, columna)) {
-            Contenido[fila][columna] = "O";
+            Contenido[fila][columna] = "\u2606";
         }
     }
 
     //Coloca un Rocas en el mapa
     public void ponerRocas(int fila, int columna) {
         if (posicionValida(fila, columna)) {
-            Contenido[fila][columna] = "R";
+            Contenido[fila][columna] = "\u2617";
         }
     }
     
@@ -119,7 +119,7 @@ public class Mapa {
             for (int columna = 0; columna < tamano; columna++) {
 
                 if (fila == valienteFila && columna == valienteColumna) {
-                    System.out.print(" V ");
+                    System.out.print(" \u26F9 ");
                 } else {
                     System.out.print(" " + Casilla[fila][columna] + " ");
                 }
@@ -145,7 +145,7 @@ public class Mapa {
         boolean puedeColocar = true;
 
         // Solo colocar en casillas vacías en el contenido real
-        if (!Contenido[fila][columna].equals(".")) {
+        if (!Contenido[fila][columna].equals("\u26AA")|| (fila == 0 && columna == 0) ) {
             puedeColocar = false;
         } else if (comprobarAdyacentes && comprobarAlrededor(fila, columna)) {
             puedeColocar = false;
@@ -161,22 +161,22 @@ public class Mapa {
 
     private boolean comprobarAlrededor(int fila, int columna){
         if(fila > 0){
-            if(!Casilla[fila -1][columna].equals(".")){
+            if(!Casilla[fila -1][columna].equals("\u26AA")){
                 return true;
             }
         }
         if(fila < tamano -1){
-            if(!Casilla[fila +1][columna].equals(".")){
+            if(!Casilla[fila +1][columna].equals("\u26AA")){
                 return true;
             }
         }
         if(columna > 0){
-            if(!Casilla[fila][columna -1].equals(".")){
+            if(!Casilla[fila][columna -1].equals("\u26AA")){
                 return true;
             }
         }
         if(columna < tamano -1){
-            if(!Casilla[fila][columna +1].equals(".")){
+            if(!Casilla[fila][columna +1].equals("\u26AA")){
                 return true;
             }
         }
@@ -187,8 +187,8 @@ public class Mapa {
     int monstruos = 10;
     int objetos = 6;
 
-    colocarElementos("M", monstruos, false);
-    colocarElementos("O", objetos, false);
+    colocarElementos("\u2622", monstruos, false);
+    colocarElementos("\u2606", objetos, false);
 
     // revelar la posicion inicial y adyacentes
     revelarAdyacentes(valienteFila, valienteColumna);
@@ -205,82 +205,85 @@ public class Mapa {
         String[][] mapa3 = new String[tamano][tamano];
     
     
-         mapa1[0][2]= "R";
-         mapa1[1][2]= "R";mapa1[1][3]= "R";mapa1[1][9]= "R";
-         mapa1[1][11]= "R";mapa1[1][14]= "R";
-         mapa1[2][6]= "R";mapa1[2][11]= "R";
-         mapa1[3][1]= "R";mapa1[3][4]= "R";mapa1[3][6]= "R";
-         mapa1[3][11]= "R";mapa1[3][14]= "R";
-         mapa1[4][2]= "R";mapa1[4][8]= "R";
-         mapa1[5][6]= "R";mapa1[5][10]= "R";mapa1[5][14]= "R";
-         mapa1[6][3]= "R";mapa1[6][6]= "R";mapa1[6][13]= "R";
-         mapa1[7][8]= "R";mapa1[7][9]= "R";mapa1[7][10]= "R";
-         mapa1[8][1]= "R";mapa1[8][7]= "R";mapa1[8][8]= "R";
-         mapa1[8][9]= "R";mapa1[8][10]= "R";mapa1[8][11]= "R";mapa1[8][13]= "R";
-         mapa1[9][8]= "R";mapa1[9][9]= "R";mapa1[9][10]= "R";mapa1[9][13]= "R";
-         mapa1[10][4]= "R";mapa1[10][6]= "R";mapa1[10][9]= "R";
-         mapa1[11][2]= "R";mapa1[11][4]= "R";
-         mapa1[12][6]= "R";mapa1[12][11]= "R";mapa1[12][13]= "R";
-         mapa1[13][11]= "R";
-         mapa1[14][4]= "R";mapa1[14][7]= "R";mapa1[14][14]= "C";
+         mapa1[0][2]= "\u2617";
+         mapa1[1][2]= "\u2617";mapa1[1][3]= "\u2617";mapa1[1][9]= "\u2617";
+         mapa1[1][11]= "\u2617";mapa1[1][14]= "\u2617";
+         mapa1[2][6]= "\u2617";mapa1[2][11]= "\u2617";
+         mapa1[3][1]= "\u2617";mapa1[3][4]= "\u2617";mapa1[3][6]= "\u2617";
+         mapa1[3][11]= "\u2617";mapa1[3][14]= "\u2617";
+         mapa1[4][2]= "\u2617";mapa1[4][8]= "\u2617";
+         mapa1[5][6]= "\u2617";mapa1[5][10]= "\u2617";mapa1[5][14]= "\u2617";
+         mapa1[6][3]= "\u2617";mapa1[6][6]= "\u2617";mapa1[6][13]= "\u2617";
+         mapa1[7][8]= "\u2617";mapa1[7][9]= "\u2617";mapa1[7][10]= "\u2617";
+         mapa1[8][1]= "\u2617";mapa1[8][7]= "\u2617";mapa1[8][8]= "\u2617";
+         mapa1[8][9]= "\u2617";mapa1[8][10]= "\u2617";mapa1[8][11]= "\u2617";mapa1[8][13]= "\u2617";
+         mapa1[9][8]= "\u2617";mapa1[9][9]= "\u2617";mapa1[9][10]= "\u2617";mapa1[9][13]= "\u2617";
+         mapa1[10][4]= "\u2617";mapa1[10][6]= "\u2617";mapa1[10][9]= "\u2617";
+         mapa1[11][2]= "\u2617";mapa1[11][4]= "\u2617";
+         mapa1[12][6]= "\u2617";mapa1[12][11]= "\u2617";mapa1[12][13]= "\u2617";
+         mapa1[13][11]= "\u2617";
+         mapa1[14][4]= "\u2617";mapa1[14][7]= "\u2617";mapa1[14][14]= "\u265A";
+
          
          
-         mapa2[0][2]= "R";mapa2[0][3]= "R";mapa2[0][4]= "R";mapa2[0][5]= "R";
-         mapa2[1][0]= "R";mapa2[1][2]= "R";mapa2[1][3]= "R";
-         mapa2[1][8]= "R";mapa2[1][11]= "R";
-         mapa2[2][0]= "R";mapa2[2][8]= "R";
-         mapa2[3][0]= "R";mapa2[3][3]= "R";mapa2[3][4]= "R";
-         mapa2[3][7]= "R";mapa2[3][8]= "R";mapa2[3][9]= "R";
-         mapa2[3][11]= "R";mapa2[3][12]= "R";mapa2[3][13]= "R";
-         mapa2[4][0]= "R";mapa2[4][3]= "R";mapa2[4][4]= "R";
-         mapa2[4][8]= "R";mapa2[4][13]= "R";
-         mapa2[5][0]= "R";mapa2[5][2]= "R";mapa2[5][3]= "R";
-         mapa2[5][4]= "R";mapa2[5][11]= "R";mapa2[5][13]= "R";
-         mapa2[6][0]= "R";mapa2[6][5]= "R";mapa2[6][13]= "R";
-         mapa2[7][0]= "R";mapa2[7][8]= "R";mapa2[7][11]= "R";
-         mapa2[8][0]= "R";mapa2[8][3]= "R";mapa2[8][7]= "R";
-         mapa2[8][8]= "R";mapa2[8][9]= "R";mapa2[8][13]= "R";
-         mapa2[9][0]= "R";mapa2[9][6]= "R";mapa2[9][7]= "R";mapa2[9][8]= "R";
-         mapa2[9][9]= "R";mapa2[9][10]= "R";mapa2[9][13]= "R";
-         mapa2[10][0]= "R";mapa2[10][1]= "R";mapa2[10][3]= "R";
-         mapa2[10][7]= "R";mapa2[10][8]= "R";mapa2[10][9]= "R";
-         mapa2[10][13]= "R";mapa2[10][14]= "R";
-         mapa2[11][0]= "R";mapa2[11][5]= "R";mapa2[11][8]= "R";mapa2[11][11]= "R";
-         mapa2[12][0]= "R";mapa2[12][4]= "R";mapa2[12][5]= "R";mapa2[12][6]= "R";
-         mapa2[13][0]= "R";mapa2[13][8]= "R";mapa2[13][10]= "R";mapa2[13][13]= "R";
-         mapa2[14][0]= "R";mapa2[14][1]= "R";mapa2[14][2]= "R";mapa2[14][5]= "R";
-         mapa2[14][6]= "R";mapa2[14][9]= "R";mapa2[14][10]= "R";
-         mapa2[14][11]= "R";mapa2[14][12]= "R";mapa2[14][13]= "R";mapa2[14][14]= "C";
+         mapa2[0][2]= "\u2617";mapa2[0][3]= "\u2617";mapa2[0][4]= "\u2617";mapa2[0][5]= "\u2617";
+         mapa2[1][0]= "\u2617";mapa2[1][2]= "\u2617";mapa2[1][3]= "\u2617";
+         mapa2[1][8]= "\u2617";mapa2[1][11]= "\u2617";
+         mapa2[2][0]= "\u2617";mapa2[2][8]= "\u2617";
+         mapa2[3][0]= "\u2617";mapa2[3][3]= "\u2617";mapa2[3][4]= "\u2617";
+         mapa2[3][7]= "\u2617";mapa2[3][8]= "\u2617";mapa2[3][9]= "\u2617";
+         mapa2[3][11]= "\u2617";mapa2[3][12]= "\u2617";mapa2[3][13]= "\u2617";
+         mapa2[4][0]= "\u2617";mapa2[4][3]= "\u2617";mapa2[4][4]= "\u2617";
+         mapa2[4][8]= "\u2617";mapa2[4][13]= "\u2617";
+         mapa2[5][0]= "\u2617";mapa2[5][2]= "\u2617";mapa2[5][3]= "\u2617";
+         mapa2[5][4]= "\u2617";mapa2[5][11]= "\u2617";mapa2[5][13]= "\u2617";
+         mapa2[6][0]= "\u2617";mapa2[6][5]= "\u2617";mapa2[6][13]= "\u2617";
+         mapa2[7][0]= "\u2617";mapa2[7][8]= "\u2617";mapa2[7][11]= "\u2617";
+         mapa2[8][0]= "\u2617";mapa2[8][3]= "\u2617";mapa2[8][7]= "\u2617";
+         mapa2[8][8]= "\u2617";mapa2[8][9]= "\u2617";mapa2[8][13]= "\u2617";
+         mapa2[9][0]= "\u2617";mapa2[9][6]= "\u2617";mapa2[9][7]= "\u2617";mapa2[9][8]= "\u2617";
+         mapa2[9][9]= "\u2617";mapa2[9][10]= "\u2617";mapa2[9][13]= "\u2617";
+         mapa2[10][0]= "\u2617";mapa2[10][1]= "\u2617";mapa2[10][3]= "\u2617";
+         mapa2[10][7]= "\u2617";mapa2[10][8]= "\u2617";mapa2[10][9]= "\u2617";
+         mapa2[10][13]= "\u2617";mapa2[10][14]= "\u2617";
+         mapa2[11][0]= "\u2617";mapa2[11][5]= "\u2617";mapa2[11][8]= "\u2617";mapa2[11][11]= "\u2617";
+         mapa2[12][0]= "\u2617";mapa2[12][4]= "\u2617";mapa2[12][5]= "\u2617";mapa2[12][6]= "\u2617";
+         mapa2[13][0]= "\u2617";mapa2[13][8]= "\u2617";mapa2[13][10]= "\u2617";mapa2[13][13]= "\u2617";
+         mapa2[14][0]= "\u2617";mapa2[14][1]= "\u2617";mapa2[14][2]= "\u2617";mapa2[14][5]= "\u2617";
+         mapa2[14][6]= "\u2617";mapa2[14][9]= "\u2617";mapa2[14][10]= "\u2617";
+         mapa2[14][11]= "\u2617";mapa2[14][12]= "\u2617";mapa2[14][13]= "\u2617";mapa2[14][14]= "\u265A";
+
          
          
-         mapa3[0][5]= "R";mapa3[0][6]= "R";mapa3[0][7]= "R";mapa3[0][8]= "R";
-         mapa3[0][9]= "R";mapa3[0][10]= "R";mapa3[0][11]= "R";
-         mapa3[0][12]= "R";mapa3[0][13]= "R";mapa3[0][14]= "R";
-         mapa3[1][3]= "R";mapa3[1][5]= "R";mapa3[1][14]= "R";
-         mapa3[2][3]= "R";mapa3[2][9]= "R";mapa3[2][11]= "R";
-         mapa3[2][13]= "R";mapa3[2][14]= "R";
-         mapa3[3][0]= "R";mapa3[3][1]= "R";mapa3[3][2]= "R";mapa3[3][3]= "R";
-         mapa3[3][6]= "R";mapa3[3][12]= "R";mapa3[3][14]= "R";
-         mapa3[4][0]= "R";mapa3[4][1]= "R";mapa3[4][2]= "R";mapa3[4][6]= "R";
-         mapa3[4][10]= "R";mapa3[4][12]= "R";mapa3[4][14]= "R";
-         mapa3[5][0]= "R";mapa3[5][1]= "R";mapa3[5][5]= "R";
-         mapa3[5][7]= "R";mapa3[5][14]= "R";
-         mapa3[6][9]= "R";mapa3[6][12]= "R";mapa3[6][14]= "R";
-         mapa3[7][1]= "R";mapa3[7][3]= "R";mapa3[7][5]= "R";mapa3[7][14]= "R";
-         mapa3[8][3]= "R";
-         mapa3[9][0]= "R";mapa3[9][2]= "R";mapa3[9][4]= "R";
-         mapa3[9][8]= "R";mapa3[9][9]= "R";mapa3[9][11]= "R";
-         mapa3[9][12]= "R";mapa3[9][13]= "R";
-         mapa3[10][8]= "R";mapa3[10][9]= "R";mapa3[10][11]= "R";
-         mapa3[11][2]= "R";mapa3[11][6]= "R";mapa3[11][8]= "R";mapa3[11][9]= "R";
-         mapa3[11][11]= "R";mapa3[11][13]= "R";mapa3[11][14]= "R";
-         mapa3[12][0]= "R";mapa3[12][4]= "R";mapa3[12][8]= "R";
-         mapa3[12][9]= "R";mapa3[12][11]= "R";
-         mapa3[13][2]= "R";mapa3[13][11]= "R";mapa3[13][12]= "R";mapa3[13][13]= "R";
-         mapa3[14][0]= "R";mapa3[14][1]= "R";mapa3[14][4]= "R";
-         mapa3[14][5]= "R";mapa3[14][6]= "R";mapa3[14][7]= "R";
-         mapa3[14][8]= "R";mapa3[14][9]= "R";mapa3[14][11]= "R";
-         mapa3[14][12]= "R";mapa3[14][13]= "R";mapa3[14][14]= "C";
+         mapa3[0][5]= "\u2617";mapa3[0][6]= "\u2617";mapa3[0][7]= "\u2617";mapa3[0][8]= "\u2617";
+         mapa3[0][9]= "\u2617";mapa3[0][10]= "\u2617";mapa3[0][11]= "\u2617";
+         mapa3[0][12]= "\u2617";mapa3[0][13]= "\u2617";mapa3[0][14]= "\u2617";
+         mapa3[1][3]= "\u2617";mapa3[1][5]= "\u2617";mapa3[1][14]= "\u2617";
+         mapa3[2][3]= "\u2617";mapa3[2][9]= "\u2617";mapa3[2][11]= "\u2617";
+         mapa3[2][13]= "\u2617";mapa3[2][14]= "\u2617";
+         mapa3[3][0]= "\u2617";mapa3[3][1]= "\u2617";mapa3[3][2]= "\u2617";mapa3[3][3]= "\u2617";
+         mapa3[3][6]= "\u2617";mapa3[3][12]= "\u2617";mapa3[3][14]= "\u2617";
+         mapa3[4][0]= "\u2617";mapa3[4][1]= "\u2617";mapa3[4][2]= "\u2617";mapa3[4][6]= "\u2617";
+         mapa3[4][10]= "\u2617";mapa3[4][12]= "\u2617";mapa3[4][14]= "\u2617";
+         mapa3[5][0]= "\u2617";mapa3[5][1]= "\u2617";mapa3[5][5]= "\u2617";
+         mapa3[5][7]= "\u2617";mapa3[5][14]= "\u2617";
+         mapa3[6][9]= "\u2617";mapa3[6][12]= "\u2617";mapa3[6][14]= "\u2617";
+         mapa3[7][1]= "\u2617";mapa3[7][3]= "\u2617";mapa3[7][5]= "\u2617";mapa3[7][14]= "\u2617";
+         mapa3[8][3]= "\u2617";
+         mapa3[9][0]= "\u2617";mapa3[9][2]= "\u2617";mapa3[9][4]= "\u2617";
+         mapa3[9][8]= "\u2617";mapa3[9][9]= "\u2617";mapa3[9][11]= "\u2617";
+         mapa3[9][12]= "\u2617";mapa3[9][13]= "\u2617";
+         mapa3[10][8]= "\u2617";mapa3[10][9]= "\u2617";mapa3[10][11]= "\u2617";
+         mapa3[11][2]= "\u2617";mapa3[11][6]= "\u2617";mapa3[11][8]= "\u2617";mapa3[11][9]= "\u2617";
+         mapa3[11][11]= "\u2617";mapa3[11][13]= "\u2617";mapa3[11][14]= "\u2617";
+         mapa3[12][0]= "\u2617";mapa3[12][4]= "\u2617";mapa3[12][8]= "\u2617";
+         mapa3[12][9]= "\u2617";mapa3[12][11]= "\u2617";
+         mapa3[13][2]= "\u2617";mapa3[13][11]= "\u2617";mapa3[13][12]= "\u2617";mapa3[13][13]= "\u2617";
+         mapa3[14][0]= "\u2617";mapa3[14][1]= "\u2617";mapa3[14][4]= "\u2617";
+         mapa3[14][5]= "\u2617";mapa3[14][6]= "\u2617";mapa3[14][7]= "\u2617";
+         mapa3[14][8]= "\u2617";mapa3[14][9]= "\u2617";mapa3[14][11]= "\u2617";
+         mapa3[14][12]= "\u2617";mapa3[14][13]= "\u2617";mapa3[14][14]= "\u265A";
+
          
          
       
@@ -302,10 +305,10 @@ public class Mapa {
     for (int fila = 0; fila < tamano; fila++) {
         for (int columna = 0; columna < tamano; columna++) {
             if (mapaBase[fila][columna] == null) {
-                Casilla[fila][columna] = "?";       // oculto
-                Contenido[fila][columna] = ".";     // vacío real
+                Casilla[fila][columna] = "\u25A1";       // oculto
+                Contenido[fila][columna] = "\u26AA";     // vacío real
             } else {
-                Casilla[fila][columna] = "?";       // oculto también
+                Casilla[fila][columna] = "\u25A1";       // oculto también
                 Contenido[fila][columna] = mapaBase[fila][columna]; // roca u objeto real
             }
         }
@@ -322,8 +325,8 @@ public class Mapa {
 
     public void limpiarCasilla(int fila, int columna) {
     if (posicionValida(fila, columna)) {
-        Casilla[fila][columna] = ".";
-        Contenido[fila][columna] = ".";
+        Casilla[fila][columna] = "\u26AA";
+        Contenido[fila][columna] = "\u26AA";
     }
 }
 
