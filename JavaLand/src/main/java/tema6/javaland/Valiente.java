@@ -78,7 +78,7 @@ public class Valiente implements PersonajesInterface {
         }
 
         // Fórmula acierto: tirada < 4*habilidad - defensaEnemigo
-        int umbral = 4 * habEfectiva - monstruo.getDefensa();
+        int umbral = 8 * habEfectiva - monstruo.getDefensa();
 
         // Si falla:
         if (tirada >= umbral) {

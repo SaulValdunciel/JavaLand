@@ -10,19 +10,45 @@ package tema6.javaland;
  */
 public class CompiladorOscuro extends Monstruo {
 
-    //crear compilador oscuro
 
+    /**
+     *Constructor que crea al compilador oscuro multiplicando las estadisticas base 
+     * por el nº de monstruos que hay en el mapa
+     * 
+     * @param nombre
+     * @param vida
+     * @param fuerza
+     * @param defensa
+     * @param habilidad
+     * @param velocidad
+     * @param NumMons
+     * @author Maya
+     */
     public CompiladorOscuro(String nombre, int vida, int fuerza, int defensa, int habilidad, int velocidad, int NumMons) {
         super(nombre, 150, fuerza * NumMons,
                 defensa * NumMons, habilidad * NumMons, velocidad * NumMons);
 
     }
 
+    /**
+     *Mismo funcionamiento que el de monstruos
+     * @param <T>
+     * @param personaje
+     * @return
+     * @author Maya
+     */
     @Override
     public <T> int atacar(T personaje) {
         return super.atacar(personaje);
     }
 
+    /**
+     * 
+     * @param cantidad
+     * @return 
+     * @author Maya
+     * 
+     */
     @Override
     public int recibirDaño(int cantidad) {
         return super.recibirDaño(cantidad);
@@ -104,5 +130,4 @@ public class CompiladorOscuro extends Monstruo {
         this.nivel = nivel;
     }
 
-        
 }
