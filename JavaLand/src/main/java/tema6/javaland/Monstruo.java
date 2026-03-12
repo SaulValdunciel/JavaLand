@@ -86,7 +86,14 @@ public class Monstruo implements PersonajesInterface {
     @Override
     public int recibirDaño(int cantidad) {
 
-        vida -= cantidad;
+        if ((vida - cantidad) >= 0 ) {//mientras la vida no baje de 0
+            
+            vida -= cantidad;
+        } else {//cuando la vida pasa a negativo
+        
+            vida = 0;
+        }
+        
 
         return vida;
     }
