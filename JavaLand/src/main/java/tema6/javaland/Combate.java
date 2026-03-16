@@ -16,8 +16,9 @@ public class Combate implements CombateInterface {
 
     /**
      * Constructor por defecto
+     *
      * @author maya
-     * 
+     *
      */
     public Combate() {
     }
@@ -30,11 +31,8 @@ public class Combate implements CombateInterface {
      * @param monstruo
      * @author Maya, Saúl
      */
-  
     @Override
     public void iniciarCombate(Valiente valiente, Monstruo monstruo) {
-        
-        
 
         int contTurnos = 1;
         try {
@@ -93,7 +91,6 @@ public class Combate implements CombateInterface {
      * @param defensor
      * @author Maya, Saúl
      */
-
     @Override
     public <T> void turno(T atacante, T defensor) {
 
@@ -113,15 +110,15 @@ public class Combate implements CombateInterface {
 
                     do {
 
-                        System.out.println("");
-                        System.out.println("  \\u001B[34m+================================+\\u001B[0m");
-                        System.out.println("  \\u001B[34m|       \\u001B[33mMENU DE BATALLA\\u001B[34m          |\\u001B[0m");
-                        System.out.println("  \\u001B[34m+================================+\\u001B[0m");
-                        System.out.println("  \\u001B[34m|  1.  Ataque básico             |\\u001B[0m");
-                        System.out.println("  \\u001B[34m|  2.  Habilidad especial        |\\u001B[0m");
-                        System.out.println("  \\u001B[34m|  3.  Abrir mochila             |\\u001B[0m");
-                        System.out.println("  \\u001B[34m+================================+\\u001B[0m");
-                        System.out.println("");
+                        System.out.println();
+                        System.out.println("\u001B[34m  +================================+\u001B[0m");
+                        System.out.println("\u001B[34m  |       \u001B[33;1mMENU  DE  BATALLA\u001B[0m\u001B[34m        |\u001B[0m");
+                        System.out.println("\u001B[34m  +================================+\u001B[0m");
+                        System.out.println("\u001B[34m  |  \u001B[31;1m1.  Ataque basico\u001B[0m\u001B[34m             |\u001B[0m");
+                        System.out.println("\u001B[34m  |  \u001B[33;1m2.  Habilidad especial\u001B[0m\u001B[34m        |\u001B[0m");
+                        System.out.println("\u001B[34m  |  \u001B[32;1m3.  Abrir mochila\u001B[0m\u001B[34m             |\u001B[0m");
+                        System.out.println("\u001B[34m  +================================+\u001B[0m");
+                        System.out.println();
 
                         opcion = new Scanner(System.in).nextInt();
 
