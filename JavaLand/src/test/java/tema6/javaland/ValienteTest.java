@@ -18,25 +18,25 @@ import org.junit.jupiter.api.Disabled;
  * @author DAM127
  */
 public class ValienteTest {
-    
+
     public ValienteTest() {
     }
-    
+
     @BeforeAll
     public static void setUpClass() {
     }
-    
+
     @AfterAll
     public static void tearDownClass() {
     }
-    
+
     private Valiente valiente;
-    
+
     @BeforeEach
     public void setUp() {
         valiente = new Valiente("Mago", 100, 10, 5, 8, 4);
     }
-    
+
     @AfterEach
     public void tearDown() {
     }
@@ -44,7 +44,7 @@ public class ValienteTest {
     /**
      * Test of atacar method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testAtacar() {
         System.out.println("atacar");
@@ -66,40 +66,40 @@ public class ValienteTest {
         int cantidad = 20;
         int expResult = 80;
         int result = valiente.recibirDaño(cantidad);
-        assertEquals(expResult, result);
+        assertEquals(80, valiente.getVida());
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
-    
+
     @Test
     public void testRecibirDañoVidaCero() {
         System.out.println("recibirDaño en Cero");
         int cantidad = 100;
         int expResult = 0;
         int result = valiente.recibirDaño(cantidad);
-        assertEquals(expResult, result);
+        assertEquals(0, valiente.getVida());
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
-    
+
     @Test
     public void testRecibirDañoExcesivo() {
         System.out.println("recibirDañoExcesivo");
         int cantidad = 120;
         int expResult = 0;
         int result = valiente.recibirDaño(cantidad);
-        assertEquals(expResult, result);
+        assertEquals(0, valiente.getVida());
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
-    
+
     @Test
     public void testRecibirDañoCero() {
         System.out.println("recibirDañoCero");
         int cantidad = 0;
         int expResult = 100;
         int result = valiente.recibirDaño(cantidad);
-        assertEquals(expResult, result);
+        assertEquals(100, valiente.getVida());
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
@@ -107,7 +107,7 @@ public class ValienteTest {
     /**
      * Test of ValienteUsarHabilidadEspecial method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testValienteUsarHabilidadEspecial() {
         System.out.println("ValienteUsarHabilidadEspecial");
@@ -126,42 +126,53 @@ public class ValienteTest {
     public void testValienteSubirNivel() {
         System.out.println("ValienteSubirNivel");
         valiente.ValienteSubirNivel();
-        valiente.getNivel();
-        int expResult = 2;
-        int result = valiente.getNivel();
-        assertEquals(expResult, result);
+        assertEquals(2, valiente.getNivel());
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
-    
+
     @Test
     public void testValienteSubirVida() {
         System.out.println("ValienteSubirNivel");
         valiente.ValienteSubirNivel();
-        valiente.getVida();
-        int expResult = 110;
-        int result = valiente.getVida();
-        assertEquals(expResult, result);
+        assertEquals(110, valiente.getVida());
+        assertEquals(110, valiente.getVidaMaxima());
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
-    
+
     @Test
-    public void testValienteSubirStast() {
-        System.out.println("ValienteSubirNivel");
+    public void testSubirNivelAumentaFuerzaEn1() {
+        System.out.println("ValienteAumentaFuerzaEn1");
         valiente.ValienteSubirNivel();
-        valiente.getVida();
-        int expResult = 110;
-        int result = valiente.getVida();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        assertEquals(11, valiente.getFuerza());
+    }
+
+    @Test
+    public void testSubirNivelAumentaDefensaEn1() {
+        System.out.println("ValienteAumentaDefensaEn1");
+        valiente.ValienteSubirNivel();
+        assertEquals(6, valiente.getDefensa());
+    }
+
+    @Test
+    public void testSubirNivelAumentaHabilidadEn1() {
+        System.out.println("ValienteAumentaHabilidadEn1");
+        valiente.ValienteSubirNivel();
+        assertEquals(9, valiente.getHabilidad());
+    }
+
+    @Test
+    public void testSubirNivelAumentaVelocidadEn1() {
+        System.out.println("ValienteAumentaVelocidadEn1");
+        valiente.ValienteSubirNivel();
+        assertEquals(5, valiente.getVelocidad());
     }
 
     /**
      * Test of tickCooldown method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testTickCooldown() {
         System.out.println("tickCooldown");
@@ -174,7 +185,7 @@ public class ValienteTest {
     /**
      * Test of getCooldownHabilidad method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetCooldownHabilidad() {
         System.out.println("getCooldownHabilidad");
@@ -189,7 +200,7 @@ public class ValienteTest {
     /**
      * Test of getDefensaTotal method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetDefensaTotal() {
         System.out.println("getDefensaTotal");
@@ -204,7 +215,7 @@ public class ValienteTest {
     /**
      * Test of recogerObjeto method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testRecogerObjeto() {
         System.out.println("recogerObjeto");
@@ -220,7 +231,7 @@ public class ValienteTest {
     /**
      * Test of toString method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testToString() {
         System.out.println("toString");
@@ -235,7 +246,7 @@ public class ValienteTest {
     /**
      * Test of getInventario method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetInventario() {
         System.out.println("getInventario");
@@ -250,7 +261,7 @@ public class ValienteTest {
     /**
      * Test of setInventario method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSetInventario() {
         System.out.println("setInventario");
@@ -264,7 +275,7 @@ public class ValienteTest {
     /**
      * Test of getClase method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetClase() {
         System.out.println("getClase");
@@ -279,7 +290,7 @@ public class ValienteTest {
     /**
      * Test of setClase method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSetClase() {
         System.out.println("setClase");
@@ -293,7 +304,7 @@ public class ValienteTest {
     /**
      * Test of getVida method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetVida() {
         System.out.println("getVida");
@@ -308,7 +319,7 @@ public class ValienteTest {
     /**
      * Test of setVida method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSetVida() {
         System.out.println("setVida");
@@ -322,7 +333,7 @@ public class ValienteTest {
     /**
      * Test of getVidaMaxima method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetVidaMaxima() {
         System.out.println("getVidaMaxima");
@@ -337,7 +348,7 @@ public class ValienteTest {
     /**
      * Test of setVidaMaxima method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSetVidaMaxima() {
         System.out.println("setVidaMaxima");
@@ -351,7 +362,7 @@ public class ValienteTest {
     /**
      * Test of getFuerza method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetFuerza() {
         System.out.println("getFuerza");
@@ -366,7 +377,7 @@ public class ValienteTest {
     /**
      * Test of setFuerza method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSetFuerza() {
         System.out.println("setFuerza");
@@ -380,7 +391,7 @@ public class ValienteTest {
     /**
      * Test of getDefensa method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetDefensa() {
         System.out.println("getDefensa");
@@ -395,7 +406,7 @@ public class ValienteTest {
     /**
      * Test of setDefensa method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSetDefensa() {
         System.out.println("setDefensa");
@@ -409,7 +420,7 @@ public class ValienteTest {
     /**
      * Test of getHabilidad method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetHabilidad() {
         System.out.println("getHabilidad");
@@ -424,7 +435,7 @@ public class ValienteTest {
     /**
      * Test of setHabilidad method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSetHabilidad() {
         System.out.println("setHabilidad");
@@ -438,7 +449,7 @@ public class ValienteTest {
     /**
      * Test of getVelocidad method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetVelocidad() {
         System.out.println("getVelocidad");
@@ -453,7 +464,7 @@ public class ValienteTest {
     /**
      * Test of setVelocidad method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSetVelocidad() {
         System.out.println("setVelocidad");
@@ -467,7 +478,7 @@ public class ValienteTest {
     /**
      * Test of getNivel method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetNivel() {
         System.out.println("getNivel");
@@ -482,7 +493,7 @@ public class ValienteTest {
     /**
      * Test of setNivel method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSetNivel() {
         System.out.println("setNivel");
@@ -496,7 +507,7 @@ public class ValienteTest {
     /**
      * Test of getArma method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetArma() {
         System.out.println("getArma");
@@ -511,7 +522,7 @@ public class ValienteTest {
     /**
      * Test of setArma method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSetArma() {
         System.out.println("setArma");
@@ -525,7 +536,7 @@ public class ValienteTest {
     /**
      * Test of getEscudo method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetEscudo() {
         System.out.println("getEscudo");
@@ -540,7 +551,7 @@ public class ValienteTest {
     /**
      * Test of setEscudo method, of class Valiente.
      */
-    @Disabled ("No probrar testInsertar()")
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSetEscudo() {
         System.out.println("setEscudo");
@@ -550,5 +561,5 @@ public class ValienteTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-    
+
 }
