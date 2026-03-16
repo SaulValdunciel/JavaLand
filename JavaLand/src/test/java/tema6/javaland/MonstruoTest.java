@@ -14,12 +14,9 @@ import org.junit.jupiter.api.Disabled;
 
 /**
  *
- * @author DAM112
+ * @author PC
  */
 public class MonstruoTest {
-    
-    private Valiente val;
-    private Monstruo mons;
     
     public MonstruoTest() {
     }
@@ -32,31 +29,37 @@ public class MonstruoTest {
     public static void tearDownClass() {
     }
     
+    private Monstruo monstruo;
+    private Valiente valiente;
+    
     @BeforeEach
     public void setUp() {
-       val = new Valiente("Guerrero",100,10,5,8,4);
-       mons = new Monstruo("No muerto",100, 6, 3, 1, 7);
-       
+        monstruo = new Monstruo("Orco", 100, 10, 5, 8, 4);
+        valiente = new Valiente("Guerrero", 100, 10, 5, 8, 4);
     }
     
     @AfterEach
     public void tearDown() {
-        val = null;
-        mons = null;
     }
 
     /**
      * Test of atacar method, of class Monstruo.
      */
-    @Disabled
     @Test
-    public void testAtacar() {
+    public void testAtacarPuedeHacerDaño() {
         System.out.println("atacar");
-        Object personaje = val;
-        Monstruo instance = mons;
-        int expResult = 0;
-        int result = instance.atacar(personaje);
-        assertEquals(expResult, result);
+        int daño = monstruo.atacar(valiente);
+        assertTrue(daño >= 0);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+    
+    @Test
+    public void testAtacarPuedeFallar() {
+        System.out.println("fallo ataque");
+        valiente.setDefensa(100);
+        int daño = monstruo.atacar(valiente);
+        assertEquals(0, daño);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
@@ -66,12 +69,36 @@ public class MonstruoTest {
      */
     @Test
     public void testRecibirDaño() {
-        System.out.println("recibirDa\u00f1o");
-        int cantidad = 999;
-        Monstruo instance = mons;
-        int expResult = 0;
-        int result = instance.recibirDaño(cantidad);
-        assertEquals(expResult, result);
+        System.out.println("recibirDaño");
+        int result = monstruo.recibirDaño(20);
+        assertEquals(80, result);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+    
+    @Test
+    public void testRecibirDañoExcesivo() {
+        System.out.println("recibirDañoExcesivo");
+        int result = monstruo.recibirDaño(150);
+        assertEquals(-50, result);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+    
+    @Test
+    public void testRecibirDañoCero() {
+        System.out.println("recibirDañoCero");
+        int result = monstruo.recibirDaño(0);
+        assertEquals(100, result);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+    
+    @Test
+    public void testRecibirDañoDejarACero() {
+        System.out.println("recibirDañoDejarACero");
+        int result = monstruo.recibirDaño(100);
+        assertEquals(0, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
@@ -79,7 +106,7 @@ public class MonstruoTest {
     /**
      * Test of subirNivel method, of class Monstruo.
      */
-    @Disabled
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSubirNivel() {
         System.out.println("subirNivel");
@@ -92,7 +119,7 @@ public class MonstruoTest {
     /**
      * Test of getFuerza method, of class Monstruo.
      */
-    @Disabled
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetFuerza() {
         System.out.println("getFuerza");
@@ -107,7 +134,7 @@ public class MonstruoTest {
     /**
      * Test of getDefensa method, of class Monstruo.
      */
-    @Disabled
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetDefensa() {
         System.out.println("getDefensa");
@@ -122,7 +149,7 @@ public class MonstruoTest {
     /**
      * Test of getHabilidad method, of class Monstruo.
      */
-    @Disabled
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetHabilidad() {
         System.out.println("getHabilidad");
@@ -137,7 +164,7 @@ public class MonstruoTest {
     /**
      * Test of getNivel method, of class Monstruo.
      */
-    @Disabled
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetNivel() {
         System.out.println("getNivel");
@@ -152,7 +179,7 @@ public class MonstruoTest {
     /**
      * Test of getVida method, of class Monstruo.
      */
-    @Disabled
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetVida() {
         System.out.println("getVida");
@@ -167,7 +194,7 @@ public class MonstruoTest {
     /**
      * Test of getVelocidad method, of class Monstruo.
      */
-    @Disabled
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetVelocidad() {
         System.out.println("getVelocidad");
@@ -182,7 +209,7 @@ public class MonstruoTest {
     /**
      * Test of getNombre method, of class Monstruo.
      */
-    @Disabled
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testGetNombre() {
         System.out.println("getNombre");
@@ -197,7 +224,7 @@ public class MonstruoTest {
     /**
      * Test of setNombre method, of class Monstruo.
      */
-    @Disabled
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSetNombre() {
         System.out.println("setNombre");
@@ -211,7 +238,7 @@ public class MonstruoTest {
     /**
      * Test of setVida method, of class Monstruo.
      */
-    @Disabled
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSetVida() {
         System.out.println("setVida");
@@ -225,7 +252,7 @@ public class MonstruoTest {
     /**
      * Test of setFuerza method, of class Monstruo.
      */
-    @Disabled
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSetFuerza() {
         System.out.println("setFuerza");
@@ -239,7 +266,7 @@ public class MonstruoTest {
     /**
      * Test of setDefensa method, of class Monstruo.
      */
-    @Disabled
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSetDefensa() {
         System.out.println("setDefensa");
@@ -253,7 +280,7 @@ public class MonstruoTest {
     /**
      * Test of setHabilidad method, of class Monstruo.
      */
-    @Disabled
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSetHabilidad() {
         System.out.println("setHabilidad");
@@ -267,7 +294,7 @@ public class MonstruoTest {
     /**
      * Test of setVelocidad method, of class Monstruo.
      */
-    @Disabled
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSetVelocidad() {
         System.out.println("setVelocidad");
@@ -281,7 +308,7 @@ public class MonstruoTest {
     /**
      * Test of setNivel method, of class Monstruo.
      */
-    @Disabled
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testSetNivel() {
         System.out.println("setNivel");
@@ -295,7 +322,7 @@ public class MonstruoTest {
     /**
      * Test of toString method, of class Monstruo.
      */
-    @Disabled
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testToString() {
         System.out.println("toString");
@@ -310,7 +337,7 @@ public class MonstruoTest {
     /**
      * Test of ValienteUsarHabilidadEspecial method, of class Monstruo.
      */
-    @Disabled
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testValienteUsarHabilidadEspecial() {
         System.out.println("ValienteUsarHabilidadEspecial");
@@ -325,7 +352,7 @@ public class MonstruoTest {
     /**
      * Test of ValienteSubirNivel method, of class Monstruo.
      */
-    @Disabled
+    @Disabled("No probrar testInsertar()")
     @Test
     public void testValienteSubirNivel() {
         System.out.println("ValienteSubirNivel");
