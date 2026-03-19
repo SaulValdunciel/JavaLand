@@ -17,19 +17,21 @@ import org.junit.jupiter.api.Disabled;
  * @author PC
  */
 public class GestorMonstruosTest {
-    
+        private GestorMonstruos gestor;
+
     public GestorMonstruosTest() {
     }
     
     @BeforeAll
     public static void setUpClass() {
+        //se ejecuta solo una vez antes de todos los tests
     }
     
     @AfterAll
     public static void tearDownClass() {
+    
     }
     
-    private GestorMonstruos gestor;
     
     @BeforeEach
     public void setUp() {
@@ -49,13 +51,13 @@ public class GestorMonstruosTest {
         instance.crear();
         // Comprobación opcional: el array no debe ser null
         assertNotNull(instance.getMonstruo(0));
+        assertNotNull(gestor.getMonstruo(9));
     }
 
     /**
      * Test of eliminarMonstruo method, of class GestorMonstruos.
      */
     @Test
-<<<<<<< Updated upstream
     public void testEliminarMonstruos() {
 
     // Antes: tamaño n
@@ -77,16 +79,6 @@ public class GestorMonstruosTest {
         if (x.getNombre().equalsIgnoreCase(nombre)) {
             encontrado = true;
         }
-=======
-    public void testEliminarMonstruo() {
-        System.out.println("eliminarMonstruo");
-        Monstruo antes = gestor.getMonstruo(0);
-        gestor.eliminarMonstruo(antes.getNombre());
-        Monstruo despues = gestor.getMonstruo(0);
-        assertNull(despues);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
->>>>>>> Stashed changes
     }
 
     assertFalse(encontrado);
