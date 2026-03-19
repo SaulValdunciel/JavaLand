@@ -6,129 +6,394 @@ package tema6.javaland;
 
 /**
  *
- * @author cuent
+ * @author PC
  */
-public class Valiente extends GestorValientes implements PersonajesInterface {
-    //Atributos
-    private String valiente;
-    private int vida;
-    private int fuerza;
-    private int defensa;
-    private int habilidad;
-    private int velocidad;
-    private int nivel = 1;
-    private Arma arma = null;
-    private Escudo escudo = null;
-    private int cooldownTurnos = 0;
-    private static final int cooldown_max = 2;
-    private int daño = 0;
-  
+import java.util.Random;
+
+public class Valiente implements PersonajesInterface {
+
+    // Atributos
+    protected Inventario inventario; // Inventario del valiente
+    protected String clase;          // Guerrero, Paladin, Mago, Picaro
+
+    protected int vida;        // vida 0-100
+    protected int vidaMaxima;  // vida max
+
+    protected int fuerza;     // 0-20
+    protected int defensa;    // 0-20
+    protected int habilidad;  // 0-20
+    protected int velocidad;  // 0-20
+    protected int nivel = 1;
+
+    private Arma arma;
+    private Escudo escudo;
+
+    private final Random random = new Random();
+
+    // Habilidades
+    // Guerrero: si tiene objeto equipado, siguiente ataque hace 3x fuerza
+    private boolean guerreroTriplePendiente = false;
+
+    // Mago: duplica habilidad durante 2 "turnos" se consume al atacar
+    private int magoTurnos = 0;
+
+    // Pícaro: duplica velocidad para el siguiente ataque
+    private boolean picaroVelocidadDuplicada = false;
+
+    //Atributos para el cooldown
     
-    //Constructores
+    private int cooldownHabilidad = 0;
+    private static final int COOLDOWN_MAX = 2;
+    
+    /**
+     * constructor vacío del valiente
+     * crea un valiente sin inicializar atributos
+     *
+     * @author Saúl
+     */
     public Valiente() {
-
     }
-
-    public Valiente(String valiente, int vida, int fuerza, int defensa, int habilidad, int velocidad) {
-        this.valiente = valiente;
+    /**
+     * constructor que inicializa un valiente con sus estadísticas básicas
+     * también crea inventario y equipa arma y escudo por defecto
+     * 
+     * @param clase
+     * @param vida
+     * @param fuerza
+     * @param defensa
+     * @param habilidad
+     * @param velocidad
+     * @author Saúl
+     */
+    public Valiente(String clase, int vida, int fuerza, int defensa, int habilidad, int velocidad) {
+        this.inventario = new Inventario();
+        this.arma = new Arma("Palo", 0); //Esta es la espada por defecto
+        this.escudo = new Escudo("Toalla", 0); //Este es el escudo por defecto
+        this.clase = clase;
         this.vida = vida;
+        this.vidaMaxima = vida;
         this.fuerza = fuerza;
         this.defensa = defensa;
         this.habilidad = habilidad;
         this.velocidad = velocidad;
     }
 
-    //Metodos:
+    /**
+     * calcula el daño que hace el valiente a un monstruo
+     * tiene en cuenta habilidades activas, arma equipada y probabilidad de acierto
+     * 
+     * @param <T>
+     * @param Personaje
+     * @return 
+     * @author Saúl
+     */
     @Override
-    public <T> int atacar(T personaje) {
-        
-        
-        
-        return cantidad;
-    }
+    public <T> int atacar(T Personaje) {
 
-    //Metodo recibir daño sobrescrito de la interfaz
+        Monstruo monstruo = (Monstruo) Personaje;
+
+        // Tirada 0..100
+        int tirada = random.nextInt(101);
+
+        // MAGO: habilidad efectiva
+        int habEfectiva = habilidad;
+        if (magoTurnos > 0) {
+            habEfectiva = habilidad * 2;
+        }
+
+        // Fórmula acierto: tirada < 4*habilidad - defensaEnemigo
+        int umbral = 8 * habEfectiva - monstruo.getDefensa();
+
+        // Si falla:
+        if (tirada >= umbral) {
+            // Consumimos turnos del mago porque ha pasado "su acción"
+            if (magoTurnos > 0) {
+                magoTurnos--;
+            }
+
+            // El pícaro solo dura este ataque, falle o acierte
+            if (picaroVelocidadDuplicada) {
+                picaroVelocidadDuplicada = false;
+            }
+
+            return 0;
+        }
+
+        int bonusArma = 0;
+        if (arma.getAtaque() != 0) {
+            bonusArma = arma.getAtaque();
+        }
+
+        int daño;
+
+        // GUERRERO: siguiente ataque 3x fuerza
+        if (guerreroTriplePendiente) {
+            daño = (fuerza * 3) + bonusArma;
+            guerreroTriplePendiente = false;
+        } else {
+            daño = fuerza + bonusArma;
+        }
+
+        // PÍCARO: velocidad x2 para el siguiente ataque; si duplica al enemigo -> 2 golpes (daño x2)
+        if (clase.equalsIgnoreCase("PICARO") && picaroVelocidadDuplicada) {
+            int velEf = velocidad * 2;
+            if (velEf >= monstruo.getVelocidad() * 2) {
+                daño = daño * 2; // simulamos dos ataques
+            }
+            picaroVelocidadDuplicada = false; // se consume
+        }
+
+        // Consumimos turno del mago al atacar (acierte o falle)
+        if (magoTurnos > 0) {
+            magoTurnos--;
+        }
+
+        return daño;
+    }
+    /**
+     * reduce la vida del valiente cuando recibe daño
+     * 
+     * @param cantidad
+     * @return 
+     * @author Saúl
+     */
     @Override
     public int recibirDaño(int cantidad) {
-        vida -= cantidad; //Resta la vida según la cantidad de daño recibida
-        return vida; //Devuelve la vida 
+        if (cantidad < 0) {
+            cantidad = 0;
+        }
+        vida -= cantidad;
+        if (vida < 0) {
+            vida = 0;
+        }
+        return vida;
     }
-
+    /**
+     * ejecuta la habilidad especial según la clase del valiente
+     * también aplica el cooldown de la habilidad
+     * 
+     * @return 
+     * @author Saúl
+     */
     @Override
     public boolean ValienteUsarHabilidadEspecial() {
-        if (cooldownTurnos > 0) {
-            System.out.println("La habilidad está en cooldown (" + cooldownTurnos + ") turnos restantes.");
+
+        //si está en cooldown no se puede
+        if (cooldownHabilidad > 0) {
             return false;
         }
-        return false;
-    }
         
+        boolean usada = false;
         
+        // GUERRERO: si tiene arma o escudo, prepara el siguiente ataque triple
+        if (clase.equalsIgnoreCase("GUERRERO")) {
+                guerreroTriplePendiente = true;
+                usada = true;
+        }
 
-    public Arma getArma() {
-        return arma;
+        // PALADIN: se cura un 50% de la vida max
+        if (clase.equalsIgnoreCase("PALADIN")) {
+            int cura = vidaMaxima / 2;
+            vida += cura;
+            if (vida > vidaMaxima) {
+                vida = vidaMaxima;
+            }
+            usada = true;
+        }
+
+        // MAGO: duplica habilidad durante 2 "turnos", se consumen en 2 acciones de atacar
+        if (clase.equalsIgnoreCase("MAGO")) {
+            magoTurnos = 2;
+            usada = true;
+        }
+
+        // PICARO: duplica velocidad para el siguiente ataque
+        if (clase.equalsIgnoreCase("PICARO")) {
+            picaroVelocidadDuplicada = true;
+            usada = true;
+        }
+
+        if (usada){
+            cooldownHabilidad = COOLDOWN_MAX;
+        }
+        
+        return usada;
+    }
+    /**
+     * aumenta las estadísticas del valiente al subir de nivel
+     * 
+     * @author Saúl
+     */
+    @Override
+    public void ValienteSubirNivel() {
+        nivel++;
+
+        // Subimos vida máxima y también aumentamos vida, sin superar el máximo
+        vidaMaxima += 10;
+        vida += 10;
+        if (vida > vidaMaxima) {
+            vida = vidaMaxima;
+        }
+
+        fuerza += 1;
+        defensa += 1;
+        habilidad += 1;
+        velocidad += 1;
     }
 
-    public Arma getArma() {
-        return arma;
+    /**
+     * aumenta las estadísticas del valiente al subir de nivel
+     * 
+     * @author Saúl
+     */
+    public void tickCooldown() {
+        if (cooldownHabilidad > 0) {
+            cooldownHabilidad--;
+        }
+    }
+    /**
+     * devuelve el cooldown actual de la habilidad
+     * 
+     * @return
+     * @author Saúl
+     */
+    public int getCooldownHabilidad() {
+        return cooldownHabilidad;
+    }
+    
+    /**
+     * calcula la defensa total sumando defensa base y defensa del escudo
+     * 
+     * @return 
+     * @author Saúl
+     */
+    public int getDefensaTotal() {
+        int bonus = 0;
+        if (escudo.getDefensa() != 0) {
+            bonus = escudo.getDefensa();
+        }
+        return defensa + bonus;
+    }
+    
+    /**
+     * añade un objeto al inventario del valiente
+     * 
+     * @param obj
+     * @return 
+     * @author Saúl
+     */
+    public String recogerObjeto(Objeto obj) {
+    boolean añadido = inventario.AgregarObjeto(obj);
+
+    if (añadido) {
+        return "Has recogido: " + obj.getNombre();
+    } else {
+        return "La mochila está llena. No puedes recoger " + obj.getNombre();
+    }
+}
+    /**
+     * devuelve la información completa del valiente en formato texto
+     * 
+     * @return 
+     * @author Saúl
+     */
+    @Override
+    public String toString() {
+        return "Clase: " + clase
+                + "\nNivel: " + nivel
+                + "\nVida: " + vida + "/" + vidaMaxima
+                + "\nFuerza: " + fuerza
+                + "\nDefensa: " + defensa
+                + "\nHabilidad: " + habilidad
+                + "\nVelocidad: " + velocidad;
     }
 
-    public Escudo getEscudo() {
-        return escudo;
+    // getters y setters
+    public Inventario getInventario() {
+        return inventario;
     }
 
-    public boolean getCooldown() {
-        return cooldown;
+    public void setInventario(Inventario inventario) {
+        this.inventario = inventario;
     }
 
-    public String getValiente() {
-        return valiente;
+    public String getClase() {
+        return clase;
     }
 
- 
+    public void setClase(String clase) {
+        this.clase = clase;
+    }
+
     public int getVida() {
         return vida;
     }
 
-    public int getVelocidad() {
-        return velocidad;
+    public void setVida(int vida) {
+        this.vida = vida;
     }
 
-    public int getCantidad() {
-        return cantidad;
+    public int getVidaMaxima() {
+        return vidaMaxima;
     }
 
-    public boolean isCooldown() {
-        return cooldown;
+    public void setVidaMaxima(int vidaMaxima) {
+        this.vidaMaxima = vidaMaxima;
     }
 
     public int getFuerza() {
         return fuerza;
     }
 
+    public void setFuerza(int fuerza) {
+        this.fuerza = fuerza;
+    }
+
     public int getDefensa() {
         return defensa;
+    }
+
+    public void setDefensa(int defensa) {
+        this.defensa = defensa;
     }
 
     public int getHabilidad() {
         return habilidad;
     }
 
+    public void setHabilidad(int habilidad) {
+        this.habilidad = habilidad;
+    }
+
+    public int getVelocidad() {
+        return velocidad;
+    }
+
+    public void setVelocidad(int velocidad) {
+        this.velocidad = velocidad;
+    }
+
     public int getNivel() {
         return nivel;
     }
-    
 
-    @Override
-    public int ValienteSubirNivel() {
-        nivel += 1; //Aumenta el nivel 
-        vida += 10; //Aumenta la vida
-        fuerza += 1; //Aumenta la fuerza
-        defensa += 1; //Aumenta la defensa
-        habilidad += 1; //Aumenta la habilidad
-        velocidad += 1; //Aumenta la velocidad
-        return nivel;
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
     }
 
+    public Arma getArma() {
+        return arma;
+    }
 
+    public void setArma(Arma arma) {
+        this.arma = arma;
+    }
+
+    public Escudo getEscudo() {
+        return escudo;
+    }
+
+    public void setEscudo(Escudo escudo) {
+        this.escudo = escudo;
+    }
 }

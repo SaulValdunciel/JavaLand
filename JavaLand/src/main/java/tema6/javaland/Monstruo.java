@@ -8,7 +8,7 @@ import java.util.Random;
 
 /**
  *
- * @author cuent
+ * @author Maya
  */
 public class Monstruo implements PersonajesInterface {
 
@@ -18,18 +18,38 @@ public class Monstruo implements PersonajesInterface {
     protected int defensa; // entre 1 y 20
     protected int habilidad; // entre 1 y 20
     protected int velocidad; // entre 1 y 20
-    protected int nivel;// define las estadísticas según GestorMosntruos
+    protected int nivel = 0;// define las estadísticas según GestorMosntruos
 
-    public Monstruo(String nombre, int vida, int fuerza, int defensa, int habilidad, int velocidad, int nivel) {
+    /**
+     * 
+     * @param nombre
+     * @param vida
+     * @param fuerza
+     * @param defensa
+     * @param habilidad
+     * @param velocidad 
+     * @author Maya
+     * 
+     */
+    public Monstruo(String nombre, int vida, int fuerza, int defensa, int habilidad, int velocidad) {
         this.nombre = nombre;
         this.vida = vida;
         this.fuerza = fuerza;
         this.defensa = defensa;
         this.habilidad = habilidad;
         this.velocidad = velocidad;
-        this.nivel = nivel;
+        subirNivel();
+
     }
 
+    /**
+     * Ataca un valiente recibido por parametro
+     * @param <T>
+     * @param personaje
+     * @return 
+     * @author Maya
+     * 
+     */
     @Override
     public <T> int atacar(T personaje) {
 
@@ -38,37 +58,54 @@ public class Monstruo implements PersonajesInterface {
         int Variable_aleatoria = random.nextInt(101);
         int daño = 0;
 
-        if (Variable_aleatoria < (4 * (habilidad - (valiente.getDefensa() + valiente.getEscudo().getDefensa())))) {
+        try {
+            if (Variable_aleatoria <= (8 * (habilidad - (valiente.getDefensaTotal())))) {
 
-            //restar vida al valiente según la fuerza del monstruo
-            daño = valiente.getVida() - fuerza;
+                //restar vida al valiente según la fuerza del monstruo
+                daño = valiente.getVida() - fuerza;
 
+            } else {
+
+                daño = 0;
+            }
+        } catch (NullPointerException e) {
+
+            System.out.println("null");
         }
 
         return daño;
     }
 
+    /**
+     * resta la cantidad de daño recibida por parametro a la vida del monstruo
+     * @param cantidad
+     * @return 
+     * @author Maya
+     * 
+     */
     @Override
     public int recibirDaño(int cantidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+        if ((vida - cantidad) >= 0 ) {//mientras la vida no baje de 0
+            
+            vida -= cantidad;
+        } else {//cuando la vida pasa a negativo
+        
+            vida = 0;
+        }
+        
+
+        return vida;
     }
 
-    @Override
-    public boolean ValienteUsarHabilidadEspecial() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
+    /**
+     * aumentar el nivel del mosntruo
+     * @author Maya
+     */
+    public void subirNivel() {
 
-    @Override
-    public int ValienteSubirNivel() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public int recibirDaño() {
-
-        int daño = 0;
-
-        return daño;
-
+        nivel++;
     }
 
     //getters y setters
@@ -127,7 +164,31 @@ public class Monstruo implements PersonajesInterface {
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
-    
-    
+/**
+ * 
+ * @return 
+ * @author Maya
+ * 
+ */
+    @Override
+    public String toString() {
+        return nombre + " de nivel " + nivel
+                + "\nHP: " + vida
+                + "\nfuerza: " + fuerza
+                + "\ndefensa: " + defensa
+                + "\nhabilidad: " + habilidad
+                + "\nvelocidad: " + velocidad;
+    }
+
+    //no usar
+    @Override
+    public boolean ValienteUsarHabilidadEspecial() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void ValienteSubirNivel() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 }

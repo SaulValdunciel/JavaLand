@@ -18,5 +18,5 @@ public interface PersonajesInterface {
     
     public boolean ValienteUsarHabilidadEspecial();
     
-    public int ValienteSubirNivel();
+    public void ValienteSubirNivel();
 }
