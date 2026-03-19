@@ -10,7 +10,7 @@ package tema6.javaland;
  */
 public class GestorMonstruos implements GestoresInterface {
 
-    private Monstruo[] monstruos;
+    Monstruo[] monstruos;
 
     /**
      * Constructor que llama a crear() para generar la lista de monstruos
@@ -53,18 +53,19 @@ public class GestorMonstruos implements GestoresInterface {
      * @param nombre
      */
     public void eliminarMonstruo(String nombre) {
+    Monstruo[] nuevo = new Monstruo[monstruos.length - 1];
+    int j = 0;
 
-        for (int i = 0; i < monstruos.length; i++) {
-
-            // Evitar NullPointerException
-            if (monstruos[i].getNombre().equalsIgnoreCase(nombre)) {
-
-                monstruos[i] = null; // borrar monstruo
-
-            }
+    for (int i = 0; i < monstruos.length; i++) {
+        if (!monstruos[i].getNombre().equalsIgnoreCase(nombre)) {
+            nuevo[j] = monstruos[i];
+            j++;
         }
-
     }
+
+    monstruos = nuevo;
+}
+
 
     /**
      *Devuelve el monstruo que se encuentra en el índice recibido por parámetro

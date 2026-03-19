@@ -43,44 +43,63 @@ public class GestorMonstruosTest {
     /**
      * Test of crear method, of class GestorMonstruos.
      */
-    @Disabled("No probrar testInsertar()")
     @Test
     public void testCrear() {
-        System.out.println("crear");
         GestorMonstruos instance = new GestorMonstruos();
         instance.crear();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        // Comprobación opcional: el array no debe ser null
+        assertNotNull(instance.getMonstruo(0));
     }
 
     /**
      * Test of eliminarMonstruo method, of class GestorMonstruos.
      */
     @Test
-    public void testEliminarMonstruo() {
-        System.out.println("eliminarMonstruo");
-        Monstruo antes = gestor.getMonstruo(0);
-        gestor.eliminarMonstruo(antes.getNombre());
-        Monstruo despues = gestor.getMonstruo(0);
-        assertNull(despues);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+    public void testEliminarMonstruos() {
+
+    // Antes: tamaño n
+    int tamañoAntes = gestor.monstruos.length;
+
+    // Monstruo a eliminar
+    Monstruo m = gestor.getMonstruo(0);
+    String nombre = m.getNombre();
+
+    gestor.eliminarMonstruo(nombre);
+
+    // Después: tamaño n-1
+    int tamañoDespues = gestor.monstruos.length;
+    assertEquals(tamañoAntes - 1, tamañoDespues);
+
+    // El monstruo eliminado ya no está
+    boolean encontrado = false;
+    for (Monstruo x : gestor.monstruos) {
+        if (x.getNombre().equalsIgnoreCase(nombre)) {
+            encontrado = true;
+        }
     }
+
+    assertFalse(encontrado);
+}
 
     /**
      * Test of getMonstruo method, of class GestorMonstruos.
      */
-    @Disabled("No probrar testInsertar()")
-    @Test
+     @Test
     public void testGetMonstruo() {
-        System.out.println("getMonstruo");
-        int indice = 0;
-        GestorMonstruos instance = new GestorMonstruos();
-        Monstruo expResult = null;
-        Monstruo result = instance.getMonstruo(indice);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Monstruo m = gestor.getMonstruo(0);
+
+        assertNotNull(m);
+        assertEquals("No muerto", m.getNombre());
     }
-    
+
+    // MÉTODO AUXILIAR PARA CONTAR MONSTRUOS NO NULOS
+    private int contar(Monstruo[] arr) {
+        int c = 0;
+        for (Monstruo m : arr) {
+            if (m != null) c++;
+        }
+        return c;
+    }
 }
+    
+
