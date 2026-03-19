@@ -55,6 +55,7 @@ public class GestorMonstruosTest {
      * Test of eliminarMonstruo method, of class GestorMonstruos.
      */
     @Test
+<<<<<<< Updated upstream
     public void testEliminarMonstruos() {
 
     // Antes: tamaño n
@@ -76,6 +77,16 @@ public class GestorMonstruosTest {
         if (x.getNombre().equalsIgnoreCase(nombre)) {
             encontrado = true;
         }
+=======
+    public void testEliminarMonstruo() {
+        System.out.println("eliminarMonstruo");
+        Monstruo antes = gestor.getMonstruo(0);
+        gestor.eliminarMonstruo(antes.getNombre());
+        Monstruo despues = gestor.getMonstruo(0);
+        assertNull(despues);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+>>>>>>> Stashed changes
     }
 
     assertFalse(encontrado);
